@@ -1,0 +1,51 @@
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-12">
+      <h2>Enviar notificaciones:</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-7">
+      <h3>Destinatarios</h3>
+      <div class="form-group">
+        <input
+        type="text"
+        class="form-control"
+        id="nombre"
+        placeholder="Nombre"
+        formControlName="nombre"
+        />
+        <p *ngIf="isValid('nombre')" class="form-error">
+          Por favor asignele un nombre a la actividad
+        </p>
+      </div>
+
+      <h3>Asunto</h3>
+      <div class="form-group">
+        <input
+        type="text"
+        class="form-control"
+        id="asunto"
+        placeholder="Asunto"
+        formControlName="asunto"
+        />
+        <p *ngIf="isValid('nombre')" class="form-error">
+          Por favor asignele un nombre a la actividad
+        </p>
+      </div>
+    </div>
+    <div class="col-4">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+
+    </div>
+  </div>
+</div>

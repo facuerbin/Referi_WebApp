@@ -1,0 +1,11 @@
+img {
+  height: 60vh;
+}
+
+.container-fluid {
+  width: 90vw;
+}
+
+.col {
+  text-align: center;
+}

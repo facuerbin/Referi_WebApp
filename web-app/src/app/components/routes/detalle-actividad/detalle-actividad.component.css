@@ -1,0 +1,42 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.form-group {
+  padding-bottom: 24px;
+  width: 90%;
+  margin: auto;
+}
+
+.form-group-small {
+  padding-bottom: 24px;
+  width: 40%;
+  margin: auto;
+}
+
+.form-control {
+  width: 30vw;
+}
+
+.form-control-small {
+  width: 12vw !important;
+}
+
+.form-error {
+  color: red;
+  font-size: 0.8rem;
+  display: inline;
+}
+
+.btn {
+  width: 20vw;
+  margin: auto 1rem;
+}

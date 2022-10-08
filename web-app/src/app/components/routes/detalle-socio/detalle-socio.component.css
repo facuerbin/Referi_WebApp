@@ -1,0 +1,42 @@
+.btn {
+  width: 20vw;
+  margin: auto 1rem;
+}
+
+.profile-img {
+  height: 280px;
+  border-radius: 50%;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+p {
+  font-size: 16px;
+  color: #979797;
+}
+
+.img-actividad {
+  height: 100px;
+}
+
+.actividad-container {
+  width: 30vw;
+}
+
+a:hover {
+  background-color: #ddd9d5;
+}
+
+.actividad-link,
+.actividad-link:hover,
+.actividad-link:visited {
+  text-decoration: none;
+  font: inherit;
+  color: inherit;
+}

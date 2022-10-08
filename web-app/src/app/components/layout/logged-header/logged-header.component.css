@@ -1,0 +1,48 @@
+header {
+  width: 100%;
+  background-color: #FF9900;
+  padding: 0.5rem 1rem;
+}
+
+mat-sidenav-container {
+  height: 10vh;
+}
+
+.logo {
+  width: 2rem;
+  margin: auto;
+}
+
+.toggle-button {
+  background-color: #FF9900;
+  width: 3rem;
+  height: 2rem;
+  text-align: center;
+  line-height: 2rem;
+  border-radius: 8px;
+}
+
+.toggle-button:hover {
+  background-color: #FFB74D;
+}
+
+.profile {
+  height: 2rem;
+  border-radius: 50%;
+  margin: 0px 0.5rem
+}
+
+
+.dropdown-toggle:hover {
+  background-color: #FFB74D;
+}
+
+.expand {
+  display: block;
+  position: absolute;
+  left: -6rem;
+}
+
+.dropdown {
+  position: relative;
+}

@@ -1,0 +1,6 @@
+<app-header *ngIf="logged"></app-header>
+<app-logged-header *ngIf="!logged" (sidebarToggle)="toggleSidebar($event)"></app-logged-header>
+<app-sidenav *ngIf="! logged" [sidenavToggle]="toggle"></app-sidenav>
+<router-outlet *ngIf="logged" class="logged-router"></router-outlet>
+
+

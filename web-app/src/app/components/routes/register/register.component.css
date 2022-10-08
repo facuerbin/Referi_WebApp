@@ -1,0 +1,125 @@
+h3 {
+  z-index: 1;
+  position: absolute;
+  top: -7rem;
+  width: 90%;
+  margin: auto;
+  font-size: 2rem;
+}
+
+input {
+  height: 2rem;
+  padding: auto;
+}
+
+.card {
+  margin: auto;
+  margin-top: 5vh;
+  width: 30vw;
+  height: 80vh;
+  background-color: white;
+}
+
+.card-text {
+  font-size: 20px;
+}
+
+.card-body {
+  padding: 0px;
+}
+
+.form-group {
+  padding-bottom: 12px;
+  margin: auto;
+}
+
+.w70 {
+  display: inline;
+  margin-right: 12px;
+  width: 65%;
+}
+
+.w20 {
+  display: inline;
+  width: 30%;
+}
+
+.form-error {
+  color: red;
+  font-size: 0.8rem;
+  display: inline;
+}
+
+.background {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: -5;
+  background-image: url('/assets/img/login1.jpg');
+  background-size: cover;
+  background-position-x: 0;
+}
+
+.btn {
+  width: 40%;
+  margin: 0px 8px;
+}
+
+.btn:disabled {
+  background-color: #D9D9D9;
+  color: black;
+}
+
+form {
+  padding-bottom: 1rem;
+}
+
+.form-icon-right {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  color: #323232;
+}
+
+.form-icon-right:hover {
+  color: black
+}
+
+.section-1 {
+  display: none;
+}
+
+.section-2 {
+  display: none;
+}
+
+.section-3 {
+  display: none;
+}
+
+.enable {
+  display: block !important;
+}
+
+.buttons-section {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

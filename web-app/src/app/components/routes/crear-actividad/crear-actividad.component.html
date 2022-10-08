@@ -1,0 +1,151 @@
+<div class="container m-3">
+  <div class="row">
+    <h2>Crear Actividad:</h2>
+  </div>
+  <form (ngSubmit)="handleForm()" [formGroup]="actividadForm" class="container-fluid">
+    <div class="row">
+      <div class="col-6 col-sm">
+        <h3>Datos de la Actividad</h3>
+        <div class="form-group">
+          <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          placeholder="Nombre"
+          formControlName="nombre"
+          />
+          <p *ngIf="isValid('nombre')" class="form-error">
+            Por favor asignele un nombre a la actividad
+          </p>
+        </div>
+        <div class="form-group">
+          <input
+          type="text"
+          class="form-control"
+          id="tipo"
+          placeholder="Tipo de actividad"
+          formControlName="tipo"
+          />
+          <p *ngIf="isValid('tipo')" class="form-error">
+            Por favor asignele un nombre a la actividad
+          </p>
+        </div>
+        <div class="form-group">
+          <input
+          type="date"
+          class="form-control"
+          id="fecha"
+          placeholder="Fecha de inicio"
+          formControlName="fecha"
+          />
+          <p *ngIf="isValid('fecha')" class="form-error">
+            Por favor asignele un nombre a la actividad
+          </p>
+        </div>
+        <div class="form-group">
+          <input
+          type="number"
+          class="form-control"
+          id="cupo"
+          placeholder="Cupo"
+          formControlName="cupo"
+          />
+          <p *ngIf="isValid('cupo')" class="form-error">
+            Por favor asignele un nombre a la actividad
+          </p>
+        </div>
+        <div class="form-group">
+          <input
+          type="text"
+          class="form-control"
+          id="espacio"
+          placeholder="Espacio"
+          formControlName="espacio"
+          />
+          <p *ngIf="isValid('espacio')" class="form-error">
+            Por favor asignele un nombre a la actividad
+          </p>
+        </div>
+      </div>
+      <div class="col-4 col-sm">
+        <h3>Tarifas</h3>
+        <div class="form-group">
+          <input
+          type="text"
+          class="form-control"
+          id="tarifa"
+          placeholder="Tipo de tarifa"
+          formControlName="tarifa"
+          />
+          <p *ngIf="isValid('tarifa')" class="form-error">
+            Por favor asignele un tarifa a la actividad
+          </p>
+        </div>
+        <div class="form-group">
+          <input
+          type="text"
+          class="form-control"
+          id="monto"
+          placeholder="Monto"
+          formControlName="monto"
+          />
+          <p *ngIf="isValid('monto')" class="form-error">
+            Por favor asignele un monto a la actividad
+          </p>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary">AGREGAR TARIFA</button>
+        </div>
+
+        <h3>Horarios</h3>
+        <div class="form-group">
+          <input
+          type="text"
+          class="form-control"
+          id="dia"
+          placeholder="Día de la semana"
+          formControlName="dia"
+          />
+          <p *ngIf="isValid('dia')" class="form-error">
+            Por favor asignele un dia a la actividad
+          </p>
+        </div>
+        <div class="d-flex flex-row justify-content-around">
+
+          <div class="form-group-small">
+            <input
+            type="text"
+            class="form-control form-control-small"
+            id="hora"
+            placeholder="Hora de inicio"
+            formControlName="hora"
+            />
+            <p *ngIf="isValid('hora')" class="form-error">
+              Por favor asignele un hora a la actividad
+            </p>
+          </div>
+          <div class="form-group-small">
+            <input
+            type="text"
+            class="form-control form-control-small"
+            id="duración"
+            placeholder="Duración"
+            formControlName="duración"
+            />
+            <p *ngIf="isValid('duración')" class="form-error">
+              Por favor asignele un duración a la actividad
+            </p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary">AGREGAR HORARIO</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <a routerLink="/actividades/crear/confirmar" class="btn btn-secondary">CONTINUAR</a>
+    </div>
+  </form>
+</div>

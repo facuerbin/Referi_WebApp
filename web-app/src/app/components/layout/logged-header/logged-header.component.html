@@ -1,0 +1,17 @@
+<header class="d-flex justify-content-between align-items-center">
+  <div class="toggle-button" (click)="toggleButton()">
+    <fa-icon [icon]="bar" class="form-icon" aria-hidden="true"></fa-icon>
+  </div>
+  <img src="assets/logo/logo.png" alt="Referi Logo" class="logo" />
+
+  <div class="dropdown">
+    <button class="btn dropdown-toggle" type="button" (click)="toggleProfile()" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <img class="profile" src="assets/img/profile.jpeg" alt="Avatar">
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" [ngClass]="{'expand': profileButton}">
+      <a class="dropdown-item" href="#">Perfil</a>
+      <a class="dropdown-item" href="#">Cambiar contraseña</a>
+      <a class="dropdown-item" href="#" (click)="logout()">Cerrar sesión</a>
+    </div>
+  </div>
+</header>

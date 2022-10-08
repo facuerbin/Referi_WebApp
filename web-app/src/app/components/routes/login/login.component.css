@@ -1,0 +1,81 @@
+h3 {
+  z-index: 1;
+  position: absolute;
+  top: -7rem;
+  width: 90%;
+  margin: auto;
+  font-size: 2rem;
+}
+
+input {
+  height: 3rem;
+  padding: auto;
+}
+
+.card {
+  margin: auto;
+  margin-top: 5vh;
+  width: 30vw;
+  height: 80vh;
+  background-color: white;
+}
+
+.card-text {
+  font-size: 20px;
+}
+
+.card-body {
+  padding: 0px;
+}
+
+.form-group {
+  padding-bottom: 24px;
+  width: 90%;
+  margin: auto;
+}
+
+.form-error {
+  color: red;
+  font-size: 0.8rem;
+  display: inline;
+}
+.background {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: -5;
+  background-image: url('/assets/img/login1.jpg');
+  background-size: cover;
+  background-position-x: 0;
+}
+
+.btn {
+  width: 70%;
+}
+
+.btn:disabled {
+  background-color: #D9D9D9;
+  color: black;
+}
+
+form {
+  padding-bottom: 1rem;
+}
+
+.form-icon-right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  color: #323232;
+}
+
+.form-icon-right:hover {
+  color: black
+}
+
+

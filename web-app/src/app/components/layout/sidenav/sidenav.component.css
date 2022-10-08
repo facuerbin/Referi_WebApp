@@ -1,0 +1,55 @@
+.container-fluid {
+  padding: 0px;
+}
+
+.nav {
+  font-size: 24px;
+  font-weight: 400;
+  background-color: #F5F5F5;
+  height: 90vh;
+}
+
+ul {
+  text-align: left;
+  margin-top: 24px;
+  height: 5vh;
+  min-height: 4vh;
+  padding:  8px;
+  margin: 0px;
+  display: flex;
+  align-items: center;
+}
+
+ul.active {
+  background-color: #8BF6FF;
+}
+
+a {
+  padding: 3px 2px;
+  margin: 0px;
+}
+
+ul:hover {
+  background-color: #4FC3F7;
+  transform: scale(1.1);
+  transition: transform 0.5s;
+}
+
+a,
+a:hover,
+a:visited {
+  text-decoration: none;
+  font: inherit;
+  color: inherit;
+  width: 100%;
+}
+
+a.expand {
+  width: 9.5rem;
+}
+
+span {
+  font-size: 1rem;
+  margin-left: 8px;
+}
+

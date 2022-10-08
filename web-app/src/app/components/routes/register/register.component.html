@@ -1,0 +1,280 @@
+<div class="background"></div>
+<div class="card text-center">
+  <img src="/assets/img/login.svg" class="login-background card-img-top" />
+  <section class="card-body position-relative">
+    <h3 class="card-title">Registra tu institución</h3>
+    <form (ngSubmit)="handleRegistry()" [formGroup]="loginForm">
+      <section *ngIf="section === 1">
+        <p>Contanos acerca de tu institución</p>
+        <div class="container">
+          <div class="form-group col-10">
+            <input
+            type="text"
+            class="form-control"
+            id="nombre"
+            placeholder="Nombre"
+            formControlName="nombre"
+            />
+            <p *ngIf="isValid('nombre')" class="form-error">
+              Por favor ingrese el nombre de su institución
+            </p>
+          </div>
+
+          <div class="form-group col-10">
+            <input
+            type="text"
+            class="form-control"
+            id="descripcion"
+            placeholder="Descripción"
+            formControlName="descripcion"
+            />
+            <p *ngIf="isValid('descripcion')" class="form-error">
+              Por favor ingrese el descripcion de su institución
+            </p>
+          </div>
+
+          <div class="form-group col-10">
+            <label for="tipo">Tipo de institución</label>
+            <select class="form-control" id="tipo" formControlName="tipo">
+              <option value="default">Selecciona un tipo</option>
+              <option value="Gimnasio">Gimnasio</option>
+              <option value="Club">Club</option>
+              <option value="Instituto de Danza">Instituto de Danza</option>
+              <option value="Otro">Otro</option>
+            </select>
+            <p *ngIf="isValid('tipo')" class="form-error">
+              Por favor indique el tipo de institución
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section *ngIf="section === 2">
+        <p>¿Dónde queda?</p>
+        <div class="container">
+          <div class="form-group col-10">
+            <input
+            type="text"
+            class="form-control w70"
+            id="calle"
+            placeholder="Calle"
+            formControlName="calle"
+            />
+            <input
+            type="number"
+            class="form-control w20"
+            id="numero"
+            placeholder="Número"
+            formControlName="numero"
+            />
+            <p *ngIf="isValid('calle')" class="form-error">
+              Por favor complete el campo calle
+            </p>
+            <p *ngIf="isValid('numero')" class="form-error">
+              Por favor complete el campo número
+            </p>
+          </div>
+
+          <div class="form-group col-10">
+            <input
+            type="text"
+            class="form-control"
+            id="ciudad"
+            placeholder="Ciudad"
+            formControlName="ciudad"
+            />
+            <p *ngIf="isValid('ciudad')" class="form-error">
+              Por favor complete este campo
+            </p>
+          </div>
+
+          <div class="form-group col-10">
+            <input
+            type="text"
+            class="form-control"
+            id="provincia"
+            placeholder="Provincia"
+            formControlName="provincia"
+            />
+            <p *ngIf="isValid('provincia')" class="form-error">
+              Por favor complete este campo
+            </p>
+          </div>
+
+          <div class="form-group col-10">
+            <input
+            type="text"
+            class="form-control"
+            id="telefono"
+            placeholder="Telefono"
+            formControlName="telefono"
+            />
+            <p *ngIf="isValid('telefono')" class="form-error">
+              Por favor complete este campo
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section *ngIf="section === 3">
+        <p>Ahora los datos para tu cuenta</p>
+        <div class="container">
+
+          <div class="form-group col-10 row">
+            <input
+            type="text"
+            class="form-control"
+            id="fname"
+            placeholder="Nombre"
+            formControlName="fname"
+            />
+            <p *ngIf="isValid('fname')" class="form-error">
+              Por favor complete este campo
+            </p>
+          </div>
+
+          <div class="form-group col-10 row">
+            <input
+            type="text"
+            class="form-control"
+            id="lname"
+            placeholder="Apellido"
+            formControlName="lname"
+            />
+            <p *ngIf="isValid('lname')" class="form-error">
+              Por favor complete este campo
+            </p>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-4">
+              <input
+              type="number"
+              class="form-control"
+              id="dni"
+              placeholder="DNI"
+              formControlName="dni"
+              />
+              <p *ngIf="isValid('dni')" class="form-error">
+                Por favor complete este campo
+              </p>
+            </div>
+
+            <div class="form-group col-4">
+              <input
+              type="date"
+              class="form-control"
+              id="fechaNac"
+              placeholder="Fecha de Nacimiento"
+              formControlName="fechaNac"
+              />
+              <p *ngIf="isValid('fechaNac')" class="form-error">
+                Por favor complete este campo
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group col-10"row >
+            <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="Correo Electrónico"
+            formControlName="email"
+            />
+            <p *ngIf="isValid('email')" class="form-error">
+              Por favor ingrese un correo electrónico válido
+            </p>
+          </div>
+
+          <div class="form-group col-10 row position-relative">
+            <input
+            type="{{ !passwordIsVisible ? 'password' : 'text' }}"
+            class="form-control"
+            placeholder="Contraseña"
+            formControlName="password"
+            />
+            <p *ngIf="isValid('password')" class="form-error">
+              La contraseña debe tener al menos 8 caracteres
+            </p>
+
+            <button class="form-icon-right" (click)="togglePassword($event,1)" type="button">
+              <fa-icon
+              *ngIf="!passwordIsVisible"
+              [icon]="eye"
+              aria-hidden="true"
+              ></fa-icon>
+              <fa-icon
+              *ngIf="passwordIsVisible"
+              [icon]="eyeSlash"
+              aria-hidden="true"
+              ></fa-icon>
+            </button>
+          </div>
+
+          <div class="form-group col-10 row position-relative">
+            <input
+            type="{{ !repeatPasswordIsVisible ? 'password' : 'text' }}"
+            class="form-control"
+            placeholder="Repetir contraseña"
+            formControlName="repeatPassword"
+            />
+            <p *ngIf="isValid('repeatPassword')" class="form-error">
+              La contraseña debe tener al menos 8 caracteres
+            </p>
+
+            <button class="form-icon-right" (click)="togglePassword($event,2)" type="button">
+              <fa-icon
+              *ngIf="!repeatPasswordIsVisible"
+              [icon]="eye"
+              aria-hidden="true"
+              ></fa-icon>
+              <fa-icon
+              *ngIf="repeatPasswordIsVisible"
+              [icon]="eyeSlash"
+              aria-hidden="true"
+              ></fa-icon>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="buttons-section">
+        <button
+        *ngIf="section !== 3"
+        (click)="next()"
+        type="button"
+        class="btn btn-primary"
+        [disabled]="section > 3"
+        >
+        SIGUIENTE
+      </button>
+
+      <button
+      *ngIf="section === 3"
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="section > 3"
+      >
+      FINALIZAR
+    </button>
+
+    <button
+    (click)="return()"
+    class="btn btn-secondary"
+    type="button"
+    [disabled]="section <= 1"
+    >
+    VOLVER
+  </button>
+  <p>
+    Si ya tenés una cuenta
+    <a routerLink="/login"> inicia sesión </a>
+  </p>
+</section>
+</form>
+<!-- <p>
+  Registrandote, aceptas nuetros Términos y Condiciones y Política de Privacidad
+</p> -->
+</section>
+</div>
