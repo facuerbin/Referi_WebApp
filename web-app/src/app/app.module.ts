@@ -28,6 +28,7 @@ import { DetalleActividadComponent } from './components/routes/detalle-actividad
 import { VerificarComponent } from './components/routes/verificar/verificar.component';
 import { CrearActividadComponent } from './components/routes/crear-actividad/crear-actividad.component';
 import { PerfilUsuarioComponent } from './components/routes/perfil-usuario/perfil-usuario.component';
+import { TablaComponent } from './components/shared/tabla/tabla.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { PerfilUsuarioComponent } from './components/routes/perfil-usuario/perfi
     InscribirSocioComponent,
     DetalleActividadComponent,
     VerificarComponent,
+    TablaComponent,
   ],
   imports: [
     BrowserModule,
