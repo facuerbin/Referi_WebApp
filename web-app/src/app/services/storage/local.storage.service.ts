@@ -19,8 +19,5 @@ export class LocalStorageService {
     const name = 'navToggle';
     const storage: string = JSON.parse(localStorage.getItem(name) || '');
     if (! storage) localStorage.setItem(name, JSON.stringify(false));
-    console.log(storage);
-
-
   }
 }

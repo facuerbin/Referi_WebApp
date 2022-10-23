@@ -26,7 +26,6 @@ export class LoggedHeaderComponent implements OnInit {
 
   toggleProfile () {
     this.profileButton = ! this.profileButton;
-    console.log(this.profileButton)
   }
 
   logout () {

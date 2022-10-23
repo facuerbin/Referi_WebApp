@@ -1,28 +1,29 @@
-export interface RegisterOrganizationResponseDto {
+export interface GetOrganizationResponseDto {
+  id:                 string;
   nombre:             string;
-  direccion:          Direccion;
   logo:               string;
   descripcion:        string;
   telefono:           string;
   email:              string;
-  tipo:               Tipo;
-  fechaBaja:          null;
-  id:                 string;
   fechaCreacion:      Date;
   fechaActualizacion: Date;
+  fechaBaja:          null;
+  direccion:          Direccion;
+  espacios:           Espacio[];
 }
 
 export interface Direccion {
+  id:        string;
   calle:     string;
   numero:    number;
   ciudad:    string;
   provincia: string;
-  id:        string;
 }
 
-export interface Tipo {
+export interface Espacio {
   id:                 string;
   nombre:             string;
+  capacidad:          number;
   fechaCreacion:      Date;
   fechaActualizacion: Date;
   fechaBaja:          null;

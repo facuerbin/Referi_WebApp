@@ -44,7 +44,7 @@ export class IngresosComponent implements OnInit {
       email: "jbatie2@bandcamp.com",
       fecha: "07/02/2022",
       actividad: "Ameliorated",
-      tipoTarifa: "Mensual-thinking",
+      tipoTarifa: "Mensual",
       monto: 2595,
       estado: "Aprobado"
     },
@@ -53,7 +53,7 @@ export class IngresosComponent implements OnInit {
       email: "nhenrichsen3@economist.com",
       fecha: "17/05/2022",
       actividad: "Switchable",
-      tipoTarifa: "Mensual-tasking",
+      tipoTarifa: "Mensual",
       monto: 2359,
       estado: "Aprobado"
     },
@@ -62,9 +62,9 @@ export class IngresosComponent implements OnInit {
       email: "heckart4@icio.us",
       fecha: "31/08/2022",
       actividad: "heuristic",
-      tipoTarifa: "Mensual-oriented",
+      tipoTarifa: "Mensual",
       monto: 2608,
-      estado: "zero Aprobado"
+      estado: "Aprobado"
     },
     {
       comprobante: 6,
@@ -80,7 +80,7 @@ export class IngresosComponent implements OnInit {
       email: "fpoate6@devhub.com",
       fecha: "22/10/2021",
       actividad: "approach",
-      tipoTarifa: "Mensual-centric",
+      tipoTarifa: "Mensual",
       monto: 3298,
       estado: "Aprobado"
     },
@@ -98,7 +98,7 @@ export class IngresosComponent implements OnInit {
       email: "mrate8@imgur.com",
       fecha: "18/04/2022",
       actividad: "project",
-      tipoTarifa: "Mensual Interface",
+      tipoTarifa: "Mensual",
       monto: 3721,
       estado: "Aprobado"
     },
@@ -107,7 +107,7 @@ export class IngresosComponent implements OnInit {
       email: "ccoverley9@nasa.gov",
       fecha: "08/06/2022",
       actividad: "explicit",
-      tipoTarifa: "Mensual-based",
+      tipoTarifa: "Mensual",
       monto: 3554,
       estado: "Aprobado"
     },
@@ -152,7 +152,7 @@ export class IngresosComponent implements OnInit {
       email: "pbirchille@livejournal.com",
       fecha: "11/01/2022",
       actividad: "real-time",
-      tipoTarifa: "Mensual-mediaries",
+      tipoTarifa: "Mensual",
       monto: 3785,
       estado: "Aprobado"
     },
@@ -161,9 +161,9 @@ export class IngresosComponent implements OnInit {
       email: "fpettegref@bluehost.com",
       fecha: "01/10/2021",
       actividad: "collaboration",
-      tipoTarifa: "Mensual generation",
+      tipoTarifa: "Mensual",
       monto: 1148,
-      estado: "24 Aprobado"
+      estado: "Aprobado"
     },
     {
       comprobante: 17,
@@ -208,7 +208,7 @@ export class IngresosComponent implements OnInit {
       actividad: "focus group",
       tipoTarifa: "Mensual",
       monto: 2913,
-      estado: "zero Aprobado"
+      estado: "Aprobado"
     },
     {
       comprobante: 22,
@@ -242,7 +242,7 @@ export class IngresosComponent implements OnInit {
       email: "jbushello@facebook.com",
       fecha: "16/10/2021",
       actividad: "help-desk",
-      tipoTarifa: "Mensual-critical",
+      tipoTarifa: "Mensual",
       monto: 2403,
       estado: "Aprobado"
     },
@@ -251,16 +251,16 @@ export class IngresosComponent implements OnInit {
       email: "bocosgrap@prlog.org",
       fecha: "23/07/2022",
       actividad: "methodology",
-      tipoTarifa: "Mensual loyalty",
+      tipoTarifa: "Mensual",
       monto: 1801,
-      estado: "zero Aprobado"
+      estado: "Aprobado"
     },
     {
       comprobante: 27,
       email: "ckiggelq@livejournal.com",
       fecha: "09/06/2022",
       actividad: "Secured",
-      tipoTarifa: "Mensual-added",
+      tipoTarifa: "Mensual",
       monto: 2936,
       estado: "Aprobado"
     },
@@ -278,7 +278,7 @@ export class IngresosComponent implements OnInit {
       email: "gsteddalls@usa.gov",
       fecha: "13/11/2021",
       actividad: "national",
-      tipoTarifa: "Mensual-desk",
+      tipoTarifa: "Mensual",
       monto: 1189,
       estado: "Aprobado"
     },
@@ -287,7 +287,7 @@ export class IngresosComponent implements OnInit {
       email: "rhartint@umn.edu",
       fecha: "24/06/2022",
       actividad: "Optional",
-      tipoTarifa: "Mensual-thinking",
+      tipoTarifa: "Mensual",
       monto: 2489,
       estado: "Aprobado"
     },
@@ -314,7 +314,7 @@ export class IngresosComponent implements OnInit {
       email: "sheinelw@senate.gov",
       fecha: "06/08/2022",
       actividad: "Realigned",
-      tipoTarifa: "Mensual-driven",
+      tipoTarifa: "Mensual",
       monto: 2650,
       estado: "Aprobado-oriented"
     },
@@ -323,7 +323,7 @@ export class IngresosComponent implements OnInit {
       email: "ssneppx@myspace.com",
       fecha: "14/03/2022",
       actividad: "hybrid",
-      tipoTarifa: "Mensual-buffered",
+      tipoTarifa: "Mensual",
       monto: 3962,
       estado: "Aprobado"
     },
@@ -332,7 +332,7 @@ export class IngresosComponent implements OnInit {
       email: "kgalsworthyy@theguardian.com",
       fecha: "16/03/2022",
       actividad: "initiative",
-      tipoTarifa: "Mensual-time",
+      tipoTarifa: "Mensual",
       monto: 2554,
       estado: "Aprobado"
     },
@@ -350,7 +350,7 @@ export class IngresosComponent implements OnInit {
       email: "jvagges10@ed.gov",
       fecha: "14/06/2022",
       actividad: "De-engineered",
-      tipoTarifa: "Mensual engine",
+      tipoTarifa: "Mensual",
       monto: 3424,
       estado: "Aprobado"
     },
@@ -386,7 +386,7 @@ export class IngresosComponent implements OnInit {
       email: "cmcwilliams14@state.gov",
       fecha: "19/05/2022",
       actividad: "web-enabled",
-      tipoTarifa: "Mensual-source",
+      tipoTarifa: "Mensual",
       monto: 1253,
       estado: "Aprobado"
     },
@@ -395,7 +395,7 @@ export class IngresosComponent implements OnInit {
       email: "naingell15@senate.gov",
       fecha: "07/12/2021",
       actividad: "circuit",
-      tipoTarifa: "Mensual-based",
+      tipoTarifa: "Mensual",
       monto: 1153,
       estado: "high-Aprobado"
     },
@@ -422,7 +422,7 @@ export class IngresosComponent implements OnInit {
       email: "cblasius18@nba.com",
       fecha: "30/11/2021",
       actividad: "disintermediate",
-      tipoTarifa: "Mensual-proofed",
+      tipoTarifa: "Mensual",
       monto: 2947,
       estado: "Aprobado"
     },
@@ -449,7 +449,7 @@ export class IngresosComponent implements OnInit {
       email: "hfigliovanni1b@state.gov",
       fecha: "28/11/2021",
       actividad: "demand-driven",
-      tipoTarifa: "Mensual-focused",
+      tipoTarifa: "Mensual",
       monto: 3261,
       estado: "Aprobado"
     },
@@ -485,7 +485,7 @@ export class IngresosComponent implements OnInit {
       email: "ncurnokk1f@bloglines.com",
       fecha: "24/09/2022",
       actividad: "Managed",
-      tipoTarifa: "Mensual-monitored",
+      tipoTarifa: "Mensual",
       monto: 3096,
       estado: "Aprobado"
     },
@@ -494,7 +494,7 @@ export class IngresosComponent implements OnInit {
       email: "tnutkins1g@php.net",
       fecha: "06/11/2021",
       actividad: "Programmable",
-      tipoTarifa: "Mensual-emptive",
+      tipoTarifa: "Mensual",
       monto: 2611,
       estado: "Aprobado"
     },
@@ -503,7 +503,7 @@ export class IngresosComponent implements OnInit {
       email: "cbalfour1h@etsy.com",
       fecha: "25/07/2022",
       actividad: "flexibility",
-      tipoTarifa: "Mensual-net",
+      tipoTarifa: "Mensual",
       monto: 2477,
       estado: "Aprobado"
     },
@@ -557,16 +557,16 @@ export class IngresosComponent implements OnInit {
       email: "koborne1n@yolasite.com",
       fecha: "05/03/2022",
       actividad: "regional",
-      tipoTarifa: "Mensual-resource",
+      tipoTarifa: "Mensual",
       monto: 2773,
-      estado: "zero Aprobado"
+      estado: "Aprobado"
     },
     {
       comprobante: 61,
       email: "mtalloe1o@telegraph.co.uk",
       fecha: "24/10/2021",
       actividad: "tangible",
-      tipoTarifa: "Mensual-buffered",
+      tipoTarifa: "Mensual",
       monto: 1811,
       estado: "Aprobado"
     },
@@ -575,7 +575,7 @@ export class IngresosComponent implements OnInit {
       email: "plidstone1p@tumblr.com",
       fecha: "06/04/2022",
       actividad: "Synchronised",
-      tipoTarifa: "Mensual generation",
+      tipoTarifa: "Mensual",
       monto: 3078,
       estado: "Aprobado"
     },
@@ -584,7 +584,7 @@ export class IngresosComponent implements OnInit {
       email: "cgreatreax1q@goodreads.com",
       fecha: "23/12/2021",
       actividad: "firmware",
-      tipoTarifa: "Mensual-range",
+      tipoTarifa: "Mensual",
       monto: 2365,
       estado: "Pre-Aprobado"
     },
@@ -593,7 +593,7 @@ export class IngresosComponent implements OnInit {
       email: "lcawthorn1r@vinaora.com",
       fecha: "09/12/2021",
       actividad: "needs-based",
-      tipoTarifa: "Mensual-wide",
+      tipoTarifa: "Mensual",
       monto: 3814,
       estado: "Aprobado"
     },
@@ -665,7 +665,7 @@ export class IngresosComponent implements OnInit {
       email: "rglasser1z@hibu.com",
       fecha: "08/01/2022",
       actividad: "6th generation",
-      tipoTarifa: "Mensual-level",
+      tipoTarifa: "Mensual",
       monto: 1714,
       estado: "Aprobado structure"
     },
@@ -701,7 +701,7 @@ export class IngresosComponent implements OnInit {
       email: "rkeavy23@soup.io",
       fecha: "24/04/2022",
       actividad: "Intuitive",
-      tipoTarifa: "Mensual-time",
+      tipoTarifa: "Mensual",
       monto: 1009,
       estado: "Aprobado-resource"
     },
@@ -719,7 +719,7 @@ export class IngresosComponent implements OnInit {
       email: "khiscocks25@census.gov",
       fecha: "01/10/2021",
       actividad: "Progressive",
-      tipoTarifa: "Mensual-critical",
+      tipoTarifa: "Mensual",
       monto: 3855,
       estado: "Aprobado"
     },
@@ -737,7 +737,7 @@ export class IngresosComponent implements OnInit {
       email: "iwarkup27@pen.io",
       fecha: "01/06/2022",
       actividad: "Organic",
-      tipoTarifa: "Mensual system",
+      tipoTarifa: "Mensual",
       monto: 2730,
       estado: "Aprobado-added"
     },
@@ -764,7 +764,7 @@ export class IngresosComponent implements OnInit {
       email: "evockings2a@mashable.com",
       fecha: "11/08/2022",
       actividad: "Centralized",
-      tipoTarifa: "Mensual-layered",
+      tipoTarifa: "Mensual",
       monto: 2614,
       estado: "Aprobado"
     },
@@ -791,7 +791,7 @@ export class IngresosComponent implements OnInit {
       email: "cdealtry2d@symantec.com",
       fecha: "17/10/2021",
       actividad: "upward-trending",
-      tipoTarifa: "Mensual-based",
+      tipoTarifa: "Mensual",
       monto: 3044,
       estado: "Aprobado"
     },
@@ -809,7 +809,7 @@ export class IngresosComponent implements OnInit {
       email: "nwillingam2f@so-net.ne.jp",
       fecha: "24/09/2022",
       actividad: "Diverse",
-      tipoTarifa: "Mensual-oriented",
+      tipoTarifa: "Mensual",
       monto: 2406,
       estado: "Aprobado"
     },
@@ -908,7 +908,7 @@ export class IngresosComponent implements OnInit {
       email: "nscawn2q@blog.com",
       fecha: "04/04/2022",
       actividad: "Triple-buffered",
-      tipoTarifa: "Mensual-mediaries",
+      tipoTarifa: "Mensual",
       monto: 2688,
       estado: "Aprobado"
     },

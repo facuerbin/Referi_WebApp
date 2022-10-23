@@ -1,4 +1,4 @@
-export interface RegisterOrganizationResponseDto {
+export interface Organization {
   nombre:             string;
   direccion:          Direccion;
   logo:               string;

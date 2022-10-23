@@ -24,6 +24,7 @@ input[type=number] {
 
 .form-control {
   width: 30vw;
+  /* border: none; */
 }
 
 .form-control-small {

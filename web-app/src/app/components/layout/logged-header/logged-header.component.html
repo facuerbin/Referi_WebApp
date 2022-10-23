@@ -9,7 +9,7 @@
       <img class="profile" src="assets/img/profile.jpeg" alt="Avatar">
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" [ngClass]="{'expand': profileButton}">
-      <a class="dropdown-item" href="#">Perfil</a>
+      <a class="dropdown-item" routerLink="/perfil">Perfil</a>
       <a class="dropdown-item" href="#">Cambiar contraseña</a>
       <a class="dropdown-item" href="#" (click)="logout()">Cerrar sesión</a>
     </div>

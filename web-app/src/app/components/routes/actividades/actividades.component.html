@@ -6,53 +6,183 @@
     <div class="col-8">
       <form action="#">
         <div class="position-relative">
-          <input type="text" class="form-control" id="searchInput" />
+          <input
+            id="searchInput"
+            name="search"
+            placeholder="Buscar actividades"
+            type="text"
+            class="form-control"
+            [(ngModel)]="search"
+            (ngModelChange)="filterSearch()"
+          />
           <button
-          class="form-icon-right"
-          (click)="search($event)"
-          type="button"
+            class="form-icon-right"
+            (click)="filterSearch()"
+            type="button"
           >
-          <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
-        </button>
-      </div>
-    </form>
-  </div>
+            <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
+          </button>
+        </div>
+      </form>
+    </div>
 
-  <div class="col-4">
-    <a routerLink="/actividades/crear" class="btn btn-primary"
-        >CREAR ACTIVIDAD</a
+    <div class="col-4">
+      <button type="button" (click)="openModal()" class="btn btn-primary">
+        CREAR ACTIVIDAD
+      </button>
+    </div>
+
+    <div class="col-11 mt-4 table-wrapper">
+      <table
+        class="table table-striped table-hover table-bordered table-responsive"
       >
+        <thead>
+          <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Cupo</th>
+            <th scope="col">Espacio</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="clickable-row"
+            *ngFor="let actividad of actividadesFiltered let i = index"
+            [routerLink]="['/actividades/detalle', actividad.codigo]"
+          >
+            <td>{{ actividad.codigo }}</td>
+            <td>{{ actividad.nombre }}</td>
+            <td>{{ actividad.tipo }}</td>
+            <td>{{ actividad.cupo }}</td>
+            <td>{{ actividad.espacio }}</td>
+            <td>{{ actividad.estado }}</td>
+            <td class="d-flex justify-content-around">
+              <fa-icon
+                class="action-button"
+                [icon]="detailIcon"
+                aria-hidden="true"
+              ></fa-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+</div>
 
-  <div class="col-11 mt-4 table-wrapper">
-    <table
-    class="table table-striped table-hover table-bordered table-responsive"
-    >
-    <thead>
-      <tr>
-        <th scope="col">Código</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Cupo</th>
-        <th scope="col">Espacio</th>
-        <th scope="col">Estado</th>
-        <th scope="col">Acción</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="clickable-row" routerLink="/actividades/detalle" *ngFor="let actividad of actividades; let i = index">
-          <td>{{ actividad.codigo }}</td>
-          <td>{{ actividad.nombre }}</td>
-          <td>{{ actividad.tipo }}</td>
-          <td>{{ actividad.cupo }}</td>
-          <td>{{ actividad.espacio }}</td>
-          <td>{{ actividad.estado }}</td>
-          <td class="d-flex justify-content-around">
-            <fa-icon class="action-button"[icon]="detailIcon" aria-hidden="true"></fa-icon>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-</div>
-</div>
+<div class="modal" tabindex="-1" id="modalForm">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Crear Actividad</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <form
+              (ngSubmit)="handleForm()"
+              [formGroup]="actividadForm"
+              class="container-fluid"
+              *ngIf="load"
+            >
+              <div class="row">
+                <div class="col-10 col-sm">
+                  <h3>Datos de la Actividad</h3>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nombre"
+                      placeholder="Nombre"
+                      formControlName="nombre"
+                    />
+                    <p *ngIf="isValidActividad('nombre')" class="form-error">
+                      Por favor asignele un nombre a la actividad
+                    </p>
+                  </div>
+                  <div class="form-group">
+                    <select
+                      class="form-control"
+                      id="tipo"
+                      formControlName="idTipoActividad"
+                      [value]=""
+                    >
+                      <option value="" disabled selected>
+                        Selecciona un tipo de actividad
+                      </option>
+                      <option
+                        *ngFor="let tipo of tipoActividad"
+                        value="{{ tipo.id }}"
+                      >
+                        {{ tipo.tipo }}
+                      </option>
+                    </select>
+                    <p
+                      *ngIf="isValidActividad('idTipoActividad')"
+                      class="form-error"
+                    >
+                      Por favor asignele un tipo a la actividad
+                    </p>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="descripcion"
+                      placeholder="Descripción de la actividad"
+                      formControlName="descripcion"
+                    />
+                    <p
+                      *ngIf="isValidActividad('descripcion')"
+                      class="form-error"
+                    >
+                      Por favor asignele un nombre a la actividad
+                    </p>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="cupo"
+                      placeholder="Cupo"
+                      formControlName="cupo"
+                    />
+                    <p *ngIf="isValidActividad('cupo')" class="form-error">
+                      Por favor asignele un nombre a la actividad
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="handleForm()"
+              [disabled]="actividadForm.invalid"
+            >
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+                *ngIf="spinner"
+              ></span>
+              CREAR ACTIVIDAD
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

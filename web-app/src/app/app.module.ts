@@ -22,10 +22,12 @@ import { RegisterComponent } from './components/routes/register/register.compone
 import { AsistenciaComponent } from './components/routes/asistencia/asistencia.component';
 import { MaintenanceComponent } from './components/routes/maintenance/maintenance.component';
 import { IngresosComponent } from './components/routes/ingresos/ingresos.component';
-import { CrearActividadComponent } from './components/routes/crear-actividad/crear-actividad.component';
 import { DetalleSocioComponent } from './components/routes/detalle-socio/detalle-socio.component';
 import { InscribirSocioComponent } from './components/routes/inscribir-socio/inscribir-socio.component';
 import { DetalleActividadComponent } from './components/routes/detalle-actividad/detalle-actividad.component';
+import { VerificarComponent } from './components/routes/verificar/verificar.component';
+import { CrearActividadComponent } from './components/routes/crear-actividad/crear-actividad.component';
+import { PerfilUsuarioComponent } from './components/routes/perfil-usuario/perfil-usuario.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { DetalleActividadComponent } from './components/routes/detalle-actividad
     SociosComponent,
     TarifasComponent,
     NotificacionesComponent,
+    PerfilUsuarioComponent,
     PagosComponent,
     OrganizacionComponent,
     ActividadesComponent,
@@ -47,6 +50,7 @@ import { DetalleActividadComponent } from './components/routes/detalle-actividad
     DetalleSocioComponent,
     InscribirSocioComponent,
     DetalleActividadComponent,
+    VerificarComponent,
   ],
   imports: [
     BrowserModule,

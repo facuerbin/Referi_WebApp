@@ -13,10 +13,12 @@ import { MaintenanceComponent } from './components/routes/maintenance/maintenanc
 import { NotificacionesComponent } from './components/routes/notificaciones/notificaciones.component';
 import { OrganizacionComponent } from './components/routes/organizacion/organizacion.component';
 import { PagosComponent } from './components/routes/pagos/pagos.component';
+import { PerfilUsuarioComponent } from './components/routes/perfil-usuario/perfil-usuario.component';
 import { RegisterComponent } from './components/routes/register/register.component';
 import { ReportesComponent } from './components/routes/reportes/reportes.component';
 import { SociosComponent } from './components/routes/socios/socios.component';
 import { TarifasComponent } from './components/routes/tarifas/tarifas.component';
+import { VerificarComponent } from './components/routes/verificar/verificar.component';
 import { AuthGuardGuard } from './guards/auth-guard.guard';
 
 const routes: Routes = [
@@ -27,7 +29,11 @@ const routes: Routes = [
     path: "register", component:RegisterComponent
   },
   {
-    path: "", component:HomeComponent,
+    path: "verify", component:VerificarComponent
+  },
+  {
+    path: "", component:ReportesComponent
+    ,
     canActivate:[AuthGuardGuard]
   },
   {
@@ -56,17 +62,16 @@ const routes: Routes = [
     path: "actividades/crear", component:CrearActividadComponent
   },
   {
-    path: "actividades/detalle", component:DetalleActividadComponent
+    path: "actividades/detalle/:id", component:DetalleActividadComponent
   },
   {
     path: "tarifas",
-    component:MaintenanceComponent
-    // component:TarifasComponent
+    // component:MaintenanceComponent
+    component:TarifasComponent
   },
   {
     path: "asistencia",
-    component:MaintenanceComponent
-    // component:AsistenciaComponent
+    component:AsistenciaComponent
   },
   {
     path: "notificaciones",
@@ -78,13 +83,16 @@ const routes: Routes = [
   },
   {
     path: "pagos/registrar",
-    // component:MaintenanceComponent
     component:PagosComponent
   },
   {
     path: "organizacion",
     component:MaintenanceComponent
     // component:OrganizacionComponent
+  },
+  {
+    path: "perfil",
+    component:PerfilUsuarioComponent
   },
 ];
 

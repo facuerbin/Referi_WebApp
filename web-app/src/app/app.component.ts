@@ -20,12 +20,11 @@ export class AppComponent {
 
   ngOnInit() {
     this.router.events.subscribe( event => {
-      if (event instanceof NavigationEnd) this.logged = event.url.includes("login") || event.url.includes("register");
+      if (event instanceof NavigationEnd) this.logged = event.url.includes("login") || event.url.includes("register") || event.url.includes("verify");
     })
   }
 
   toggleSidebar (event: Event) {
-    console.log("toggle event")
     this.toggle = ! this.toggle;
   }
 }

@@ -2,7 +2,7 @@
 <div class="card text-center">
   <img src="/assets/img/login.svg" class="login-background card-img-top" />
   <section class="card-body position-relative">
-    <h3 class="card-title">¡Bienvenido a Referi!</h3>
+    <h3 class="card-title">¡Bienvenido a Referí!</h3>
     <form (ngSubmit)="handleLogin()" [formGroup]="loginForm">
       <p class="card-text">Iniciar sesión</p>
       <div class="form-group">
@@ -28,6 +28,10 @@
           La contraseña debe tener al menos 8 caracteres
         </p>
 
+        <p *ngIf="loginFailed" class="form-error">
+          Por favor verifique los datos ingresados
+        </p>
+
         <button class="form-icon-right" (click)="togglePassword($event)" type="button">
           <fa-icon
             *ngIf="!passwordIsVisible"
@@ -46,6 +50,7 @@
       </p>
       <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">INGRESAR</button>
     </form>
+
     <p>
       Si no tenés una cuenta
       <a routerLink="/register"> Registrate </a>

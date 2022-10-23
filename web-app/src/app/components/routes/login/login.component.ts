@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   eye = faEye;
   eyeSlash = faEyeSlash;
   passwordIsVisible = false;
+  loginFailed = false;
 
   constructor(private formBuilder: FormBuilder,  private router: Router, private auth: AuthService) { }
 
@@ -28,8 +29,17 @@ export class LoginComponent implements OnInit {
   async handleLogin() {
     const email = this.loginForm.controls["email"].value;
     const password = this.loginForm.controls["password"].value;
-    const user = await this.auth.processLogin(email, password);
-    // return await this.auth.isLoggedIn()
+    const login = await this.auth.processLogin(email, password);
+    login.subscribe(
+      {
+        next: data => {
+          return this.router.navigate([""]);
+        },
+        error: error => {
+          this.loginFailed = true;
+          return false;
+        }
+      })
   }
 
 

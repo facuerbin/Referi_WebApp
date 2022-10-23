@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { CreateOrganizationDto } from 'src/app/interfaces/create.organization.dto';
+import { CreateUserDto } from 'src/app/interfaces/create.user.dto';
+import { Domicilio } from 'src/app/interfaces/domicilio';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -11,6 +14,12 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
+  checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => {
+    let pass = group.get('password')?.value;
+    let confirmPass = group.get('repeatPassword')?.value
+    return pass === confirmPass ? null : { notSame: true }
+  }
 
   loginForm: FormGroup = this.formBuilder.group({
     calle: ["", [Validators.required]],
@@ -23,8 +32,12 @@ export class RegisterComponent implements OnInit {
     descripcion: ["", [Validators.required]],
     email: ["", [Validators.required, Validators.email]],
     password: ["", [Validators.required, Validators.minLength(8)]],
-    repeatPassword: ["", [Validators.required, Validators.minLength(8)]]
-  });
+    repeatPassword: ["", [Validators.required, Validators.minLength(8)]],
+    fname: ["", [Validators.required, Validators.minLength(2)]],
+    lname: ["", [Validators.required, Validators.minLength(2)]],
+    dni: ["", [Validators.required, Validators.maxLength(8), Validators.minLength(8)]],
+    fechaNac: ["", [Validators.required]]
+  }, {validators: this.checkPasswords});
 
   eye = faEye;
   eyeSlash = faEyeSlash;
@@ -50,7 +63,6 @@ export class RegisterComponent implements OnInit {
   }
 
   async handleRegistry() {
-    // console.log(this.loginForm)
     const registerForm = {
       calle: this.loginForm.controls["calle"].value,
       numero: this.loginForm.controls["numero"].value,
@@ -58,24 +70,57 @@ export class RegisterComponent implements OnInit {
       provincia: this.loginForm.controls["provincia"].value,
       telefono: this.loginForm.controls["telefono"].value,
       nombre: this.loginForm.controls["nombre"].value,
-      tipo: this.loginForm.controls["apellido"].value,
+      tipo: this.loginForm.controls["tipo"].value,
       descripcion: this.loginForm.controls["descripcion"].value,
+      fname: this.loginForm.controls["fname"].value,
+      lname: this.loginForm.controls["lname"].value,
+      dni: this.loginForm.controls["dni"].value,
+      fechaNac: this.loginForm.controls["fechaNac"].value,
       email: this.loginForm.controls["email"].value,
       password: this.loginForm.controls["password"].value,
     }
 
-    console.log(registerForm);
-    // const user = await this.auth.;
-    // return await this.auth.isLoggedIn()
+    const domicilio: Domicilio = {
+      calle: registerForm.calle,
+      numero: registerForm.numero,
+      ciudad: registerForm.ciudad,
+      provincia: registerForm.provincia
+    }
+
+    const organizacionDto: CreateOrganizationDto = {
+      nombre: registerForm.nombre,
+      direccion: domicilio,
+      tipoOrganizacion: registerForm.tipo,
+      logo: '/default',
+      descripcion: registerForm.descripcion,
+      telefono: registerForm.telefono,
+      email: registerForm.email
+    };
+
+    const usuarioDto: CreateUserDto = {
+      email: registerForm.email,
+      password: registerForm.password,
+      nombre: registerForm.fname,
+      apellido: registerForm.lname,
+      dni: registerForm.dni,
+      telefono: registerForm.telefono,
+      fechaNacimiento: registerForm.fechaNac,
+      fotoPerfil: '/default',
+      domicilio: domicilio
+    }
+
+    const user = await this.auth.createUser(usuarioDto);
+    const org = await this.auth.createOrganization(organizacionDto);
+    if (user && org) return this.router.navigate(["verify"]);
+    else return false
   }
 
   return () {
     if (this.section > 1)this.section --;
-    console.log(this.section)
   }
 
   next () {
-    if (this.section < 3)this.section ++;
+    if (this.section < 4)this.section ++;
   }
 
 
@@ -92,5 +137,4 @@ export class RegisterComponent implements OnInit {
       return this.repeatPasswordIsVisible = !this.repeatPasswordIsVisible;
     }
   }
-
 }

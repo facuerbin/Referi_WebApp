@@ -1,0 +1,51 @@
+<div class="background"></div>
+<div class="card text-center">
+  <img src="/assets/img/login.svg" class="login-background card-img-top" />
+  <section class="card-body position-relative">
+    <h3 class="card-title">Registra tu institución</h3>
+    <form (ngSubmit)="handleVerification()" [formGroup]="verificationForm">
+      <section>
+        <p>¡Estás a un paso!</p>
+        <div class="container">
+          <div class="form-group col-10">
+            <input type="hidden" [value]="email" formControlName="email">
+            <input
+              type="number"
+              class="form-control"
+              id="codigo"
+              placeholder="Código de 4 dígitos"
+              formControlName="codigo"
+            />
+            <p *ngIf="isValid('codigo')" class="form-error">
+              Por favor ingresa el mismo código que enviamos a tu mail.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="buttons-section">
+        <button
+          type="submit"
+          class="btn btn-primary"
+        >
+          VERIFICAR
+        </button>
+
+        <!-- <button
+          (click)="reenviar()"
+          class="btn btn-secondary"
+          type="button"
+        >
+          REENVIAR CÓDIGO
+        </button> -->
+        <p>
+          Si ya tenés una cuenta
+          <a routerLink="/login"> inicia sesión </a>
+        </p>
+      </section>
+    </form>
+    <!-- <p>
+  Registrandote, aceptas nuetros Términos y Condiciones y Política de Privacidad
+</p> -->
+  </section>
+</div>
