@@ -4,9 +4,30 @@
   </div>
   <form (ngSubmit)="handleForm()" [formGroup]="actividadForm" class="container-fluid">
     <div class="row">
+      <div class="col-4 mt-3 position-relative">
+        <img
+          *ngIf="actividad"
+          src="{{imgUrl}}"
+          alt="imagen de la actividad"
+          class="profile-img"
+        />
+        <label class="upload-image" for="file">
+          <fa-icon
+              [icon]="pencil"
+              aria-hidden="true"
+            ></fa-icon>
+        </label>
+        <input
+          type="file"
+          class="d-none"
+          id="file"
+          (change)="onChange($event)"
+        />
+      </div>
       <div class="col-6 col-sm">
         <h3>Datos de la Actividad</h3>
 
+        <div class="container-fluid row">
         <div class="form-group">
           <label for="nombre">Nombre:</label>
           <input
@@ -19,6 +40,21 @@
           />
           <p *ngIf="isValid('nombre')" class="form-error">
             Por favor asignele un nombre a la actividad
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="descripción">Descripción:</label>
+          <input
+          type="text"
+          class="form-control"
+          id="descripcion"
+          placeholder="Descripción"
+          formControlName="descripcion"
+          value="{{actividad?.descripcion}}"
+          />
+          <p *ngIf="isValid('descripcion')" class="form-error">
+            Por favor asignele un descripción a la actividad
           </p>
         </div>
 
@@ -45,7 +81,7 @@
           </p>
         </div>
 
-        <div class="form-group">
+        <div class="form-group-small">
           <label for="fecha">Fecha de creacion:</label>
           <input
           type="text"
@@ -58,11 +94,11 @@
           />
         </div>
 
-        <div class="form-group">
+        <div class="form-group-small">
           <label for="cupo">Cupo:</label>
           <input
           type="number"
-          class="form-control"
+          class="form-control form-control-small"
           id="cupo"
           placeholder="Cupo"
           formControlName="cupo"
@@ -73,101 +109,306 @@
           </p>
         </div>
 
-        <!-- <div class="form-group">
-          <input
-          type="text"
-          class="form-control"
-          id="espacio"
-          placeholder="Espacio"
-          />
-          <p *ngIf="isValid('espacio')" class="form-error">
-            formControlName="espacio"
-            Por favor asignele un nombre a la actividad
-          </p>
-        </div> -->
+          <div class="form-group d-flex justify-content-center">
+            <button class="btn btn-primary" (click)="saveUpdate()">GUARDAR CAMBIOS</button>
+          </div>
 
       </div>
-
+      </div>
 
       <div class="col-4 col-sm">
         <h3>Tarifas</h3>
+
         <div class="form-group">
-          <input
-          type="text"
-          class="form-control"
-          id="tarifa"
-          placeholder="Tipo de tarifa"
-          />
-          <!-- <p *ngIf="isValid('tarifa')" class="form-error">
-            formControlName="tarifa"
-            Por favor asignele un tarifa a la actividad
-          </p> -->
+          <p *ngFor="let tarifa of tarifas">{{tarifa.nombre}}: {{tarifa.monto}} </p>
         </div>
+
         <div class="form-group">
-          <input
-          type="text"
-          class="form-control"
-          id="monto"
-          placeholder="Monto"
-          />
-          <!-- <p *ngIf="isValid('monto')" class="form-error">
-            formControlName="monto"
-            Por favor asignele un monto a la actividad
-          </p> -->
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary">AGREGAR TARIFA</button>
+          <button class="btn btn-primary" (click)="openModalTarifas()">NUEVA TARIFA</button>
         </div>
 
         <h3>Horarios</h3>
-        <div class="form-group">
-          <input
-          type="text"
-          class="form-control"
-          id="dia"
-          placeholder="Día de la semana"
-          />
-          <!-- <p *ngIf="isValid('dia')" class="form-error">
-            formControlName="dia"
-            Por favor asignele un dia a la actividad
-          </p> -->
-        </div>
-        <div class="d-flex flex-row justify-content-around">
-
-          <div class="form-group-small">
-            <input
-            type="text"
-            class="form-control form-control-small"
-            id="hora"
-            placeholder="Hora de inicio"
-            />
-            <!-- <p *ngIf="isValid('hora')" class="form-error">
-              formControlName="hora"
-              Por favor asignele un hora a la actividad
-            </p> -->
-          </div>
-          <div class="form-group-small">
-            <input
-            type="text"
-            class="form-control form-control-small"
-            id="duración"
-            placeholder="Duración"
-            />
-            <!-- <p *ngIf="isValid('duración')" class="form-error">
-              formControlName="duración"
-              Por favor asignele un duración a la actividad
-            </p> -->
-          </div>
+        <div *ngFor="let turno of turnosStrings, let i = index">
+          <h3>Turno N°{{i+1}}:</h3>
+          <p *ngFor="let horario of turno">
+            {{horario}}
+          </p>
         </div>
 
         <div class="form-group">
-          <button class="btn btn-primary">AGREGAR HORARIO</button>
+          <button class="btn btn-primary" (click)="openModalHorarios()" >NUEVO HORARIO</button>
         </div>
       </div>
     </div>
 
-    <div class="d-flex justify-content-center">
-        <a routerLink="/actividades/crear/confirmar" class="btn btn-secondary">AGREGAR HORARIO</a>
-    </div>
   </form>
 </div>
+
+
+
+<!-- Modale Crear Tarifa -->
+<div class="modal" tabindex="-1" id="modalTarifas">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Crear Tarifa:</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeModalTarifas()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <form
+              (ngSubmit)="handleForm()"
+              [formGroup]="tarifasForm"
+              class="container-fluid"
+              *ngIf="load"
+            >
+              <div class="row">
+                <div class="col-10 col-sm">
+                  <h3>Datos de la Tarifa</h3>
+                  <div class="form-group">
+                    <input
+                    type="text"
+                    class="form-control"
+                    id="nombreTarifa"
+                    placeholder="Nombre"
+                    formControlName="nombreTarifa"
+                    />
+                    <p *ngIf="isValidTarifa('nombreTarifa')" class="form-error">
+                      Por favor asignele un nombre a la tarifa
+                    </p>
+                  </div>
+                  <div class="form-group">
+                    <select
+                    class="form-control"
+                    id="frecuancia"
+                    formControlName="frecuencia"
+                    [value]=""
+                    >
+                    <option value="" disabled selected>
+                      Selecciona la frecuencia de la actividad
+                    </option>
+                      <option
+                        *ngFor="let frecuencia of frecuencias"
+                        value="{{ frecuencia.nombre }}"
+                      >
+                        {{ frecuencia.nombre }}
+                      </option>
+                    </select>
+                    <p
+                    *ngIf="isValidTarifa('frecuencia')"
+                    class="form-error"
+                    >
+                    Por favor asignele una frecuencia a la tarifa
+                  </p>
+                </div>
+                <div class="form-group">
+                  <input
+                      type="text"
+                      class="form-control"
+                      id="monto"
+                      placeholder="Monto de la tarifa"
+                      formControlName="monto"
+                    />
+                    <p
+                      *ngIf="isValidTarifa('monto')"
+                      class="form-error"
+                      >
+                      Por favor asignele un monto a la tarifa
+                    </p>
+                  </div>
+                  <label><input type="checkbox" class="m-4" id="tarifaOpcion" formControlName="tarifaOpcional" value="false"> ¿Es una tarifa opcional?</label>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="handleTarifasForm()"
+              [disabled]="tarifasForm.invalid"
+            >
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+                *ngIf="spinner"
+              ></span>
+              AGREGAR TARIFA
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modale Crear Turno -->
+<div class="modal" tabindex="-1" id="modalHorarios">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Agregar Turno:</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeModalTarifas()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <form
+              (ngSubmit)="handleForm()"
+              [formGroup]="horariosForm"
+              class="container-fluid"
+              *ngIf="load"
+            >
+              <div class="row">
+                <div class="col-10 col-sm">
+                  <h3>Turno:</h3>
+                  <div class="form-group">
+                    <select
+                    class="form-control"
+                    id="dia"
+                    formControlName="dia"
+                    >
+                    <option value="" disabled selected>
+                      Selecciona el día
+                    </option>
+                      <option
+                        *ngFor="let dia of dias"
+                        value="{{ dia }}"
+                      >
+                        {{ dia }}
+                      </option>
+                    </select>
+                    <!-- <p
+                    *ngIf="isValidTarifa('frecuencia')"
+                    class="form-error"
+                    >
+                    Por favor asignele una frecuencia a la tarifa
+                  </p> -->
+                </div>
+                  <div class="form-group d-flex justify-content-between align-items-center">
+                    <input
+                    type="number"
+                    min="0"
+                    max="23"
+                    class="form-control w-25"
+                    id="horaInicio"
+                    placeholder="Hora de Inicio"
+                    formControlName="horaInicio"
+                    />
+                    <!-- <p *ngIf="isValidTarifa('dia')" class="form-error">
+                      Por favor seleccione un día
+                    </p> -->
+
+                    <h2>:</h2>
+
+                    <input
+                        type="number"
+                        min="0"
+                        max="59"
+                        class="form-control w-25"
+                        id="minutosInicio"
+                        placeholder="Minutos"
+                        formControlName="minutosInicio"
+                        [defaultValue]="00"
+                      />
+                      <!-- <p
+                        *ngIf="isValidTarifa('monto')"
+                        class="form-error"
+                        >
+                        Por favor asignele un monto a la tarifa
+                      </p> -->
+
+                      <input
+                      type="number"
+                      class="form-control form-control-small"
+                      id="duracion"
+                      placeholder="Duración"
+                      formControlName="duracion"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <select
+                    class="form-control"
+                    id="espacioSelect"
+                    formControlName="espacio"
+                    [value]=""
+                    >
+                    <option value="" disabled selected>
+                      Selecciona el espacio
+                    </option>
+                      <option
+                        *ngFor="let espacio of espacios"
+                        value="{{ espacio.id }}"
+                      >
+                        {{ espacio.nombre }}
+                      </option>
+                    </select>
+                    <!-- <p
+                    *ngIf="isValidTarifa('frecuencia')"
+                    class="form-error"
+                    >
+                    Por favor asignele una frecuencia a la tarifa
+                  </p> -->
+                </div>
+
+                </div>
+              </div>
+            </form>
+
+            <p *ngFor="let turno of horariosStrings">
+              {{turno}}
+            </p>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button
+              type="button"
+              class="btn btn-secondary m-3"
+              (click)="handleHorariosForm()"
+              >
+              <!-- [disabled]="tarifasForm.invalid" -->
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+                *ngIf="spinner"
+              ></span>
+              AGREGAR HORARIO
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="crearTurno()"
+              >
+              <!-- [disabled]="tarifasForm.invalid" -->
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+                *ngIf="spinner"
+              ></span>
+              CREAR TURNO
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

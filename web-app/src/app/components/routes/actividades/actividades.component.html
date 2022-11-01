@@ -38,11 +38,11 @@
       >
         <thead>
           <tr>
-            <th scope="col">Código</th>
             <th scope="col">Nombre</th>
             <th scope="col">Tipo</th>
             <th scope="col">Cupo</th>
-            <th scope="col">Espacio</th>
+            <th scope="col">Turnos</th>
+            <th scope="col">Fecha de creación</th>
             <th scope="col">Estado</th>
             <th scope="col">Acción</th>
           </tr>
@@ -53,11 +53,11 @@
             *ngFor="let actividad of actividadesFiltered let i = index"
             [routerLink]="['/actividades/detalle', actividad.codigo]"
           >
-            <td>{{ actividad.codigo }}</td>
             <td>{{ actividad.nombre }}</td>
             <td>{{ actividad.tipo }}</td>
             <td>{{ actividad.cupo }}</td>
-            <td>{{ actividad.espacio }}</td>
+            <td>{{ actividad.turnos }}</td>
+            <td>{{ actividad.fechaInicio }}</td>
             <td>{{ actividad.estado }}</td>
             <td class="d-flex justify-content-around">
               <fa-icon

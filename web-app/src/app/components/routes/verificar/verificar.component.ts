@@ -21,6 +21,7 @@ export class VerificarComponent implements OnInit {
 
   user: GetUserResponseDto | null = null;
   email: string = "";
+  showError = false;
 
   constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
 
@@ -39,15 +40,12 @@ export class VerificarComponent implements OnInit {
       code: this.verificationForm.controls['codigo'].value,
     }
     const result = await this.auth.verifyEmail({email: this.email, code: form.code});
+    if (!result) this.showError = true;
   }
 
   isValid(field: string): boolean {
     return this.verificationForm.controls[field].errors !== null &&
     (this.verificationForm.controls[field].touched || this.verificationForm.controls[field].dirty);
-  }
-
-  reenviar() {
-
   }
 
   getEmail() {

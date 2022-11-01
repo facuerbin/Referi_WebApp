@@ -5,9 +5,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { CreateOrganizationDto } from 'src/app/interfaces/create.organization.dto';
 import { CreateUserDto } from 'src/app/interfaces/create.user.dto';
 import { LoginDto } from 'src/app/interfaces/login.dto';
-import { LoginResponseDto } from 'src/app/interfaces/login.response.dto';
+import { Data, LoginResponseDto, User } from 'src/app/interfaces/login.response.dto';
 import { RegisterDto } from 'src/app/interfaces/register.organizacion.dto';
-import { User } from 'src/app/interfaces/user';
 import { RegisterUserResponseDto } from 'src/app/interfaces/user.registry.response.dto';
 import { environment } from 'src/environments/environment.prod';
 import axios, { AxiosResponse } from 'axios';
@@ -19,7 +18,6 @@ import jwt_decode from 'jwt-decode';
 import { GetUserResponseDto } from 'src/app/interfaces/get.user.response.dto';
 import { GetOrganizationResponseDto } from 'src/app/interfaces/get.organization.response.dto';
 import { GetTipoActividad } from 'src/app/interfaces/get.tipo.actividad.dto';
-import { of } from 'rxjs';
 import { GetEspacioResponse } from 'src/app/interfaces/get.espacios.response.dto';
 import { GetFrecuencia } from 'src/app/interfaces/get.tarifa.frecuencia.res.dto';
 import { CreateActividadDto } from 'src/app/interfaces/create.actividad.dto';
@@ -27,6 +25,9 @@ import { CreateActividadResponse } from 'src/app/interfaces/create.actividad.res
 import { GetActividadesOrganizacion } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { GetEmployeeOrganization } from 'src/app/interfaces/get.employee.org.dto';
 import { GetActividadDetail } from 'src/app/interfaces/get.detail.actividad.dto';
+import { CreateTarifaDto } from 'src/app/interfaces/create.tarifa.dto';
+import { GetTarifasActividadDto } from 'src/app/interfaces/get.tarifas.actividad.dto';
+import { CreateTurnoDto } from 'src/app/interfaces/create.turno.dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -50,7 +51,8 @@ export class AuthService {
         next: data => {
           this.user = data.data.user
           this.cookieService.set('token', data.data.access_token)
-          this.getOrganization();
+          this.cookieService.set('uid',data.data.user.id)
+          this.getOrganizationDetail();
           return this.router.navigate([""]);
         },
         error: error => {
@@ -72,8 +74,29 @@ export class AuthService {
     const usuario = (await axios.post<RegisterUserResponseDto>(url, userForm)).data;
     this.cookieService.set('token', usuario.access_token);
     this.cookieService.set('uid', usuario.id);
-    this.user = usuario;
+    this.user = {...usuario}
     return this.user;
+  }
+
+  async updateUserImage(path: string, uid: string) {
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/usuarios/' + uid;
+    const form = {
+      fotoPerfil: path
+    };
+    const token = this.getToken();
+    const usuario = (await axios.patch<RegisterUserResponseDto>(url, form, { headers: { Authorization: `Bearer ${token}` }})).data;
+    this.cookieService.set('uid', usuario.id);
+    this.user = usuario;
+
+    return this.user;
+  }
+
+  async updateActividad(actividad:Partial<GetActividadDetail>) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/' + actividad.id;
+
+    const result = (await axios.patch<GetActividadDetail>(url, actividad, { headers: { Authorization: `Bearer ${token}` }})).data;
+    return result;
   }
 
   async createOrganization(organizationForm: CreateOrganizationDto) {
@@ -89,7 +112,20 @@ export class AuthService {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades';
     const result = await axios.post<CreateActividadResponse>(url, dto);
     return result;
+  }
 
+  async createTarifa(dto: CreateTarifaDto) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/tarifas';
+    const result = await axios.post<CreateTarifaDto>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
+    return result;
+  }
+
+  async createTurno(dto: CreateTurnoDto) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/turno';
+    const result = await axios.post<CreateTurnoDto>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
+    return result;
   }
 
   logout() {
@@ -99,8 +135,12 @@ export class AuthService {
 
   async verifyEmail(dto: VerifyEmailDto) {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/auth/verify';
-    const result =  await axios.post<VerifyEmailResponseDto>(url, dto);
-    return this.router.navigate([""]);
+    const token = this.getToken();
+    const result =  await axios.post<VerifyEmailResponseDto>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
+    if (result.status == 201 && result.data.verified === true) {
+      return this.router.navigate([""]);
+    }
+    return false;
   }
 
   getToken() {
@@ -119,11 +159,7 @@ export class AuthService {
     return user;
   }
 
-  getOrgId () {
-    return this.cookieService.get('org');
-  }
-
-  async getOrganization() {
+  async getOrgId () {
     let orgId = this.cookieService.get('org');
     const token = this.getToken();
 
@@ -132,13 +168,36 @@ export class AuthService {
       if (! decodedToken) throw new Error("No token found.");
       const uid = decodedToken.sub;
       const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
-      orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].id;
+      orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion.id;
+      this.cookieService.set('org', orgId)
+    }
+
+    return orgId;
+  }
+
+  async getOrganizationDetail() {
+    let orgId = this.cookieService.get('org');
+    const token = this.getToken();
+
+    if (! orgId) {
+      const decodedToken = this.getDecodedAccessToken();
+      if (! decodedToken) throw new Error("No token found.");
+      const uid = decodedToken.sub;
+      const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
+      orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion.id;
       this.cookieService.set('org', orgId)
     }
     const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId;
 
     return (await axios.get<GetOrganizationResponseDto>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
 
+  async listEmployeeOrganizations () {
+    const token = this.getToken();
+    const uid = (await this.getUser()).data.data.id;
+
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
+    return (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data;
   }
 
   getDecodedAccessToken(): any {
@@ -162,6 +221,12 @@ export class AuthService {
     return this.http.get<GetFrecuencia>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
+  async getTarifasActividad(idActividad: string) {
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/tarifas/actividad/' + idActividad;
+    const token = this.getToken();
+    return this.http.get<GetTarifasActividadDto>(url, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
   async getEspaciosOrganizacion() {
     const orgId = this.cookieService.get('org');
     const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/espacios/' + orgId;
@@ -170,7 +235,7 @@ export class AuthService {
   }
 
   async getActividadesOrganizacion () {
-    const orgId = this.getOrgId();
+    const orgId = await this.getOrgId();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/organizacion/' + orgId;
     const token = this.getToken();
     return this.http.get<GetActividadesOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});

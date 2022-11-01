@@ -17,6 +17,7 @@ export class SociosComponent implements OnInit {
   spinner = false;
   modal: bootstrap.Modal | undefined;
   modalError = false;
+  search: string = "";
 
   sociosForm: FormGroup = this.formBuilder.group({
     email: ["", [Validators.required, Validators.email]],
@@ -31,10 +32,20 @@ export class SociosComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.socios = this.mock;
   }
 
-  search(event: Event) {
-    return event;
+  filterSearch() {
+    const result = this.mock.filter(socio => {
+      return socio.nombre.toLowerCase().search(this.search.toLowerCase()) !== -1
+          || socio.email.toLowerCase().search(this.search.toLowerCase()) !== -1
+      ;
+    });
+
+    this.socios = result;
+
+
+    return "";
   }
 
   handleForm() {
@@ -42,7 +53,7 @@ export class SociosComponent implements OnInit {
   }
 
   isValid(control: string) {
-
+    return false;
   }
 
   openModal() {
@@ -59,7 +70,9 @@ export class SociosComponent implements OnInit {
     this.modal.hide();
   }
 
-  socios = [
+  socios: Socio[] = [];
+
+  mock = [
     {
       legajo: 1,
       nombre: "Dal Newdick",
@@ -153,3 +166,10 @@ export class SociosComponent implements OnInit {
   ];
 }
 
+
+interface Socio {
+  legajo: number;
+  nombre: string;
+  email:  string;
+  dni:    string;
+}

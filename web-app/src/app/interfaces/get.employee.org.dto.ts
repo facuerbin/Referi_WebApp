@@ -1,8 +1,17 @@
 export interface GetEmployeeOrganization {
-  data: Organization[];
+  data: PersonalOrganizacion[];
 }
 
-export interface Organization {
+export interface PersonalOrganizacion {
+  id:                 string;
+  fechaCreacion:      Date;
+  fechaActualizacion: Date;
+  fechaBaja:          null;
+  organizacion:       Organizacion;
+  rol:                Rol;
+}
+
+export interface Organizacion {
   id:                 string;
   nombre:             string;
   logo:               string;
@@ -11,5 +20,14 @@ export interface Organization {
   email:              string;
   fechaCreacion:      Date;
   fechaActualizacion: Date;
-  fechaBaja:          Date | null;
+  fechaBaja:          null;
+}
+
+export interface Rol {
+  id:                 string;
+  nombre:             string;
+  descripcion:        string;
+  fechaCreacion:      Date;
+  fechaActualizacion: Date;
+  fechaBaja:          null;
 }

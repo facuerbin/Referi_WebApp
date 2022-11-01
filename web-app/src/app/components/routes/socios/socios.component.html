@@ -6,12 +6,20 @@
     <div class="col-8">
       <form action="#">
         <div class="position-relative">
-          <input type="text" class="form-control" id="searchInput" />
-          <button
+          <input
+          id="searchInput"
+          name="search"
+          placeholder="Buscar actividades"
+          type="text"
+          class="form-control"
+          [(ngModel)]="search"
+          (ngModelChange)="filterSearch()"
+        />
+        <button
           class="form-icon-right"
-          (click)="search($event)"
+          (click)="filterSearch()"
           type="button"
-          >
+        >
           <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
         </button>
       </div>
@@ -66,7 +74,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">Crear Actividad</h3>
+        <h3 class="modal-title">Agregar un nuevo socio:</h3>
         <button
           type="button"
           class="btn-close"
@@ -144,22 +152,6 @@
                     </p>
                   </div>
 
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="descripcion"
-                      placeholder="Descripción de la actividad"
-                      formControlName="descripcion"
-                    />
-                    <p
-                      *ngIf="isValid('descripcion')"
-                      class="form-error"
-                    >
-                      Por favor asignele un nombre a la actividad
-                    </p>
-                  </div>
-
                 </div>
               </div>
             </form>
@@ -177,7 +169,7 @@
                 aria-hidden="true"
                 *ngIf="spinner"
               ></span>
-              CREAR ACTIVIDAD
+              INSCRIBIR SOCIO
             </button>
           </div>
         </div>

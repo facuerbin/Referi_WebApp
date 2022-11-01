@@ -22,6 +22,9 @@ export class ActividadesComponent implements OnInit {
   spinner = false;
   search: string = "";
 
+  actividadesFiltered: ActividadTableElement[] = [];
+  actividades: ActividadTableElement[] = []
+
   constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
 
 
@@ -49,8 +52,10 @@ export class ActividadesComponent implements OnInit {
           nombre: actividad.nombre,
           tipo: actividad.tipo.tipo,
           cupo: actividad.cupo,
+          turnos: actividad.turnos.length,
+          fechaInicio: (actividad.fechaCreacion + "").slice(0,10),
           espacio: "" + actividad.turnos.map( turno => turno.espacio?.nombre || " "),
-          estado: "Activo"
+          estado: !actividad.fechaBaja ? "Activo" : "Baja",
         };
       });
       this.actividadesFiltered = this.actividades;
@@ -99,14 +104,14 @@ export class ActividadesComponent implements OnInit {
     this.selectedValue = this.auth.getTipoActividad();
   }
 
-  handleForm() {
+  async handleForm() {
     this.spinner = true;
     const form = this.actividadForm.value;
 
     const req: CreateActividadDto = {
       ...form,
       imgUrl: "",
-      idOrganizacion: this.auth.getOrgId(),
+      idOrganizacion: await this.auth.getOrgId(),
     }
 
     const res = this.auth.createActividad(req);
@@ -127,87 +132,4 @@ export class ActividadesComponent implements OnInit {
       (this.actividadForm.controls[field].touched || this.actividadForm.controls[field].dirty);
   }
 
-  actividadesFiltered: ActividadTableElement[] = [];
-  actividades = [
-    {
-      codigo: "1",
-      nombre: "Brown Flatsedge",
-      tipo: "Fintone",
-      cupo: 35,
-      espacio: "Anderson",
-      estado: "Activo"
-    },
-    {
-      codigo: "2",
-      nombre: "Prairie Rose",
-      tipo: "Zaam-Dox",
-      cupo: 15,
-      espacio: "Saint Paul",
-      estado: "Activo"
-    },
-    {
-      codigo: "3",
-      nombre: "Dakota Sarcogyne Lichen",
-      tipo: "Andalax",
-      cupo: 50,
-      espacio: "Monica",
-      estado: "Activo"
-    },
-    {
-      codigo: "4",
-      nombre: "Mint",
-      tipo: "Quo Lux",
-      cupo: 58,
-      espacio: "Shopko",
-      estado: "Activo"
-    },
-    {
-      codigo: "5",
-      nombre: "Carolina Goldenrod",
-      tipo: "Bamity",
-      cupo: 17,
-      espacio: "Golden Leaf",
-      estado: "Activo"
-    },
-    {
-      codigo: "6",
-      nombre: "Bitterroot Milkvetch",
-      tipo: "Flowdesk",
-      cupo: 20,
-      espacio: "Ronald Regan",
-      estado: "Activo"
-    },
-    {
-      codigo: "7",
-      nombre: "Rocky Mountain Buttercup",
-      tipo: "Flowdesk",
-      cupo: 20,
-      espacio: "Lukken",
-      estado: "Activo"
-    },
-    {
-      codigo: "8",
-      nombre: "Crabseye",
-      tipo: "Tampflex",
-      cupo: 19,
-      espacio: "Rusk",
-      estado: "Activo"
-    },
-    {
-      codigo: "9",
-      nombre: "Ash Meadows Lady's Tresses",
-      tipo: "Sonsing",
-      cupo: 22,
-      espacio: "Park Meadow",
-      estado: "Activo"
-    },
-    {
-      codigo: "10",
-      nombre: "Redflower Buckwheat",
-      tipo: "Kanlam",
-      cupo: 10,
-      espacio: "Roth",
-      estado: "Activo"
-    },
-  ]
 }

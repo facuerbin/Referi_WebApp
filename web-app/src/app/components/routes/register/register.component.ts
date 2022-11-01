@@ -91,7 +91,7 @@ export class RegisterComponent implements OnInit {
       nombre: registerForm.nombre,
       direccion: domicilio,
       tipoOrganizacion: registerForm.tipo,
-      logo: '/default',
+      logo: "",
       descripcion: registerForm.descripcion,
       telefono: registerForm.telefono,
       email: registerForm.email
@@ -105,7 +105,7 @@ export class RegisterComponent implements OnInit {
       dni: registerForm.dni,
       telefono: registerForm.telefono,
       fechaNacimiento: registerForm.fechaNac,
-      fotoPerfil: '/default',
+      fotoPerfil: '',
       domicilio: domicilio
     }
 

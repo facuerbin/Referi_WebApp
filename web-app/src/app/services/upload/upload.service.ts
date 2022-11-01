@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
+import axios from 'axios';
+import { CookieService } from 'ngx-cookie-service';
+import { FileUpload } from 'src/app/interfaces/file.upload.response.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +12,12 @@ export class UploadService {
 
 
     // API url
-    baseApiUrl = "localhost:3000"
-    path = "/upload"
+    path = "/uploads"
 
-    constructor(private http:HttpClient) { }
+    constructor(private cookieService: CookieService) { }
 
     // Returns an observable
-    upload(file: File):Observable<any> {
+    upload(file: File) {
 
         // Create form data
         const formData = new FormData();
@@ -23,8 +25,11 @@ export class UploadService {
         // Store form name as "file" with file data
         formData.append("file", file, file.name);
 
-        // Make http post request over api
-        // with formData as req
-        return this.http.post(this.baseApiUrl + this.path, formData)
+        const url = environment.appUrl + environment.apiVersionUri + this.path;
+        const token = this.cookieService.get('token');
+        return axios.post<FileUpload>(url, formData, { headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        }});
     }
   }

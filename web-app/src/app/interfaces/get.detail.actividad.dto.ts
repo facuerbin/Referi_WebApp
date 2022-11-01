@@ -8,8 +8,19 @@ export interface GetActividadDetail {
   fechaActualizacion: Date;
   fechaBaja:          Date | null;
   organizacion:       Organizacion;
+  __tarifas__:        Tarifas[];
   turnos:             Turno[];
   tipo:               Tipo;
+}
+
+export interface Tarifas {
+  id:                 string;
+  nombre:             string;
+  monto:              number;
+  esOpcional:         boolean;
+  fechaCreacion:      Date;
+  fechaActualizacion: Date;
+  fechaBaja:          Date | null;
 }
 
 export interface Organizacion {
@@ -29,7 +40,7 @@ export interface Tipo {
   tipo:          string;
   imgUrl:        string;
   fechaCreacion: Date;
-  fechaBaja:     Date | null;
+  fechaBaja:     null;
 }
 
 export interface Turno {
@@ -37,17 +48,16 @@ export interface Turno {
   fechaCreacion:      Date;
   fechaActualizacion: Date;
   fechaBaja:          Date | null;
-  espacio:            Espacio;
-  horarios:           Horario[];
-  __tarifas__:        Tarifas[];
+  espacio:            null;
+  horarios:           HorarioElement[];
   inscriptos:         any[];
 }
 
-export interface Tarifas {
-  id:                 string;
-  fechaCreacion:      Date;
-  fechaActualizacion: Date;
-  fechaBaja:          Date | null;
+export interface HorarioElement {
+  id:         string;
+  fechaDesde: Date;
+  horario:    HorarioHorario;
+  espacio:    Espacio;
 }
 
 export interface Espacio {
@@ -59,7 +69,7 @@ export interface Espacio {
   fechaBaja:          Date | null;
 }
 
-export interface Horario {
+export interface HorarioHorario {
   id:            string;
   diaSemana:     string;
   horaInicio:    number;

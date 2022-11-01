@@ -6,7 +6,7 @@
 
   <div class="dropdown">
     <button class="btn dropdown-toggle" type="button" (click)="toggleProfile()" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <img class="profile" src="assets/img/profile.jpeg" alt="Avatar">
+      <img class="profile" src="{{profileImg}}" alt="Avatar">
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" [ngClass]="{'expand': profileButton}">
       <a class="dropdown-item" routerLink="/perfil">Perfil</a>

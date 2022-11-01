@@ -19,6 +19,9 @@
             <p *ngIf="isValid('codigo')" class="form-error">
               Por favor ingresa el mismo código que enviamos a tu mail.
             </p>
+            <p *ngIf="showError" class="form-error">
+              El código ingresado es incorrecto, revisa nuevamente tu correo.
+            </p>
           </div>
         </div>
       </section>
