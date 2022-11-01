@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { PersonalOrganizacion } from 'src/app/interfaces/get.employee.org.dto';
 import { User } from 'src/app/interfaces/get.user.response.dto';
@@ -44,16 +44,16 @@ export class PerfilUsuarioComponent implements OnInit {
     this.fileToUpload = event.target?.files[0];
     this.loading = !this.loading;
     if ( ! this.fileToUpload) throw new Error();
-    this.upload.upload(this.fileToUpload)
-    .then( result => {
+    this.upload.upload(this.fileToUpload).then(result => {
       this.loading = false;
       console.log(result.data.path,this.user?.id);
       this.auth.updateUserImage(result.data.path, this.user?.id || "")
       .then(result => console.log(result))
       this.profileUrl = environment.appUrl + environment.apiVersionUri + "/" +result.data.path;
-      // return window.location.reload();
+      return window.location.reload();
+
     })
-    .catch( error => console.log(error))
+    .catch( e => console.log(e));
   }
 
 }
