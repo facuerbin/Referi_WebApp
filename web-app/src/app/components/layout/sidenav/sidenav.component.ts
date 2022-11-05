@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faCalendarDay, faChartPie, faEnvelope, faFileInvoiceDollar, faHandHoldingUsd, faRunning, faSitemap, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -8,7 +9,8 @@ import { faCalendarDay, faChartPie, faEnvelope, faFileInvoiceDollar, faHandHoldi
 })
 export class SidenavComponent implements OnInit {
   @Input() sidenavToggle = false;
-  constructor() {
+
+  constructor(private auth: AuthService) {
   }
 
   report = faChartPie;

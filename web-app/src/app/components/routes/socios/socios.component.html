@@ -38,19 +38,21 @@
     >
     <thead>
       <tr>
-        <th scope="col">Legajo</th>
+        <th scope="col">DNI</th>
         <th scope="col">Email</th>
         <th scope="col">Nombre</th>
-        <th scope="col">DNI</th>
+        <th scope="col">Fecha de Inscripción</th>
+        <th scope="col">Estado</th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let socio of socios; let i = index">
-        <td>{{ socio.legajo }}</td>
-        <td>{{ socio.email }}</td>
-        <td>{{ socio.nombre }}</td>
-        <td>{{ socio.dni }}</td>
+        <td>{{ socio.usuario.dni }}</td>
+        <td>{{ socio.usuario.email }}</td>
+        <td>{{ socio.usuario.nombre }} {{ socio.usuario.apellido }}</td>
+        <td>{{ socio.turnoActividad.actividad?.nombre}}</td>
+        <td>{{ socio.estados[socio.estados.length - 1].nombre }}</td>
         <td class="d-flex justify-content-around">
           <a routerLink="/socios/detalle" class="action-button">
             <fa-icon class="action-icon"[icon]="detailIcon" aria-hidden="true"></fa-icon>

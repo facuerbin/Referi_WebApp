@@ -1,4 +1,4 @@
-export interface GetTarifasOrganizacion {
+export interface GetTarifasByOrganizacion {
   data: Tarifa[];
 }
 
@@ -6,16 +6,21 @@ export interface Tarifa {
   id:                 string;
   nombre:             string;
   monto:              number;
+  esOpcional:         boolean;
   fechaCreacion:      Date;
   fechaActualizacion: Date;
   fechaBaja:          Date | null;
   organizacion:       Organizacion;
   frecuencia:         Frecuencia;
-  actividades:        Actividade[];
+  actividad:          Actividad;
 }
 
-export interface Actividade {
+export interface Actividad {
   id:                 string;
+  nombre:             string;
+  descripcion:        string;
+  cupo:               number;
+  imgUrl:             string;
   fechaCreacion:      Date;
   fechaActualizacion: Date;
   fechaBaja:          Date | null;

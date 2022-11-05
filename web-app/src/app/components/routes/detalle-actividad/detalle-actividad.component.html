@@ -129,7 +129,7 @@
 
         <h3>Horarios</h3>
         <div *ngFor="let turno of turnosStrings, let i = index">
-          <h3>Turno N°{{i+1}}:</h3>
+          <h3>Turno N°{{i+1}}: {{turnosArray[i].inscriptos.length}} inscriptos</h3>
           <p *ngFor="let horario of turno">
             {{horario}}
           </p>

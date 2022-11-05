@@ -29,6 +29,7 @@ import { VerificarComponent } from './components/routes/verificar/verificar.comp
 import { CrearActividadComponent } from './components/routes/crear-actividad/crear-actividad.component';
 import { PerfilUsuarioComponent } from './components/routes/perfil-usuario/perfil-usuario.component';
 import { TablaComponent } from './components/shared/tabla/tabla.component';
+import { RecuperarContraseniaComponent } from './components/routes/recuperar-contrasenia/recuperar-contrasenia.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { TablaComponent } from './components/shared/tabla/tabla.component';
     DetalleActividadComponent,
     VerificarComponent,
     TablaComponent,
+    RecuperarContraseniaComponent,
   ],
   imports: [
     BrowserModule,

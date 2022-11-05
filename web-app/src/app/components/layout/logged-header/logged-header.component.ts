@@ -3,6 +3,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { CookieService } from 'ngx-cookie-service';
 import { from } from 'rxjs';
+import { GetUserResponseDto } from 'src/app/interfaces/get.user.response.dto';
+import { User } from 'src/app/interfaces/login.response.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { environment } from 'src/environments/environment.prod';
 
@@ -16,6 +18,7 @@ export class LoggedHeaderComponent implements OnInit {
   bar = faBars;
   profileButton = false;
   profileImg = environment.appUrl + environment.apiVersionUri + "/uploads/profile.jpeg";
+  user: GetUserResponseDto | null = null;
 
   constructor(private router: Router, private auth: AuthService) {
   }
@@ -25,6 +28,9 @@ export class LoggedHeaderComponent implements OnInit {
     obs.subscribe( result => {
       if (result.data.data.fotoPerfil) this.profileImg =  environment.appUrl + environment.apiVersionUri + '/' + result.data.data.fotoPerfil;
     });
+
+    const user = await this.auth.getUser();
+    this.user = user.data;
   }
 
   toggleButton () {

@@ -66,8 +66,8 @@ const routes: Routes = [
   },
   {
     path: "tarifas",
-    component:MaintenanceComponent
-    // component:TarifasComponent
+    // component:MaintenanceComponent
+    component:TarifasComponent
   },
   {
     path: "asistencia",

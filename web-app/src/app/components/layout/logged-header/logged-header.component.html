@@ -6,7 +6,15 @@
 
   <div class="dropdown">
     <button class="btn dropdown-toggle" type="button" (click)="toggleProfile()" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <img class="profile" src="{{profileImg}}" alt="Avatar">
+      <div class="d-flex">
+        <div>
+          <img class="profile" src="{{profileImg}}" alt="Avatar">
+        </div>
+        <div>
+          <span>{{user?.data?.nombre}} {{user?.data?.apellido}}</span>
+          <p>Administrador</p>
+        </div>
+      </div>
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" [ngClass]="{'expand': profileButton}">
       <a class="dropdown-item" routerLink="/perfil">Perfil</a>

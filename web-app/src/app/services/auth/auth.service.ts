@@ -28,6 +28,9 @@ import { GetActividadDetail } from 'src/app/interfaces/get.detail.actividad.dto'
 import { CreateTarifaDto } from 'src/app/interfaces/create.tarifa.dto';
 import { GetTarifasActividadDto } from 'src/app/interfaces/get.tarifas.actividad.dto';
 import { CreateTurnoDto } from 'src/app/interfaces/create.turno.dto';
+import { GetInscriptosByOrganizacion } from 'src/app/interfaces/get.inscriptos.organizacion.dto';
+import { GetPagosByOrganizacion } from 'src/app/interfaces/get.pagos.organizacion.dto';
+import { GetTarifasByOrganizacion } from 'src/app/interfaces/get.tarifas.organizacion.dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -245,5 +248,26 @@ export class AuthService {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/' + actividadId;
     const token = this.getToken();
     return this.http.get<GetActividadDetail>(url, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+  async getSociosByOrg () {
+    const orgId = await this.getOrgId();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/organizacion/' + orgId;
+    const token = this.getToken();
+    return this.http.get<GetInscriptosByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+  async getPagosByOrg() {
+    const orgId = await this.getOrgId();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/pagos/organizacion/' + orgId;
+    const token = this.getToken();
+    return this.http.get<GetPagosByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+  async getTarifasByOrg() {
+    const orgId = await this.getOrgId();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/tarifas/organizacion/' + orgId;
+    const token = this.getToken();
+    return this.http.get<GetTarifasByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 }

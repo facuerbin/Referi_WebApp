@@ -1,0 +1,91 @@
+
+<div class="modal" tabindex="-1" id="modalForm">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Crear Actividad</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <form
+              (ngSubmit)="handleForm()"
+              [formGroup]="recoverForm"
+              class="container-fluid"
+              *ngIf="load"
+            >
+              <div class="row">
+                <div class="col-10 col-sm">
+                  <h3>Datos de la Actividad</h3>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nombre"
+                      placeholder="Nombre"
+                      formControlName="nombre"
+                    />
+                    <p *ngIf="isValid('nombre')" class="form-error">
+                      Por favor asignele un nombre a la actividad
+                    </p>
+                  </div>
+
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="descripcion"
+                      placeholder="Descripción de la actividad"
+                      formControlName="descripcion"
+                    />
+                    <p
+                      *ngIf="isValid('descripcion')"
+                      class="form-error"
+                    >
+                      Por favor asignele un nombre a la actividad
+                    </p>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="cupo"
+                      placeholder="Cupo"
+                      formControlName="cupo"
+                    />
+                    <p *ngIf="isValid('cupo')" class="form-error">
+                      Por favor asignele un nombre a la actividad
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="handleForm()"
+              >
+              <!-- [disabled]="recoverForm.invalid" -->
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+                *ngIf="spinner"
+              ></span>
+              CREAR ACTIVIDAD
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
