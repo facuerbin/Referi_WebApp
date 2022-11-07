@@ -31,6 +31,8 @@ import { CreateTurnoDto } from 'src/app/interfaces/create.turno.dto';
 import { GetInscriptosByOrganizacion } from 'src/app/interfaces/get.inscriptos.organizacion.dto';
 import { GetPagosByOrganizacion } from 'src/app/interfaces/get.pagos.organizacion.dto';
 import { GetTarifasByOrganizacion } from 'src/app/interfaces/get.tarifas.organizacion.dto';
+import { EditTarifaDto } from 'src/app/interfaces/edit.tarifa.dto';
+import { GetUserInscripciones } from 'src/app/interfaces/get.inscripciones.user.dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -124,6 +126,20 @@ export class AuthService {
     return result;
   }
 
+  async deleteTarifa(idTarifa: string) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/tarifas/' + idTarifa;
+    const result = await axios.delete(url, { headers: { Authorization: `Bearer ${token}` }});
+    return result;
+  }
+
+  async editTarifa(dto: EditTarifaDto, id: string) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/tarifas/' + id;
+    const result = await axios.patch<CreateTarifaDto>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
+    return result;
+  }
+
   async createTurno(dto: CreateTurnoDto) {
     const token = this.getToken();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/turno';
@@ -200,7 +216,7 @@ export class AuthService {
     const uid = (await this.getUser()).data.data.id;
 
     const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
-    return (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data;
+    return this.http.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
   getDecodedAccessToken(): any {
@@ -269,5 +285,17 @@ export class AuthService {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/tarifas/organizacion/' + orgId;
     const token = this.getToken();
     return this.http.get<GetTarifasByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+  async getUserById(userId: string) {
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/usuarios/' + userId;
+    const token = this.getToken();
+    return this.http.get<GetUserResponseDto>(url, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+  async getInscripcionesByUserId(userId: string) {
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/usuario/' + userId;
+    const token = this.getToken();
+    return this.http.get<GetUserInscripciones>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 }

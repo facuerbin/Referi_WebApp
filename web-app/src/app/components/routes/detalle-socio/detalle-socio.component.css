@@ -22,7 +22,11 @@ p {
 }
 
 .img-actividad {
-  height: 100px;
+  width: 100%;
+}
+
+.estado {
+  margin-top: 20px;
 }
 
 .actividad-container {

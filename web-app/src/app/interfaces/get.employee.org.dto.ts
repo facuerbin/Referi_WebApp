@@ -6,7 +6,7 @@ export interface PersonalOrganizacion {
   id:                 string;
   fechaCreacion:      Date;
   fechaActualizacion: Date;
-  fechaBaja:          null;
+  fechaBaja:          Date | null;
   organizacion:       Organizacion;
   rol:                Rol;
 }
@@ -20,7 +20,7 @@ export interface Organizacion {
   email:              string;
   fechaCreacion:      Date;
   fechaActualizacion: Date;
-  fechaBaja:          null;
+  fechaBaja:          Date | null;
 }
 
 export interface Rol {
@@ -29,5 +29,14 @@ export interface Rol {
   descripcion:        string;
   fechaCreacion:      Date;
   fechaActualizacion: Date;
-  fechaBaja:          null;
+  fechaBaja:          Date | null;
+  permisos:           Permiso[];
+}
+
+export interface Permiso {
+  id:                 string;
+  modulo:             string;
+  fechaCreacion:      Date;
+  fechaActualizacion: Date;
+  fechaBaja:          Date | null;
 }

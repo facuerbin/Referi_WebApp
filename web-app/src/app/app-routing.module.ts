@@ -46,7 +46,7 @@ const routes: Routes = [
     component:SociosComponent
   },
   {
-    path: "socios/detalle",
+    path: "socios/detalle/:id",
     // component:MaintenanceComponent
     component:DetalleSocioComponent
   },

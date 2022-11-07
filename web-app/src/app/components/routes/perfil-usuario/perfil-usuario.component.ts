@@ -25,7 +25,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
   constructor(private auth: AuthService, private upload: UploadService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const user = this.auth.getUser();
     user.then(result => {
       this.user = result.data.data;
@@ -33,8 +33,8 @@ export class PerfilUsuarioComponent implements OnInit {
       if (result.data.data.fotoPerfil) this.profileUrl =  environment.appUrl + environment.apiVersionUri + "/" + result.data.data.fotoPerfil;
     });
 
-    const organizaciones = this.auth.listEmployeeOrganizations().then(res => {
-      this.organizaciones = res;
+    (await this.auth.listEmployeeOrganizations()).subscribe(res => {
+      this.organizaciones = res.data;
       this.logoUrl = this.organizaciones.map(res => environment.appUrl + environment.apiVersionUri + "/" + res.organizacion.logo);
       this.fechaInicio = this.organizaciones.map( res => ("" + res.fechaCreacion).slice(0,10));
     })
@@ -46,7 +46,6 @@ export class PerfilUsuarioComponent implements OnInit {
     if ( ! this.fileToUpload) throw new Error();
     this.upload.upload(this.fileToUpload).then(result => {
       this.loading = false;
-      console.log(result.data.path,this.user?.id);
       this.auth.updateUserImage(result.data.path, this.user?.id || "")
       .then(result => console.log(result))
       this.profileUrl = environment.appUrl + environment.apiVersionUri + "/" +result.data.path;

@@ -7,6 +7,7 @@ export const environment = {
   appUrl: 'referiapp.com.ar',
   apiVersionUri: '/v1',
   loginUri: '/auth',
+  tipoOrgUri: '/organizacion/tipo'
 };
 
 /*

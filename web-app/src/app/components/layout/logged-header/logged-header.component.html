@@ -12,14 +12,122 @@
         </div>
         <div>
           <span>{{user?.data?.nombre}} {{user?.data?.apellido}}</span>
-          <p>Administrador</p>
+          <p>{{rol}}</p>
         </div>
       </div>
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" [ngClass]="{'expand': profileButton}">
       <a class="dropdown-item" routerLink="/perfil">Perfil</a>
-      <a class="dropdown-item" href="#">Cambiar contraseña</a>
+      <button class="dropdown-item" type="button" (click)="openModal('modalCambiarContrasenia')">Cambiar contraseña</button>
       <a class="dropdown-item" href="#" (click)="logout()">Cerrar sesión</a>
     </div>
   </div>
 </header>
+
+
+
+<!-- Modal Cambiar contraseña -->
+<div
+  class="modal fade"
+  #modal
+  id="modalCambiarContrasenia"
+  tabindex="-1"
+  aria-labelledby="modalCambiarContrasenia"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Cambiar Contraseña:</h3>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="closeModal('modalCambiarContrasenia')"
+        ></button>
+      </div>
+      <div class="modal-body" [formGroup]="contraseniaForm">
+        <div class="form-group position-relative">
+          <input
+          type="{{ !passwordVisible.old ? 'password' : 'text' }}"
+            class="form-control"
+            id="oldPassword"
+            placeholder="Contraseña Actual"
+            formControlName="oldPassword"
+          />
+          <button class="form-icon-right" (click)="togglePassword('old')" type="button">
+            <fa-icon
+              *ngIf="!passwordVisible.old"
+              [icon]="eye"
+              aria-hidden="true"
+            ></fa-icon>
+            <fa-icon
+              *ngIf="passwordVisible.old"
+              [icon]="eyeSlash"
+              aria-hidden="true"
+            ></fa-icon>
+          </button>
+          <p *ngIf="isValid('oldPassword')" class="form-error">
+            Por favor ingrese su actual contraseña
+          </p>
+        </div>
+
+        <div class="form-group position-relative">
+          <input
+            type="text"
+            class="form-control"
+            id="newPassword"
+            placeholder="Nueva Contraseña"
+            formControlName="newPassword"
+          />
+          <button class="form-icon-right" (click)="togglePassword('new')" type="button">
+            <fa-icon
+              *ngIf="!passwordVisible.new"
+              [icon]="eye"
+              aria-hidden="true"
+            ></fa-icon>
+            <fa-icon
+              *ngIf="passwordVisible.new"
+              [icon]="eyeSlash"
+              aria-hidden="true"
+            ></fa-icon>
+          </button>
+          <p *ngIf="isValid('newPassword')" class="form-error">
+            Por favor ingrese su nueva contraseña
+          </p>
+        </div>
+
+        <div class="form-group position-relative">
+          <input
+            type="text"
+            class="form-control"
+            id="confirmPassword"
+            placeholder="Confirmar Contraseña"
+            formControlName="confirmPassword"
+          />
+          <button class="form-icon-right" (click)="togglePassword('confirm')" type="button">
+            <fa-icon
+              *ngIf="!passwordVisible.confirm"
+              [icon]="eye"
+              aria-hidden="true"
+            ></fa-icon>
+            <fa-icon
+              *ngIf="passwordVisible.confirm"
+              [icon]="eyeSlash"
+              aria-hidden="true"
+            ></fa-icon>
+          </button>
+          <p *ngIf="isValid('confirmPassword')" class="form-error">
+            Por favor ingrese nuevamente la nueva contraseña
+          </p>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" (click)="handleForm()">
+          AGREGAR TARIFA
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

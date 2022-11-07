@@ -2,6 +2,7 @@
   <section class="nav flex-column">
     <ul
       class="nav-item"
+      *ngIf="permisos.reportes"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
@@ -10,8 +11,10 @@
         <span *ngIf="sidenavToggle">Reportes</span>
       </a>
     </ul>
+
     <ul
       class="nav-item"
+      *ngIf="permisos.socios"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
@@ -20,8 +23,10 @@
         <span *ngIf="sidenavToggle">Socios</span>
       </a>
     </ul>
+
     <ul
       class="nav-item"
+      *ngIf="permisos.actividades"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
@@ -34,8 +39,10 @@
         <span *ngIf="sidenavToggle">Actividades</span>
       </a>
     </ul>
+
     <ul
       class="nav-item"
+      *ngIf="permisos.asistencia"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
@@ -48,8 +55,10 @@
         <span *ngIf="sidenavToggle">Asistencia</span>
       </a>
     </ul>
+
     <ul
       class="nav-item"
+      *ngIf="permisos.tarifas"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
@@ -62,8 +71,10 @@
         <span *ngIf="sidenavToggle">Tarifas</span>
       </a>
     </ul>
+
     <ul
       class="nav-item"
+      *ngIf="permisos.notificaciones"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
@@ -76,8 +87,10 @@
         <span *ngIf="sidenavToggle">Notificaciones</span>
       </a>
     </ul>
+
     <ul
       class="nav-item"
+      *ngIf="permisos.pagos"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
@@ -86,8 +99,10 @@
         <span *ngIf="sidenavToggle">Contabilidad</span>
       </a>
     </ul>
+
     <ul
       class="nav-item"
+      *ngIf="permisos.organizacion"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
@@ -100,6 +115,7 @@
         <span *ngIf="sidenavToggle">Mi Club</span>
       </a>
     </ul>
+
   </section>
   <section class="container-fluid">
     <router-outlet></router-outlet>

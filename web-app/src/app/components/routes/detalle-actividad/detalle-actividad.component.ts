@@ -86,7 +86,7 @@ export class DetalleActividadComponent implements OnInit {
             return (`${horario.horario.diaSemana}: de ${horario.horario.horaInicio}:${minIni} a ${Math.floor(horario.horario.horaInicio + horario.horario.duracion/60)}:${minFin}`);
           });
         });
-        console.log(this.actividad)
+
         this.fechaCreacion = ("" + this.actividad.fechaCreacion).slice(0,10);
         this.tarifas = result.__tarifas__;;
         this.imgUrl = environment.appUrl + environment.apiVersionUri + "/" + this.actividad.imgUrl;

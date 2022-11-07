@@ -9,6 +9,16 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class SidenavComponent implements OnInit {
   @Input() sidenavToggle = false;
+  permisos: Permisos = {
+    reportes: false,
+    socios: false,
+    actividades:false,
+    asistencia: false,
+    tarifas: false,
+    notificaciones: false,
+    pagos: false,
+    organizacion: false
+  };
 
   constructor(private auth: AuthService) {
   }
@@ -22,7 +32,27 @@ export class SidenavComponent implements OnInit {
   pagos = faFileInvoiceDollar;
   organization = faSitemap;
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    (await this.auth.listEmployeeOrganizations()).subscribe(result => {
+      (Object.keys(this.permisos) as (keyof typeof this.permisos)[]).forEach( (clave, i) => {
+        const permiso = result.data[0].rol.permisos.forEach( permiso => {
+          if (permiso.modulo === clave.toUpperCase()) {
+            this.permisos[clave] = true;
+          }
+        });
+      });
+    })
   }
 
+}
+
+interface Permisos {
+  reportes: boolean,
+  socios: boolean,
+  actividades:boolean,
+  asistencia: boolean,
+  tarifas: boolean,
+  notificaciones: boolean,
+  pagos: boolean,
+  organizacion: boolean
 }

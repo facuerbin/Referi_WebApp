@@ -7,72 +7,206 @@
       <form action="#">
         <div class="position-relative">
           <input
-          id="searchInput"
-          name="search"
-          placeholder="Buscar actividades"
-          type="text"
-          class="form-control"
-          [(ngModel)]="search"
-          (ngModelChange)="filterSearch()"
-        />
+            id="searchInput"
+            name="search"
+            placeholder="Buscar socios"
+            type="text"
+            class="form-control"
+            [(ngModel)]="search"
+            (ngModelChange)="filterSearch()"
+          />
+          <button
+            class="form-icon-right"
+            (click)="filterSearch()"
+            type="button"
+          >
+            <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-4">
+      <button
+        type="button"
+        (click)="openModal('modalAgregarUsuario')"
+        class="btn btn-primary"
+      >
+        INSCRIBIR NUEVO SOCIO
+      </button>
+    </div>
+
+    <div class="col-11 mt-4 table-wrapper">
+      <table
+        class="table table-striped table-hover table-bordered table-responsive"
+      >
+        <thead>
+          <tr>
+            <th scope="col">DNI</th>
+            <th scope="col">Email</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Fecha de Inscripción</th>
+            <th scope="col">Estado</th>
+            <!-- <th scope="col">Acciones</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="clickable-row"
+            *ngFor="let socio of sociosFiltered; let i = index"
+            [routerLink]="['/socios/detalle', socio.usuario.id]"
+          >
+            <td>{{ socio.usuario.dni }}</td>
+            <td>{{ socio.usuario.email }}</td>
+            <td>{{ socio.usuario.nombre }} {{ socio.usuario.apellido }}</td>
+            <td>{{ socio.turnoActividad.actividad?.nombre }}</td>
+            <td>{{ socio.estados[socio.estados.length - 1].nombre }}</td>
+            <!-- <td class="d-flex justify-content-around">
+              <a
+                routerLink="/socios/detalle/{{ socio.usuario.id }}"
+                class="action-button"
+              >
+                <fa-icon
+                  class="action-icon"
+                  [icon]="detailIcon"
+                  aria-hidden="true"
+                ></fa-icon>
+              </a>
+              <a routerLink="/socios/editar" class="action-button">
+                <fa-icon
+                  class="action-icon"
+                  [icon]="editIcon"
+                  aria-hidden="true"
+                ></fa-icon>
+              </a>
+              <a routerLink="/socios/eliminar" class="action-button">
+                <fa-icon
+                  class="action-icon"
+                  [icon]="trashIcon"
+                  aria-hidden="true"
+                ></fa-icon>
+              </a>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Agregar Usuario -->
+<div
+  class="modal fade"
+  #modal
+  id="modalAgregarUsuario"
+  tabindex="-1"
+  aria-labelledby="modalAgregarUsuario"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Crear nueva Tarifa</h3>
         <button
-          class="form-icon-right"
-          (click)="filterSearch()"
           type="button"
-        >
-          <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
+          class="btn-close"
+          aria-label="Close"
+          (click)="closeModal('modalAgregarUsuario')"
+        ></button>
+      </div>
+      <div class="modal-body" [formGroup]="sociosForm">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="nombre"
+            placeholder="Nombre de la tarifa"
+            formControlName="nombre"
+          />
+          <p *ngIf="isValid('nombre')" class="form-error">
+            Por favor asignele un nombre a la tarifa
+          </p>
+        </div>
+
+        <!-- <div class="form-group">
+            <input
+                      type="number"
+                      class="form-control"
+                      id="monto"
+                      placeholder="Monto"
+                      formControlName="monto"
+                    />
+                    <p
+                      *ngIf="isValid('monto')"
+                      class="form-error"
+                    >
+                      Por favor ingrese el monto de la tarifa
+                    </p>
+          </div>
+
+          <div class="form-group">
+            <select
+              class="form-control"
+              id="frecuencia"
+              formControlName="frecuencia"
+              [value]=""
+            >
+              <option value="" disabled selected>
+                Selecciona la frecuencia
+              </option>
+              <option
+                *ngFor="let frecuencia of frecuencias"
+                value="{{ frecuencia.nombre }}"
+              >
+                {{ frecuencia.nombre }}
+              </option>
+            </select>
+            <p
+            *ngIf="isValid('frecuencia')"
+            class="form-error"
+            >
+              Por favor asigne una frecuencia a la tarifa
+            </p>
+          </div>
+
+          <div class="form-group">
+            <select
+              class="form-control"
+              id="tipo"
+              formControlName="idActividad"
+              [value]=""
+            >
+              <option value="" disabled selected>
+                Selecciona un tipo de actividad
+              </option>
+              <option
+                *ngFor="let tipo of actividades"
+                value="{{ tipo.id }}"
+              >
+                {{ tipo.nombre }}
+              </option>
+            </select>
+            <p
+            *ngIf="isValid('idActividad')"
+            class="form-error"
+            >
+              Por favor asigne la tarifa a una actividad
+            </p>
+          </div>
+
+          <label><input type="checkbox" class="m-4" id="tarifaOpcion" formControlName="esOpcional" value="false"> ¿Es una tarifa opcional?</label>
+ -->
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" (click)="handleForm()">
+          AGREGAR TARIFA
         </button>
       </div>
-    </form>
+    </div>
   </div>
-
-  <div class="col-4">
-    <button type="button" (click)="openModal()" class="btn btn-primary">
-      INSCRIBIR NUEVO SOCIO
-    </button>
-  </div>
-
-  <div class="col-11 mt-4 table-wrapper">
-    <table
-    class="table table-striped table-hover table-bordered table-responsive"
-    >
-    <thead>
-      <tr>
-        <th scope="col">DNI</th>
-        <th scope="col">Email</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Fecha de Inscripción</th>
-        <th scope="col">Estado</th>
-        <th scope="col">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let socio of socios; let i = index">
-        <td>{{ socio.usuario.dni }}</td>
-        <td>{{ socio.usuario.email }}</td>
-        <td>{{ socio.usuario.nombre }} {{ socio.usuario.apellido }}</td>
-        <td>{{ socio.turnoActividad.actividad?.nombre}}</td>
-        <td>{{ socio.estados[socio.estados.length - 1].nombre }}</td>
-        <td class="d-flex justify-content-around">
-          <a routerLink="/socios/detalle" class="action-button">
-            <fa-icon class="action-icon"[icon]="detailIcon" aria-hidden="true"></fa-icon>
-          </a>
-          <a routerLink="/socios/editar" class="action-button">
-            <fa-icon class="action-icon"[icon]="editIcon" aria-hidden="true"></fa-icon>
-          </a>
-          <a routerLink="/socios/eliminar" class="action-button">
-            <fa-icon class="action-icon"[icon]="trashIcon" aria-hidden="true"></fa-icon>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-</div>
 </div>
 
-
-<div class="modal" tabindex="-1" id="modalForm">
+<!-- <div class="modal" tabindex="-1" id="modalForm">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -178,4 +312,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

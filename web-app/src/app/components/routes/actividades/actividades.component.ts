@@ -84,10 +84,7 @@ export class ActividadesComponent implements OnInit {
   }
 
   closeModal() {
-    this.modal = new Modal(document.getElementById("modalForm") || "", {
-      keyboard: false
-    });
-    this.modal.hide();
+    this.modal?.hide();
   }
 
 

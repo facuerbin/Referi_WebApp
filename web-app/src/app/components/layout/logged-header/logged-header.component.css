@@ -46,3 +46,33 @@ mat-sidenav-container {
 .dropdown {
   position: relative;
 }
+
+.form-control {
+  width: 30vw;
+}
+
+.form-group {
+  padding-bottom: 24px;
+  width: 90%;
+  margin: auto;
+}
+
+.form-error {
+  color: red;
+  font-size: 0.8rem;
+  display: inline;
+}
+
+.form-icon-right {
+  position: absolute;
+  top: 7px;
+  right: 14px;
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  color: #323232;
+}
+
+.form-icon-right:hover {
+  color: black
+}
