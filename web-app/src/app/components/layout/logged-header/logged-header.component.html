@@ -1,30 +1,62 @@
-<header class="d-flex justify-content-between align-items-center">
-  <div class="toggle-button" (click)="toggleButton()">
-    <fa-icon [icon]="bar" class="form-icon" aria-hidden="true"></fa-icon>
-  </div>
-  <img src="assets/logo/logo.png" alt="Referi Logo" class="logo" />
+<header class="container-fluid">
+  <div class="row">
+    <div class="col-3">
+      <div
+        class="d-flex align-items-center toggle-button h-100"
+        (click)="toggleButton()"
+      >
+        <fa-icon [icon]="bar" class="form-icon" aria-hidden="true"></fa-icon>
+      </div>
+    </div>
 
-  <div class="dropdown">
-    <button class="btn dropdown-toggle" type="button" (click)="toggleProfile()" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <div class="d-flex">
-        <div>
-          <img class="profile" src="{{profileImg}}" alt="Avatar">
-        </div>
-        <div>
-          <span>{{user?.data?.nombre}} {{user?.data?.apellido}}</span>
-          <p>{{rol}}</p>
+    <div class="col-6">
+      <div class="d-flex justify-content-center algin-items-center">
+        <img src="assets/logo/logo.png" alt="Referi Logo" class="logo" />
+      </div>
+    </div>
+
+    <div class="col-3 position-relative">
+      <div class="d-flex justify-content-end algin-items-center">
+        <button
+          class="btn btn-profile dropdown"
+          type="button"
+          (click)="toggleProfile('dropdownMenuButton')"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          data-bs-auto-close="outside"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-8">
+                <span>{{ user?.data?.nombre }} {{ user?.data?.apellido }}</span>
+                <p>{{ rol }}</p>
+              </div>
+              <div class="col-4 d-flex align-items-center">
+                <img class="profile" src="{{ profileImg }}" alt="Avatar" />
+              </div>
+            </div>
+          </div>
+        </button>
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="dropdownMenuButton"
+        >
+          <a class="dropdown-item" routerLink="/perfil">Perfil</a>
+          <button
+            class="dropdown-item"
+            type="button"
+            (click)="openModal('modalCambiarContrasenia')"
+          >
+            Cambiar contraseña
+          </button>
+          <a class="dropdown-item" href="#" (click)="logout()">Cerrar sesión</a>
         </div>
       </div>
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" [ngClass]="{'expand': profileButton}">
-      <a class="dropdown-item" routerLink="/perfil">Perfil</a>
-      <button class="dropdown-item" type="button" (click)="openModal('modalCambiarContrasenia')">Cambiar contraseña</button>
-      <a class="dropdown-item" href="#" (click)="logout()">Cerrar sesión</a>
     </div>
   </div>
 </header>
-
-
 
 <!-- Modal Cambiar contraseña -->
 <div
@@ -49,13 +81,17 @@
       <div class="modal-body" [formGroup]="contraseniaForm">
         <div class="form-group position-relative">
           <input
-          type="{{ !passwordVisible.old ? 'password' : 'text' }}"
+            type="{{ !passwordVisible.old ? 'password' : 'text' }}"
             class="form-control"
             id="oldPassword"
             placeholder="Contraseña Actual"
             formControlName="oldPassword"
           />
-          <button class="form-icon-right" (click)="togglePassword('old')" type="button">
+          <button
+            class="form-icon-right"
+            (click)="togglePassword($event, 'old')"
+            type="button"
+          >
             <fa-icon
               *ngIf="!passwordVisible.old"
               [icon]="eye"
@@ -74,13 +110,17 @@
 
         <div class="form-group position-relative">
           <input
-            type="text"
+          type="{{ !passwordVisible.new ? 'password' : 'text' }}"
             class="form-control"
             id="newPassword"
             placeholder="Nueva Contraseña"
             formControlName="newPassword"
           />
-          <button class="form-icon-right" (click)="togglePassword('new')" type="button">
+          <button
+            class="form-icon-right"
+            (click)="togglePassword($event, 'new')"
+            type="button"
+          >
             <fa-icon
               *ngIf="!passwordVisible.new"
               [icon]="eye"
@@ -99,13 +139,17 @@
 
         <div class="form-group position-relative">
           <input
-            type="text"
+          type="{{ !passwordVisible.confirm ? 'password' : 'text' }}"
             class="form-control"
             id="confirmPassword"
             placeholder="Confirmar Contraseña"
             formControlName="confirmPassword"
           />
-          <button class="form-icon-right" (click)="togglePassword('confirm')" type="button">
+          <button
+            class="form-icon-right"
+            (click)="togglePassword($event, 'confirm')"
+            type="button"
+          >
             <fa-icon
               *ngIf="!passwordVisible.confirm"
               [icon]="eye"
@@ -121,11 +165,10 @@
             Por favor ingrese nuevamente la nueva contraseña
           </p>
         </div>
-
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-primary" (click)="handleForm()">
-          AGREGAR TARIFA
+          CAMBIAR CONTRASEÑA
         </button>
       </div>
     </div>

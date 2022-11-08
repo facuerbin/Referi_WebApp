@@ -16,10 +16,10 @@ mat-sidenav-container {
 .toggle-button {
   background-color: #FF9900;
   width: 3rem;
-  height: 2rem;
   text-align: center;
   line-height: 2rem;
   border-radius: 8px;
+  justify-content: center;
 }
 
 .toggle-button:hover {
@@ -33,18 +33,16 @@ mat-sidenav-container {
 }
 
 
-.dropdown-toggle:hover {
+.btn-profile:hover {
   background-color: #FFB74D;
 }
 
-.expand {
-  display: block;
-  position: absolute;
-  left: -6rem;
+.dropdown-menu-right {
+  right: 0px;
 }
 
 .dropdown {
-  position: relative;
+  height: 60px;
 }
 
 .form-control {
@@ -75,4 +73,19 @@ mat-sidenav-container {
 
 .form-icon-right:hover {
   color: black
+}
+
+span {
+  color: white;
+  font-size: 1rem;
+}
+
+p {
+  color: white;
+  font-size: 0.7rem;
+}
+
+
+.form-icon {
+  color: white;
 }

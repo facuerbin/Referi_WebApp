@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import { FileUpload } from 'src/app/interfaces/file.upload.response.dto';

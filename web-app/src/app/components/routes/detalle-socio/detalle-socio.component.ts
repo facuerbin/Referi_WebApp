@@ -4,7 +4,7 @@ import { Horario } from 'src/app/interfaces/create.turno.dto';
 import { HorarioElement, Inscripcion } from 'src/app/interfaces/get.inscripciones.user.dto';
 import { User } from 'src/app/interfaces/get.user.response.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-detalle-socio',
@@ -30,7 +30,6 @@ export class DetalleSocioComponent implements OnInit {
         this.profileImg = environment.appUrl + environment.apiVersionUri + "/" + this.user.fotoPerfil;
         const birthday = new Date(this.user.fechaNacimiento);
         this.birthDate = birthday.getDate() + "/" + birthday.getMonth() + "/" + birthday.getFullYear();
-        console.log(this.user)
       });
 
       (await this.auth.getInscripcionesByUserId(this.userId)).subscribe(result => {

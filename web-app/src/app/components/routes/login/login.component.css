@@ -39,17 +39,6 @@ input {
   font-size: 0.8rem;
   display: inline;
 }
-.background {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  z-index: -5;
-  background-image: url('/assets/img/login1.jpg');
-  background-size: cover;
-  background-position-x: 0;
-}
 
 .btn {
   width: 70%;
@@ -78,4 +67,15 @@ form {
   color: black
 }
 
+a, a.nostyle:link {
+  text-decoration: inherit;
+  color: blue !important;
+  cursor: pointer !important;
+}
+
+a.nostyle:visited {
+  text-decoration: inherit;
+  color: blue;
+  cursor: pointer;
+}
 

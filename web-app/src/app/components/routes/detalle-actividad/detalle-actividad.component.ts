@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
-import { CreateTarifaDto } from 'src/app/interfaces/create.tarifa.dto';
 import { Horario } from 'src/app/interfaces/create.turno.dto';
 import { GetActividadDetail, Tarifas, Turno } from 'src/app/interfaces/get.detail.actividad.dto';
 import { Espacio } from 'src/app/interfaces/get.espacios.response.dto';
@@ -11,7 +10,7 @@ import { Frecuencia } from 'src/app/interfaces/get.tarifa.frecuencia.res.dto';
 import { TipoActividad } from 'src/app/interfaces/get.tipo.actividad.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UploadService } from 'src/app/services/upload/upload.service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-detalle-actividad',
@@ -61,12 +60,12 @@ export class DetalleActividadComponent implements OnInit {
   frecuencias: Frecuencia[] = [];
   imgUrl = environment.appUrl + environment.apiVersionUri + "/uploads/placeholder.png";
   dias = [
-    "LUNES" ,
-    "MARTES" ,
-    "MIERCOLES" ,
-    "JUEVES" ,
-    "VIERNES" ,
-    "SABADO" ,
+    "LUNES",
+    "MARTES",
+    "MIERCOLES",
+    "JUEVES",
+    "VIERNES",
+    "SABADO",
     "DOMINGO"
   ];
 
@@ -75,30 +74,32 @@ export class DetalleActividadComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(async params => {
       this.actividadId = params['id'];
-
-      (await this.auth.getActividadById(this.actividadId)).subscribe( result => {
-        this.actividad = {...result};
-        this.turnosArray = this.actividad.turnos;
-        this.turnosStrings = this.turnosArray.map( turno => {
-          return turno.horarios.map(horario => {
-            const minIni = horario.horario.minutosInicio>= 10 ? horario.horario.minutosInicio: '0'+horario.horario.minutosInicio;
-            const minFin = horario.horario.minutosInicio + horario.horario.duracion%60 >= 10 ? horario.horario.minutosInicio + horario.horario.duracion%60 : '0' + horario.horario.minutosInicio + horario.horario.duracion%60;
-            return (`${horario.horario.diaSemana}: de ${horario.horario.horaInicio}:${minIni} a ${Math.floor(horario.horario.horaInicio + horario.horario.duracion/60)}:${minFin}`);
-          });
-        });
-
-        this.fechaCreacion = ("" + this.actividad.fechaCreacion).slice(0,10);
-        this.tarifas = result.__tarifas__;;
-        this.imgUrl = environment.appUrl + environment.apiVersionUri + "/" + this.actividad.imgUrl;
-      });
-  });
-
-  this.getTipoActividad();
-  this.getFrecuencias();
-  this.getEspacios();
+    });
+    this.getTurnosActividad();
+    this.getTipoActividad();
+    this.getFrecuencias();
+    this.getEspacios();
   }
 
-  async getTipoActividad () {
+  async getTurnosActividad() {
+    (await this.auth.getActividadById(this.actividadId)).subscribe(result => {
+      this.actividad = { ...result };
+      this.turnosArray = this.actividad.turnos;
+      this.turnosStrings = this.turnosArray.map(turno => {
+        return turno.horarios.map(horario => {
+          const minIni = horario.horario.minutosInicio >= 10 ? horario.horario.minutosInicio : '0' + horario.horario.minutosInicio;
+          const minFin = horario.horario.minutosInicio + horario.horario.duracion % 60 >= 10 ? horario.horario.minutosInicio + horario.horario.duracion % 60 : '0' + horario.horario.minutosInicio + horario.horario.duracion % 60;
+          return (`${horario.horario.diaSemana}: de ${horario.horario.horaInicio}:${minIni} a ${Math.floor(horario.horario.horaInicio + horario.horario.duracion / 60)}:${minFin}`);
+        });
+      });
+
+      this.fechaCreacion = ("" + this.actividad.fechaCreacion).slice(0, 10);
+      this.tarifas = result.__tarifas__;;
+      this.imgUrl = environment.appUrl + environment.apiVersionUri + "/" + this.actividad.imgUrl;
+    });
+  }
+
+  async getTipoActividad() {
     return (await this.auth.getTipoActividad()).subscribe(res => {
       res.data.forEach(element => {
         this.tipoActividad.push(element);
@@ -135,10 +136,6 @@ export class DetalleActividadComponent implements OnInit {
     })
   }
 
-  handleForm() {
-
-  }
-
   async handleTarifasForm() {
     const orgId = await this.auth.getOrgId();
 
@@ -148,7 +145,7 @@ export class DetalleActividadComponent implements OnInit {
       esOpcional: !!this.tarifasForm.value['tarifaOpcional'],
       nombreFrecuencia: this.tarifasForm.value['frecuencia'],
       idActividad: this.actividadId,
-      idOrganizacion : orgId,
+      idOrganizacion: orgId,
     }
 
     const newTarifa = await this.auth.createTarifa(body);
@@ -157,7 +154,7 @@ export class DetalleActividadComponent implements OnInit {
 
   }
 
-  async handleHorariosForm(){
+  async handleHorariosForm() {
     const horario = {
       dia: this.horariosForm.value['dia'],
       horaInicio: this.horariosForm.value['horaInicio'],
@@ -165,8 +162,8 @@ export class DetalleActividadComponent implements OnInit {
       duracion: this.horariosForm.value['duracion'],
       espacio: this.horariosForm.value['espacio']
     }
-    this.horariosArray.push( horario);
-    this.horariosStrings.push(`${horario.dia}: de ${horario.horaInicio}:${horario.minutosInicio} a ${Math.floor(horario.horaInicio + horario.duracion/60)}:${horario.minutosInicio + horario.duracion%60}`)
+    this.horariosArray.push(horario);
+    this.horariosStrings.push(`${horario.dia}: de ${horario.horaInicio}:${horario.minutosInicio} a ${Math.floor(horario.horaInicio + horario.duracion / 60)}:${horario.minutosInicio + horario.duracion % 60}`)
   }
 
   async crearTurno() {
@@ -178,17 +175,18 @@ export class DetalleActividadComponent implements OnInit {
     const result = await this.auth.createTurno(dto);
     this.horariosArray = [];
     this.horariosStrings = [];
+    this.getTurnosActividad();
   }
 
   isValid(field: string): boolean {
     return false
     return this.actividadForm.controls[field].errors !== null &&
-    (this.actividadForm.controls[field].touched || this.actividadForm.controls[field].dirty);
+      (this.actividadForm.controls[field].touched || this.actividadForm.controls[field].dirty);
   }
 
   isValidTarifa(field: string): boolean {
     return this.tarifasForm.controls[field].errors !== null &&
-    (this.tarifasForm.controls[field].touched || this.tarifasForm.controls[field].dirty);
+      (this.tarifasForm.controls[field].touched || this.tarifasForm.controls[field].dirty);
   }
 
   openModalTarifas() {
@@ -235,27 +233,27 @@ export class DetalleActividadComponent implements OnInit {
 
     const res = this.auth.updateActividad(req);
     res.
-      then( result => {
+      then(result => {
         this.spinner = false;
         return window.location.reload();
       })
       .catch(e => {
-          console.log(e);
+        console.log(e);
       });
   }
 
   onChange(event: any) {
     this.fileToUpload = event.target?.files[0];
     this.load = !this.load;
-    if ( ! this.fileToUpload) throw new Error();
+    if (!this.fileToUpload) throw new Error();
     this.upload.upload(this.fileToUpload)
-    .then( result => {
-      this.load = false;
-      if (! this.actividad) throw new Error();
-      this.actividad.imgUrl = result.data.path;
-      this.auth.updateActividad(this.actividad);
-      return window.location.reload();
-    })
-    .catch( error => console.log(error))
+      .then(result => {
+        this.load = false;
+        if (!this.actividad) throw new Error();
+        this.actividad.imgUrl = result.data.path;
+        this.auth.updateActividad(this.actividad);
+        return window.location.reload();
+      })
+      .catch(error => console.log(error))
   }
 }

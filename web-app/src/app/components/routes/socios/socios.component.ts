@@ -20,6 +20,7 @@ export class SociosComponent implements OnInit {
   modal: bootstrap.Modal | undefined;
   modalError = false;
   search: string = "";
+  searchUser: string = "";
   socios: Inscripto[] = [];
   sociosFiltered: Inscripto[] = [];
 
@@ -70,6 +71,12 @@ export class SociosComponent implements OnInit {
 
   handleForm() {
 
+  }
+
+  buscarSocio() {
+    if (! this.sociosForm.controls['email'].errors) {
+      console.log(this.sociosForm.value['email'])
+    }
   }
 
   isValid(control: string) {

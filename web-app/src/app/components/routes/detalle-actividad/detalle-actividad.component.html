@@ -2,7 +2,7 @@
   <div class="row">
     <h2>Detalle de la Actividad:</h2>
   </div>
-  <form (ngSubmit)="handleForm()" [formGroup]="actividadForm" class="container-fluid">
+  <form [formGroup]="actividadForm" class="container-fluid">
     <div class="row">
       <div class="col-4 mt-3 position-relative">
         <img
@@ -147,7 +147,7 @@
 
 
 <!-- Modale Crear Tarifa -->
-<div class="modal" tabindex="-1" id="modalTarifas">
+<div class="modal fade" tabindex="-1" id="modalTarifas">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -164,7 +164,6 @@
         <div class="row">
           <div class="col-12">
             <form
-              (ngSubmit)="handleForm()"
               [formGroup]="tarifasForm"
               class="container-fluid"
               *ngIf="load"
@@ -252,7 +251,7 @@
 
 
 <!-- Modale Crear Turno -->
-<div class="modal" tabindex="-1" id="modalHorarios">
+<div class="modal fade" tabindex="-1" id="modalHorarios">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -269,7 +268,6 @@
         <div class="row">
           <div class="col-12">
             <form
-              (ngSubmit)="handleForm()"
               [formGroup]="horariosForm"
               class="container-fluid"
               *ngIf="load"

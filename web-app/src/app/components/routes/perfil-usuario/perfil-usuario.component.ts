@@ -4,7 +4,7 @@ import { PersonalOrganizacion } from 'src/app/interfaces/get.employee.org.dto';
 import { User } from 'src/app/interfaces/get.user.response.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UploadService } from 'src/app/services/upload/upload.service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-perfil-usuario',

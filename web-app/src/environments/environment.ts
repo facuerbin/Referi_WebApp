@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  appUrl: 'referiapp.com.ar',
+  appUrl: 'http://localhost:3000',
   apiVersionUri: '/v1',
-  loginUri: '/auth',
+  loginUri: '/auth/login',
   tipoOrgUri: '/organizacion/tipo'
 };
 

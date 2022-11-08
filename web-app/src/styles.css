@@ -2,3 +2,21 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.background {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: -5;
+  background-image: url('/assets/img/login1.jpg');
+  background-size: cover;
+  background-position-x: 0;
+}
+
+.form-error {
+  color: red;
+  font-size: 0.8rem;
+  display: inline;
+}

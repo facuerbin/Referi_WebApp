@@ -1,15 +1,14 @@
 
-<div class="modal" tabindex="-1" id="modalForm">
+<div class="modal fade" tabindex="-1" id="modalContrasenia">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">Crear Actividad</h3>
+        <h3 class="modal-title">Recuperar contraseña</h3>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
-          (click)="closeModal()"
         ></button>
       </div>
       <div class="modal-body">
@@ -19,51 +18,26 @@
               (ngSubmit)="handleForm()"
               [formGroup]="recoverForm"
               class="container-fluid"
-              *ngIf="load"
             >
               <div class="row">
                 <div class="col-10 col-sm">
-                  <h3>Datos de la Actividad</h3>
+                  <h3>Ingrese el correo electrónico de la cuenta a recuperar</h3>
                   <div class="form-group">
                     <input
                       type="text"
                       class="form-control"
-                      id="nombre"
-                      placeholder="Nombre"
-                      formControlName="nombre"
+                      id="email"
+                      placeholder="Email"
+                      formControlName="email"
                     />
-                    <p *ngIf="isValid('nombre')" class="form-error">
-                      Por favor asignele un nombre a la actividad
+                    <p *ngIf="isValid('email')" class="form-error">
+                      Por favor asignele un email válido
+                    </p>
+                    <p *ngIf="emailStatus" class="form-success">
+                      Se envió un correo electrónico a la cuenta ingresada
                     </p>
                   </div>
 
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="descripcion"
-                      placeholder="Descripción de la actividad"
-                      formControlName="descripcion"
-                    />
-                    <p
-                      *ngIf="isValid('descripcion')"
-                      class="form-error"
-                    >
-                      Por favor asignele un nombre a la actividad
-                    </p>
-                  </div>
-                  <div class="form-group">
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="cupo"
-                      placeholder="Cupo"
-                      formControlName="cupo"
-                    />
-                    <p *ngIf="isValid('cupo')" class="form-error">
-                      Por favor asignele un nombre a la actividad
-                    </p>
-                  </div>
                 </div>
               </div>
             </form>
@@ -73,15 +47,15 @@
               type="button"
               class="btn btn-primary"
               (click)="handleForm()"
+              [disabled]="recoverForm.invalid"
               >
-              <!-- [disabled]="recoverForm.invalid" -->
               <span
                 class="spinner-border spinner-border-sm"
                 role="status"
                 aria-hidden="true"
                 *ngIf="spinner"
               ></span>
-              CREAR ACTIVIDAD
+              RECUPERAR CONTRASEÑA
             </button>
           </div>
         </div>

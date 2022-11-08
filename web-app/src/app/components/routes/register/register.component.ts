@@ -91,7 +91,6 @@ export class RegisterComponent implements OnInit {
       nombre: registerForm.nombre,
       direccion: domicilio,
       tipoOrganizacion: registerForm.tipo,
-      logo: "",
       descripcion: registerForm.descripcion,
       telefono: registerForm.telefono,
       email: registerForm.email
@@ -111,8 +110,10 @@ export class RegisterComponent implements OnInit {
 
     const user = await this.auth.createUser(usuarioDto);
     const org = await this.auth.createOrganization(organizacionDto);
-    if (user && org) return this.router.navigate(["verify"]);
-    else return false
+    if (user && org) {
+      await this.auth.addOrganizationOwner(org.id, user.email);
+      return this.router.navigate(["verify"]);
+    } else return false
   }
 
   return () {
@@ -127,6 +128,11 @@ export class RegisterComponent implements OnInit {
   isValid(field: string): boolean {
     return this.loginForm.controls[field].errors !== null &&
     (this.loginForm.controls[field].touched || this.loginForm.controls[field].dirty);
+  }
+
+  isValidRepeatPassword(): boolean {
+    return this.loginForm.controls['password'].value != this.loginForm.controls['repeatPassword'].value &&
+    (this.loginForm.controls['repeatPassword'].touched || this.loginForm.controls['repeatPassword'].dirty);
   }
 
   togglePassword(event: MouseEvent, field: number) {

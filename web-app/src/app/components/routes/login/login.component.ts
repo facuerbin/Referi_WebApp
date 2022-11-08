@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { Modal } from 'bootstrap';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -12,15 +13,16 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = this.formBuilder.group({
     email: ["", [Validators.required, Validators.email]],
-    password: ["", [Validators.required, Validators.minLength(8)]]
+    password: ["", [Validators.required, Validators.minLength(8)]],
   });
 
   eye = faEye;
   eyeSlash = faEyeSlash;
   passwordIsVisible = false;
   loginFailed = false;
+  modal: Modal | undefined;
 
-  constructor(private formBuilder: FormBuilder,  private router: Router, private auth: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
 
 
   ngOnInit(): void {
@@ -32,8 +34,9 @@ export class LoginComponent implements OnInit {
     const login = await this.auth.processLogin(email, password);
     login.subscribe(
       {
-        next: data => {
-          return this.router.navigate([""]);
+        next: async data => {
+          await this.auth.loginSucces(data);
+          return true;
         },
         error: error => {
           this.loginFailed = true;
@@ -41,7 +44,6 @@ export class LoginComponent implements OnInit {
         }
       })
   }
-
 
   isValid(field: string): boolean {
     return this.loginForm.controls[field].errors !== null &&
@@ -51,6 +53,17 @@ export class LoginComponent implements OnInit {
   togglePassword(event: MouseEvent) {
     event.preventDefault();
     return this.passwordIsVisible = !this.passwordIsVisible;
+  }
+
+  openModal(id: string) {
+    this.modal = new Modal(document.getElementById(id) || "", {
+      keyboard: false
+    });
+    this.modal.show();
+  }
+
+  closeModal(id: string) {
+    this.modal?.hide();
   }
 
 }

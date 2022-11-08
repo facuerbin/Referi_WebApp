@@ -106,7 +106,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Crear nueva Tarifa</h3>
+        <h3 class="modal-title" id="exampleModalLabel">Inscribir nuevo Socio:</h3>
         <button
           type="button"
           class="btn-close"
@@ -115,59 +115,53 @@
         ></button>
       </div>
       <div class="modal-body" [formGroup]="sociosForm">
+        <div class="form-group position-relative">
+          <input
+            id="searchUser"
+            name="search"
+            placeholder="Buscar usuario"
+            type="email"
+            class="form-control"
+            formControlName="email"
+          />
+          <button
+            class="form-icon-right"
+            (click)="buscarSocio()"
+            type="button"
+          >
+            <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
+          </button>
+        </div>
+
         <div class="form-group">
           <input
             type="text"
             class="form-control"
             id="nombre"
-            placeholder="Nombre de la tarifa"
+            placeholder="Nombre del inscripto"
             formControlName="nombre"
           />
           <p *ngIf="isValid('nombre')" class="form-error">
-            Por favor asignele un nombre a la tarifa
+            Ingrese el nombre del nuevo inscripto
           </p>
         </div>
 
-        <!-- <div class="form-group">
-            <input
-                      type="number"
-                      class="form-control"
-                      id="monto"
-                      placeholder="Monto"
-                      formControlName="monto"
-                    />
-                    <p
-                      *ngIf="isValid('monto')"
-                      class="form-error"
-                    >
-                      Por favor ingrese el monto de la tarifa
-                    </p>
-          </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="apellido"
+            placeholder="Apellido del inscripto"
+            formControlName="apellido"
+          />
+          <p *ngIf="isValid('apellido')" class="form-error">
+            Ingrese el apellido del nuevo inscripto
+          </p>
+        </div>
 
-          <div class="form-group">
-            <select
-              class="form-control"
-              id="frecuencia"
-              formControlName="frecuencia"
-              [value]=""
-            >
-              <option value="" disabled selected>
-                Selecciona la frecuencia
-              </option>
-              <option
-                *ngFor="let frecuencia of frecuencias"
-                value="{{ frecuencia.nombre }}"
-              >
-                {{ frecuencia.nombre }}
-              </option>
-            </select>
-            <p
-            *ngIf="isValid('frecuencia')"
-            class="form-error"
-            >
-              Por favor asigne una frecuencia a la tarifa
-            </p>
-          </div>
+
+
+        <!--
 
           <div class="form-group">
             <select
@@ -193,123 +187,13 @@
               Por favor asigne la tarifa a una actividad
             </p>
           </div>
-
-          <label><input type="checkbox" class="m-4" id="tarifaOpcion" formControlName="esOpcional" value="false"> ¿Es una tarifa opcional?</label>
- -->
+-->
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-primary" (click)="handleForm()">
-          AGREGAR TARIFA
+          INSCRIBIR SOCIO
         </button>
       </div>
     </div>
   </div>
 </div>
-
-<!-- <div class="modal" tabindex="-1" id="modalForm">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Agregar un nuevo socio:</h3>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="closeModal()"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-12">
-            <form
-              (ngSubmit)="handleForm()"
-              [formGroup]="sociosForm"
-              class="container-fluid"
-            >
-              <div class="row">
-                <div class="col-10 col-sm">
-                  <h3>Datos del inscripto</h3>
-
-                  <div class="form-group">
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="email"
-                      placeholder="Email"
-                      formControlName="email"
-                    />
-                    <p *ngIf="isValid('email')" class="form-error">
-                      Por favor asignele un email a la actividad
-                    </p>
-                  </div>
-
-                  <div class="container">
-
-                    <div class="row">
-                      <div class="form-group col-5 col-sm">
-                      <input
-                      type="text"
-                      class="form-control"
-                      id="nombre"
-                      placeholder="Nombre"
-                      formControlName="nombre"
-                      />
-                      <p *ngIf="isValid('nombre')" class="form-error">
-                        Por favor asignele un nombre a la actividad
-                      </p>
-                    </div>
-
-                    <div class="form-group col-5 col-sm">
-                      <input
-                      type="text"
-                      class="form-control"
-                      id="apellido"
-                      placeholder="Apellido"
-                      formControlName="apellido"
-                      />
-                      <p *ngIf="isValid('apellido')" class="form-error">
-                        Por favor asignele un apellido a la actividad
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                  <div class="form-group">
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="dni"
-                      placeholder="DNI"
-                      formControlName="dni"
-                    />
-                    <p *ngIf="isValid('dni')" class="form-error">
-                      Por favor ingrese un DNI
-                    </p>
-                  </div>
-
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer justify-content-center">
-            <button
-              type="button"
-              class="btn btn-primary"
-              (click)="handleForm()"
-              [disabled]="sociosForm.invalid"
-            >
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-                *ngIf="spinner"
-              ></span>
-              INSCRIBIR SOCIO
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->

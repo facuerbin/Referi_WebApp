@@ -8,7 +8,7 @@ import { LoginDto } from 'src/app/interfaces/login.dto';
 import { Data, LoginResponseDto, User } from 'src/app/interfaces/login.response.dto';
 import { RegisterDto } from 'src/app/interfaces/register.organizacion.dto';
 import { RegisterUserResponseDto } from 'src/app/interfaces/user.registry.response.dto';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import axios, { AxiosResponse } from 'axios';
 import { RegisterOrganizationResponseDto } from 'src/app/interfaces/organization.registry,response.dto';
 import { VerifyEmailDto } from 'src/app/interfaces/verify.email.dto';
@@ -33,6 +33,7 @@ import { GetPagosByOrganizacion } from 'src/app/interfaces/get.pagos.organizacio
 import { GetTarifasByOrganizacion } from 'src/app/interfaces/get.tarifas.organizacion.dto';
 import { EditTarifaDto } from 'src/app/interfaces/edit.tarifa.dto';
 import { GetUserInscripciones } from 'src/app/interfaces/get.inscripciones.user.dto';
+import { CreateEmployeeResponse } from 'src/app/interfaces/create.owner.response.dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -43,34 +44,42 @@ export class AuthService {
   constructor(private router: Router, private http: HttpClient, private cookieService: CookieService) { }
 
   async processLogin(email: string, password: string) {
-    // const url = 'https://' + environment.appUrl + environment.apiVersionUri + environment.loginUri;
-    const url = 'http://localhost:3000' + environment.apiVersionUri + environment.loginUri;
+    const url = environment.appUrl + environment.apiVersionUri + environment.loginUri;
     const dto: LoginDto = {
       email,
       password,
     }
 
     const request = this.http.post<LoginResponseDto>(url, dto)
-    request.subscribe(
-      {
-        next: data => {
-          this.user = data.data.user
-          this.cookieService.set('token', data.data.access_token)
-          this.cookieService.set('uid',data.data.user.id)
-          this.getOrganizationDetail();
-          return this.router.navigate([""]);
-        },
-        error: error => {
-          return false;
-        }
-      })
-
     return request;
+  }
+
+  async loginSucces (data: LoginResponseDto) {
+    this.user = data.data.user
+    this.cookieService.set('token', data.data.access_token)
+    this.cookieService.set('uid',data.data.user.id)
+    if (data.data.access_token) await this.getOrganizationDetail();
+    return this.router.navigate([""]);
   }
 
   async processRegistry(registryForm: RegisterDto) {
     const user = this.createUser(registryForm.User);
     const org = "";
+  }
+
+  async recoverPassword(email: string) {
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/auth/recover';
+    return (await axios.post(url, {email}));
+  }
+
+  async addOrganizationOwner(orgId: string, userEmail: string) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId  + '/personal';
+    const body = {
+      emailUsuario: userEmail,
+      rol: "Propietario"
+    }
+    return (await axios.post<CreateEmployeeResponse>(url, body, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 
   async createUser(userForm: CreateUserDto) {
@@ -148,8 +157,11 @@ export class AuthService {
   }
 
   logout() {
+    console.log("it works")
     this.cookieService.delete('token');
-    return this.router.navigate(['login']);
+    this.cookieService.delete('uuid');
+    this.cookieService.delete('org');
+    return this.router.navigate(["/login"]);
   }
 
   async verifyEmail(dto: VerifyEmailDto) {

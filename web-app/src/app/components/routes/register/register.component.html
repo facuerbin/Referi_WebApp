@@ -9,11 +9,11 @@
         <div class="container">
           <div class="form-group col-10">
             <input
-            type="text"
-            class="form-control"
-            id="nombre"
-            placeholder="Nombre"
-            formControlName="nombre"
+              type="text"
+              class="form-control"
+              id="nombre"
+              placeholder="Nombre"
+              formControlName="nombre"
             />
             <p *ngIf="isValid('nombre')" class="form-error">
               Por favor ingrese el nombre de su institución
@@ -22,11 +22,11 @@
 
           <div class="form-group col-10">
             <input
-            type="text"
-            class="form-control"
-            id="descripcion"
-            placeholder="Descripción"
-            formControlName="descripcion"
+              type="text"
+              class="form-control"
+              id="descripcion"
+              placeholder="Descripción"
+              formControlName="descripcion"
             />
             <p *ngIf="isValid('descripcion')" class="form-error">
               Por favor ingrese una descripcion para su institución
@@ -54,18 +54,18 @@
         <div class="container">
           <div class="form-group col-10">
             <input
-            type="text"
-            class="form-control w70"
-            id="calle"
-            placeholder="Calle"
-            formControlName="calle"
+              type="text"
+              class="form-control w70"
+              id="calle"
+              placeholder="Calle"
+              formControlName="calle"
             />
             <input
-            type="number"
-            class="form-control w20"
-            id="numero"
-            placeholder="Número"
-            formControlName="numero"
+              type="number"
+              class="form-control w20"
+              id="numero"
+              placeholder="Número"
+              formControlName="numero"
             />
             <p *ngIf="isValid('calle')" class="form-error">
               Por favor complete el campo calle
@@ -77,11 +77,11 @@
 
           <div class="form-group col-10">
             <input
-            type="text"
-            class="form-control"
-            id="ciudad"
-            placeholder="Ciudad"
-            formControlName="ciudad"
+              type="text"
+              class="form-control"
+              id="ciudad"
+              placeholder="Ciudad"
+              formControlName="ciudad"
             />
             <p *ngIf="isValid('ciudad')" class="form-error">
               Por favor complete este campo
@@ -90,11 +90,11 @@
 
           <div class="form-group col-10">
             <input
-            type="text"
-            class="form-control"
-            id="provincia"
-            placeholder="Provincia"
-            formControlName="provincia"
+              type="text"
+              class="form-control"
+              id="provincia"
+              placeholder="Provincia"
+              formControlName="provincia"
             />
             <p *ngIf="isValid('provincia')" class="form-error">
               Por favor complete este campo
@@ -103,11 +103,11 @@
 
           <div class="form-group col-10">
             <input
-            type="text"
-            class="form-control"
-            id="telefono"
-            placeholder="Telefono"
-            formControlName="telefono"
+              type="text"
+              class="form-control"
+              id="telefono"
+              placeholder="Telefono"
+              formControlName="telefono"
             />
             <p *ngIf="isValid('telefono')" class="form-error">
               Por favor complete este campo
@@ -121,57 +121,55 @@
         <div class="container">
           <div class="form-group col-10 row">
             <input
-            type="text"
-            class="form-control"
-            id="fname"
-            placeholder="Nombre"
-            formControlName="fname"
+              type="text"
+              class="form-control"
+              id="fname"
+              placeholder="Nombre"
+              formControlName="fname"
             />
             <p *ngIf="isValid('fname')" class="form-error">
-              Por favor complete este campo
+              Ingrese su nombre
             </p>
           </div>
 
           <div class="form-group col-10 row">
             <input
-            type="text"
-            class="form-control"
-            id="lname"
-            placeholder="Apellido"
-            formControlName="lname"
+              type="text"
+              class="form-control"
+              id="lname"
+              placeholder="Apellido"
+              formControlName="lname"
             />
             <p *ngIf="isValid('lname')" class="form-error">
-              Por favor complete este campo
+              Ingrese su apellido
             </p>
           </div>
 
-          <div class="row">
-            <div class="col-1"></div>
-            <div class="form-group col-5 m-0">
-              <input
+          <div class="form-group col-10 row">
+            <input
               type="number"
               class="form-control"
               id="dni"
               placeholder="DNI"
               formControlName="dni"
-              />
-              <p *ngIf="isValid('dni')" class="form-error">
-                Por favor complete este campo
-              </p>
-            </div>
+            />
+            <p *ngIf="isValid('dni')" class="form-error">
+              Ingrese su DNI
+            </p>
+          </div>
 
-            <div class="form-group col-5 m-0">
-              <input
-              type="date"
+          <div class="form-group col-10 row">
+            <input
+              type="text"
               class="form-control"
               id="fechaNac"
               placeholder="Fecha de Nacimiento"
               formControlName="fechaNac"
-              />
-              <p *ngIf="isValid('fechaNac')" class="form-error">
-                Por favor complete este campo
-              </p>
-            </div>
+              onfocus="(this.type='date')"
+            />
+            <p *ngIf="isValid('fechaNac')" class="form-error">
+              Ingrese su fecha de nacimiento
+            </p>
           </div>
         </div>
       </section>
@@ -181,11 +179,11 @@
         <div class="container">
           <div class="form-group col-10 row">
             <input
-            type="email"
-            class="form-control"
-            id="email"
-            placeholder="Correo Electrónico"
-            formControlName="email"
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Correo Electrónico"
+              formControlName="email"
             />
             <p *ngIf="isValid('email')" class="form-error">
               Por favor ingrese un correo electrónico válido
@@ -194,100 +192,103 @@
 
           <div class="form-group col-10 row position-relative">
             <input
-            type="{{ !passwordIsVisible ? 'password' : 'text' }}"
-            class="form-control"
-            placeholder="Contraseña"
-            formControlName="password"
+              type="{{ !passwordIsVisible ? 'password' : 'text' }}"
+              class="form-control"
+              placeholder="Contraseña"
+              formControlName="password"
             />
             <p *ngIf="isValid('password')" class="form-error">
               La contraseña debe tener al menos 8 caracteres
             </p>
 
             <button
-            class="form-icon-right"
-            (click)="togglePassword($event, 1)"
-            type="button"
+              class="form-icon-right"
+              (click)="togglePassword($event, 1)"
+              type="button"
             >
-            <fa-icon
-            *ngIf="!passwordIsVisible"
-            [icon]="eye"
-            aria-hidden="true"
-            ></fa-icon>
-            <fa-icon
-            *ngIf="passwordIsVisible"
-            [icon]="eyeSlash"
-            aria-hidden="true"
-            ></fa-icon>
-          </button>
+              <fa-icon
+                *ngIf="!passwordIsVisible"
+                [icon]="eye"
+                aria-hidden="true"
+              ></fa-icon>
+              <fa-icon
+                *ngIf="passwordIsVisible"
+                [icon]="eyeSlash"
+                aria-hidden="true"
+              ></fa-icon>
+            </button>
+          </div>
+
+          <div class="form-group col-10 row position-relative">
+            <input
+              type="{{ !repeatPasswordIsVisible ? 'password' : 'text' }}"
+              class="form-control"
+              placeholder="Repetir contraseña"
+              formControlName="repeatPassword"
+            />
+            <p *ngIf="isValid('repeatPassword')" class="form-error">
+              La contraseña debe tener al menos 8 caracteres
+            </p>
+            <p *ngIf="isValidRepeatPassword()" class="form-error">
+              La contraseña ingresada no es igual a la anterior
+            </p>
+
+            <button
+              class="form-icon-right"
+              (click)="togglePassword($event, 2)"
+              type="button"
+            >
+              <fa-icon
+                *ngIf="!repeatPasswordIsVisible"
+                [icon]="eye"
+                aria-hidden="true"
+              ></fa-icon>
+              <fa-icon
+                *ngIf="repeatPasswordIsVisible"
+                [icon]="eyeSlash"
+                aria-hidden="true"
+              ></fa-icon>
+            </button>
+          </div>
         </div>
+      </section>
 
-        <div class="form-group col-10 row position-relative">
-          <input
-          type="{{ !repeatPasswordIsVisible ? 'password' : 'text' }}"
-          class="form-control"
-          placeholder="Repetir contraseña"
-          formControlName="repeatPassword"
-          />
-          <p *ngIf="isValid('repeatPassword')" class="form-error">
-            La contraseña debe tener al menos 8 caracteres
-          </p>
-
-          <button
-          class="form-icon-right"
-          (click)="togglePassword($event, 2)"
+      <section class="buttons-section">
+        <button
+          *ngIf="section !== 4"
+          (click)="next()"
           type="button"
-          >
-          <fa-icon
-          *ngIf="!repeatPasswordIsVisible"
-          [icon]="eye"
-          aria-hidden="true"
-          ></fa-icon>
-          <fa-icon
-          *ngIf="repeatPasswordIsVisible"
-          [icon]="eyeSlash"
-          aria-hidden="true"
-          ></fa-icon>
+          class="btn btn-primary"
+          [disabled]="section > 4"
+        >
+          SIGUIENTE
         </button>
-      </div>
-    </div>
-  </section>
 
-  <section class="buttons-section">
-    <button
-    *ngIf="section !== 4"
-    (click)="next()"
-    type="button"
-    class="btn btn-primary"
-    [disabled]="section > 4"
-    >
-    SIGUIENTE
-  </button>
+        <button
+          *ngIf="section === 4"
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="section > 4"
+        >
+          FINALIZAR
+        </button>
 
-  <button
-  *ngIf="section === 4"
-  type="submit"
-  class="btn btn-primary"
-  [disabled]="section > 4"
-  >
-  FINALIZAR
-</button>
-
-<button
-(click)="return()"
-class="btn btn-secondary"
-type="button"
-[disabled]="section <= 1"
->
-VOLVER
-</button>
-<p>
-  Si ya tenés una cuenta
-  <a routerLink="/login"> inicia sesión </a>
-</p>
-</section>
-</form>
-<!-- <p>
+        <button
+          (click)="return()"
+          class="btn btn-secondary"
+          type="button"
+          [disabled]="section <= 1"
+        >
+          VOLVER
+        </button>
+        <p>
+          Si ya tenés una cuenta
+          <a routerLink="/login"> inicia sesión </a>
+        </p>
+      </section>
+    </form>
+    <!-- <p>
   Registrandote, aceptas nuetros Términos y Condiciones y Política de Privacidad
 </p> -->
-</section>
+  </section>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-recuperar-contrasenia',
@@ -8,23 +9,27 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RecuperarContraseniaComponent implements OnInit {
   spinner: any;
-  isValid(arg0: string): any {
-    throw new Error('Method not implemented.');
-  }
   recoverForm: FormGroup = this.formBuilder.group({
-    nombre: ["", [Validators.required]],
+    email: ["", [Validators.required, Validators.email]],
   });
   load: any;
-  handleForm() {
-    throw new Error('Method not implemented.');
-  }
-  closeModal() {
-    throw new Error('Method not implemented.');
+  emailStatus: boolean = false;
+
+  constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
+
+  async handleForm() {
+    const response = await this.auth.recoverPassword(this.recoverForm.value['email']);
+    if (response.status == 200) {
+      this.emailStatus = true;
+    }
   }
 
-  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
   }
 
+  isValid(field: string): boolean {
+    return this.recoverForm.controls[field].errors !== null &&
+    (this.recoverForm.controls[field].touched || this.recoverForm.controls[field].dirty);
+  }
 }

@@ -2,11 +2,11 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faBars, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { Modal } from 'bootstrap';
+import { Dropdown, Modal } from 'bootstrap';
 import { from } from 'rxjs';
 import { GetUserResponseDto } from 'src/app/interfaces/get.user.response.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-logged-header',
@@ -24,6 +24,7 @@ export class LoggedHeaderComponent implements OnInit {
     confirm: false
   }
   profileButton = false;
+  dropDown: Dropdown | undefined;
   profileImg = environment.appUrl + environment.apiVersionUri + "/uploads/profile.jpeg";
   user: GetUserResponseDto | null = null;
   rol: string = "";
@@ -31,9 +32,9 @@ export class LoggedHeaderComponent implements OnInit {
   modalError = false;
 
   contraseniaForm: FormGroup = this.formBuilder.group({
-    oldPassword: ["", [Validators.required]],
-    newPassword: ["", [Validators.required]],
-    confirmPassword: ["", [Validators.required]],
+    oldPassword: ["", [Validators.required, Validators.minLength(8)]],
+    newPassword: ["", [Validators.required, Validators.minLength(8)]],
+    confirmPassword: ["", [Validators.required, Validators.minLength(8)]],
   });
 
   constructor(private router: Router, private auth: AuthService, private formBuilder: FormBuilder) {
@@ -56,8 +57,14 @@ export class LoggedHeaderComponent implements OnInit {
     this.sidebarToggle.emit('');
   }
 
-  toggleProfile() {
+  toggleProfile(id: string) {
+    this.dropDown = new Dropdown(document.getElementById(id) || "");
     this.profileButton = !this.profileButton;
+    if (this.profileButton) {
+      this.dropDown?.show();
+    } else {
+      this.dropDown?.hide();
+    }
   }
 
   logout() {
@@ -84,7 +91,8 @@ export class LoggedHeaderComponent implements OnInit {
       (this.contraseniaForm.controls[control].touched || this.contraseniaForm.controls[control].dirty);
   }
 
-  togglePassword(field: string) {
+  togglePassword(event: Event, field: string) {
+    event.preventDefault();
     this.modal?.show()
     switch (field) {
       case 'old':
