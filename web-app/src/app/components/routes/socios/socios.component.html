@@ -11,7 +11,7 @@
             name="search"
             placeholder="Buscar socios"
             type="text"
-            class="form-control"
+            class="form-control form-control-search"
             [(ngModel)]="search"
             (ngModelChange)="filterSearch()"
           />
@@ -60,7 +60,8 @@
             <td>{{ socio.usuario.email }}</td>
             <td>{{ socio.usuario.nombre }} {{ socio.usuario.apellido }}</td>
             <td>{{ socio.turnoActividad.actividad?.nombre }}</td>
-            <td>{{ socio.estados[socio.estados.length - 1].nombre }}</td>
+            <td>ACTIVO</td>
+            <!-- <td>{{ socio.estados[socio.estados.length - 1].nombre }}</td> -->
             <!-- <td class="d-flex justify-content-around">
               <a
                 routerLink="/socios/detalle/{{ socio.usuario.id }}"
@@ -106,7 +107,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Inscribir nuevo Socio:</h3>
+        <h3 class="modal-title" id="exampleModalLabel">
+          Inscribir nuevo Socio:
+        </h3>
         <button
           type="button"
           class="btn-close"
@@ -114,81 +117,219 @@
           (click)="closeModal('modalAgregarUsuario')"
         ></button>
       </div>
-      <div class="modal-body" [formGroup]="sociosForm">
-        <div class="form-group position-relative">
-          <input
-            id="searchUser"
-            name="search"
-            placeholder="Buscar usuario"
-            type="email"
-            class="form-control"
-            formControlName="email"
-          />
-          <button
-            class="form-icon-right"
-            (click)="buscarSocio()"
-            type="button"
-          >
-            <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
-          </button>
+      <div class="modal-body container" [formGroup]="sociosForm">
+        <div class="row  justify-content-center">
+          <h3>Datos del nuevo socio:</h3>
+          <div class="col-12">
+            <div class="form-group">
+              <input
+              type="text"
+              class="form-control"
+              id="email"
+              placeholder="Email"
+              formControlName="email"
+              />
+              <p *ngIf="isValid('email')" class="form-error">
+                Ingrese el email del nuevo inscripto
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            id="nombre"
-            placeholder="Nombre del inscripto"
-            formControlName="nombre"
-          />
-          <p *ngIf="isValid('nombre')" class="form-error">
-            Ingrese el nombre del nuevo inscripto
-          </p>
+        <div class="row justify-content-around">
+          <div class="col-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="nombre"
+                placeholder="Nombre"
+                formControlName="nombre"
+              />
+              <p *ngIf="isValid('nombre')" class="form-error">
+                Ingrese el nombre del nuevo inscripto
+              </p>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="">
+              <input
+                type="text"
+                class="form-control"
+                id="apellido"
+                placeholder="Apellido"
+                formControlName="apellido"
+              />
+              <p *ngIf="isValid('apellido')" class="form-error">
+                Ingrese el apellido del nuevo inscripto
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            id="apellido"
-            placeholder="Apellido del inscripto"
-            formControlName="apellido"
-          />
-          <p *ngIf="isValid('apellido')" class="form-error">
-            Ingrese el apellido del nuevo inscripto
-          </p>
+        <div class="row justify-content-around">
+          <div class="col-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="dni"
+                placeholder="DNI"
+                formControlName="dni"
+              />
+              <p *ngIf="isValid('dni')" class="form-error">
+                Ingrese el DNI del nuevo inscripto
+              </p>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="telefono"
+                placeholder="Teléfono"
+                formControlName="telefono"
+              />
+              <p *ngIf="isValid('telefono')" class="form-error">
+                Ingrese el teléfono del nuevo inscripto
+              </p>
+            </div>
+          </div>
         </div>
 
+        <div class="row justify-content-around">
+          <div class="col-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="fechaNac"
+                placeholder="Fecha de Nacimiento"
+                formControlName="fechaNac"
+                onfocus="(this.type='date')"
+              />
+              <p *ngIf="isValid('fechaNac')" class="form-error">
+                Ingrese la fecha de nacimiento del nuevo inscripto
+              </p>
+            </div>
+          </div>
+          <div class="col-5"></div>
+        </div>
 
+        <h3>Domicilio:</h3>
+        <div class="row justify-content-around">
+          <div class="col-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="calle"
+                placeholder="Calle"
+                formControlName="calle"
+              />
+              <p *ngIf="isValid('calle')" class="form-error">
+                Ingrese el calle del domicilio del nuevo inscripto
+              </p>
+            </div>
+          </div>
 
-        <!--
+          <div class="col-6">
+            <div class="form-group">
+              <input
+                type="number"
+                class="form-control"
+                id="numero"
+                placeholder="Número"
+                formControlName="numero"
+              />
+              <p *ngIf="isValid('numero')" class="form-error">
+                Ingrese el numero del domicilio del nuevo inscripto
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-around">
+          <div class="col-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="ciudad"
+                placeholder="Ciudad"
+                formControlName="ciudad"
+              />
+              <p *ngIf="isValid('ciudad')" class="form-error">
+                Ingrese el ciudad del domicilio del nuevo inscripto
+              </p>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                id="provincia"
+                placeholder="Provincia"
+                formControlName="provincia"
+              />
+              <p *ngIf="isValid('provincia')" class="form-error">
+                Ingrese el provincia del domicilio del nuevo inscripto
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <h3>Actividad:</h3>
+          <div class="form-group">
+            <select
+              class="form-control"
+              id="idActividad"
+              formControlName="idActividad"
+              (change)="onChange($event.target)"
+            >
+              <option value="" disabled selected>
+                Selecciona una actividad
+              </option>
+              <option *ngFor="let actividad of actividades" value="{{ actividad.id }}">
+                {{ actividad.nombre }}
+              </option>
+            </select>
+            <p *ngIf="isValid('idActividad')" class="form-error">
+              Por favor asigne una actividad
+            </p>
+          </div>
 
           <div class="form-group">
             <select
               class="form-control"
-              id="tipo"
-              formControlName="idActividad"
+              id="idTurnoActividad"
+              formControlName="idTurnoActividad"
               [value]=""
+              *ngIf="turnos.length > 0"
             >
               <option value="" disabled selected>
-                Selecciona un tipo de actividad
+                Selecciona un turno
               </option>
-              <option
-                *ngFor="let tipo of actividades"
-                value="{{ tipo.id }}"
-              >
-                {{ tipo.nombre }}
+              <option *ngFor="let turno of turnos" value="{{ turno.id }}">
+                {{ parseTurno(turno) }}
               </option>
             </select>
-            <p
-            *ngIf="isValid('idActividad')"
-            class="form-error"
-            >
-              Por favor asigne la tarifa a una actividad
+            <p *ngIf="isValid('idTurnoActividad')" class="form-error">
+              Por favor seleccione un turno
+            </p>
+            <p *ngIf="errorTurnos" class="form-error">
+              La actividad seleccionada no cuenta con turnos disponibles...
             </p>
           </div>
--->
+        </div>
       </div>
+
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-primary" (click)="handleForm()">
           INSCRIBIR SOCIO

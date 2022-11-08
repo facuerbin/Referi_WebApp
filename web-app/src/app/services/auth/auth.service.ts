@@ -34,6 +34,7 @@ import { GetTarifasByOrganizacion } from 'src/app/interfaces/get.tarifas.organiz
 import { EditTarifaDto } from 'src/app/interfaces/edit.tarifa.dto';
 import { GetUserInscripciones } from 'src/app/interfaces/get.inscripciones.user.dto';
 import { CreateEmployeeResponse } from 'src/app/interfaces/create.owner.response.dto';
+import { InscribirSocioDto } from 'src/app/interfaces/inscribir.socio.dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -65,6 +66,12 @@ export class AuthService {
   async processRegistry(registryForm: RegisterDto) {
     const user = this.createUser(registryForm.User);
     const org = "";
+  }
+
+  async registerNewSocio(form: InscribirSocioDto) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/auth/socio';
+    return (await axios.post<RegisterDto>(url, form, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 
   async recoverPassword(email: string) {
@@ -157,7 +164,6 @@ export class AuthService {
   }
 
   logout() {
-    console.log("it works")
     this.cookieService.delete('token');
     this.cookieService.delete('uuid');
     this.cookieService.delete('org');

@@ -47,7 +47,6 @@ export class PerfilUsuarioComponent implements OnInit {
     this.upload.upload(this.fileToUpload).then(result => {
       this.loading = false;
       this.auth.updateUserImage(result.data.path, this.user?.id || "")
-      .then(result => console.log(result))
       this.profileUrl = environment.appUrl + environment.apiVersionUri + "/" +result.data.path;
       return window.location.reload();
 

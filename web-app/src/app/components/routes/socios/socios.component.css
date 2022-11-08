@@ -67,7 +67,11 @@ input[type=number] {
 }
 
 .form-control {
-  width: 30vw;
+  width: 100% !important;
+}
+
+.form-control-search {
+  width: 30vw !important;
 }
 
 .form-control-small {
@@ -87,10 +91,6 @@ input[type=number] {
 
 .btn-close:hover {
   background-color: #f2f2f2;
-}
-
-.form-control {
-  width: 30vw;
 }
 
 .form-icon-right {
