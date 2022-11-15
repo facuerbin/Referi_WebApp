@@ -77,8 +77,8 @@ const routes: Routes = [
   },
   {
     path: "notificaciones",
-    component:MaintenanceComponent
-    // component:NotificacionesComponent
+    // component:MaintenanceComponent
+    component:NotificacionesComponent
   },
   {
     path: "pagos",
@@ -90,7 +90,6 @@ const routes: Routes = [
   },
   {
     path: "organizacion",
-    // component:MaintenanceComponent
     component:OrganizacionComponent
   },
   {
