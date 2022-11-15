@@ -6,9 +6,25 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <a routerLink="/reportes" [ngClass]="{'expand': sidenavToggle}" class="link-regular">
-        <fa-icon [icon]="report" class="form-icon" aria-hidden="true"></fa-icon>
-        <span *ngIf="sidenavToggle">Reportes</span>
+      <a
+        routerLink="/reportes"
+        [ngClass]="{ expand: sidenavToggle }"
+        class="link-regular"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-4">
+              <fa-icon
+                [icon]="report"
+                class="form-icon"
+                aria-hidden="true"
+              ></fa-icon>
+            </div>
+            <div class="col-8">
+              <span *ngIf="sidenavToggle">Reportes</span>
+            </div>
+          </div>
+        </div>
       </a>
     </ul>
 
@@ -18,9 +34,25 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <a routerLink="/socios" [ngClass]="{'expand': sidenavToggle}" class="link-regular">
-        <fa-icon [icon]="users" class="form-icon" aria-hidden="true"></fa-icon>
-        <span *ngIf="sidenavToggle">Socios</span>
+      <a
+        routerLink="/socios"
+        [ngClass]="{ expand: sidenavToggle }"
+        class="link-regular"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-4">
+              <fa-icon
+                [icon]="users"
+                class="form-icon"
+                aria-hidden="true"
+              ></fa-icon>
+            </div>
+            <div class="col-8">
+              <span *ngIf="sidenavToggle">Socios</span>
+            </div>
+          </div>
+        </div>
       </a>
     </ul>
 
@@ -30,13 +62,25 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <a routerLink="/actividades" [ngClass]="{'expand': sidenavToggle}" class="link-regular">
-        <fa-icon
-          [icon]="activities"
-          class="form-icon"
-          aria-hidden="true"
-        ></fa-icon>
-        <span *ngIf="sidenavToggle">Actividades</span>
+      <a
+        routerLink="/actividades"
+        [ngClass]="{ expand: sidenavToggle }"
+        class="link-regular"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-4">
+              <fa-icon
+                class="form-icon"
+                aria-hidden="true"
+                [icon]="activities"
+              ></fa-icon>
+            </div>
+            <div class="col-8">
+              <span *ngIf="sidenavToggle">Actividades</span>
+            </div>
+          </div>
+        </div>
       </a>
     </ul>
 
@@ -46,13 +90,25 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <a routerLink="/asistencia" [ngClass]="{'expand': sidenavToggle}" class="link-regular">
-        <fa-icon
-          [icon]="attendance"
-          class="form-icon"
-          aria-hidden="true"
-        ></fa-icon>
-        <span *ngIf="sidenavToggle">Asistencia</span>
+      <a
+        routerLink="/asistencia"
+        [ngClass]="{ expand: sidenavToggle }"
+        class="link-regular"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-4">
+              <fa-icon
+                class="form-icon"
+                aria-hidden="true"
+                [icon]="attendance"
+              ></fa-icon>
+            </div>
+            <div class="col-8">
+              <span *ngIf="sidenavToggle">Asistencia</span>
+            </div>
+          </div>
+        </div>
       </a>
     </ul>
 
@@ -62,13 +118,25 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <a routerLink="/tarifas" [ngClass]="{'expand': sidenavToggle}" class="link-regular">
-        <fa-icon
-          [icon]="tarifas"
-          class="form-icon"
-          aria-hidden="true"
-        ></fa-icon>
-        <span *ngIf="sidenavToggle">Tarifas</span>
+      <a
+        routerLink="/tarifas"
+        [ngClass]="{ expand: sidenavToggle }"
+        class="link-regular"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-4">
+              <fa-icon
+                class="form-icon"
+                [icon]="tarifas"
+                aria-hidden="true"
+              ></fa-icon>
+            </div>
+            <div class="col-8">
+              <span *ngIf="sidenavToggle">Tarifas</span>
+            </div>
+          </div>
+        </div>
       </a>
     </ul>
 
@@ -78,13 +146,25 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <a routerLink="/notificaciones" [ngClass]="{'expand': sidenavToggle}" class="link-regular">
-        <fa-icon
-          [icon]="notifications"
-          class="form-icon"
-          aria-hidden="true"
-        ></fa-icon>
-        <span *ngIf="sidenavToggle">Notificaciones</span>
+      <a
+        routerLink="/notificaciones"
+        [ngClass]="{ expand: sidenavToggle }"
+        class="link-regular"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-4">
+              <fa-icon
+                class="form-icon"
+                aria-hidden="true"
+                [icon]="notifications"
+              ></fa-icon>
+            </div>
+            <div class="col-8">
+              <span *ngIf="sidenavToggle">Notificaciones</span>
+            </div>
+          </div>
+        </div>
       </a>
     </ul>
 
@@ -94,9 +174,25 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <a routerLink="/pagos" [ngClass]="{'expand': sidenavToggle}" class="link-regular">
-        <fa-icon [icon]="pagos" class="form-icon" aria-hidden="true"></fa-icon>
-        <span *ngIf="sidenavToggle">Contabilidad</span>
+      <a
+        routerLink="/pagos"
+        [ngClass]="{ expand: sidenavToggle }"
+        class="link-regular"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-4">
+              <fa-icon
+                [icon]="pagos"
+                class="form-icon"
+                aria-hidden="true"
+              ></fa-icon>
+            </div>
+            <div class="col-8">
+              <span *ngIf="sidenavToggle">Contabilidad</span>
+            </div>
+          </div>
+        </div>
       </a>
     </ul>
 
@@ -106,16 +202,27 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <a routerLink="/organizacion" [ngClass]="{'expand': sidenavToggle}" class="link-regular">
-        <fa-icon
-          [icon]="organization"
-          class="form-icon"
-          aria-hidden="true"
-        ></fa-icon>
-        <span *ngIf="sidenavToggle">Mi Club</span>
+      <a
+        routerLink="/organizacion"
+        [ngClass]="{ expand: sidenavToggle }"
+        class="link-regular"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-4">
+              <fa-icon
+                class="form-icon"
+                aria-hidden="true"
+                [icon]="organization"
+              ></fa-icon>
+            </div>
+            <div class="col-8">
+              <span *ngIf="sidenavToggle">Mi Club</span>
+            </div>
+          </div>
+        </div>
       </a>
     </ul>
-
   </section>
   <section class="container-fluid">
     <router-outlet></router-outlet>

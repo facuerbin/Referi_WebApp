@@ -81,7 +81,7 @@
           </p>
         </div>
 
-        <div class="form-group-small">
+        <div class="form-group form-group-small">
           <label for="fecha">Fecha de creacion:</label>
           <input
           type="text"
@@ -94,7 +94,7 @@
           />
         </div>
 
-        <div class="form-group-small">
+        <div class="form-group form-group-small">
           <label for="cupo">Cupo:</label>
           <input
           type="number"
@@ -127,12 +127,16 @@
           <button class="btn btn-primary" (click)="openModalTarifas()">NUEVA TARIFA</button>
         </div>
 
-        <h3>Horarios</h3>
-        <div *ngFor="let turno of turnosStrings, let i = index">
-          <h3>Turno N°{{i+1}}: {{turnosArray[i].inscriptos.length}} inscriptos</h3>
-          <p *ngFor="let horario of turno">
-            {{horario}}
-          </p>
+        <div class="container">
+          <div class="row">
+            <h3>Horarios</h3>
+            <button *ngFor="let turno of turnosStrings, let i = index" class="btn btn-horario col-3 col-sm" onclick="">
+              <h3>Turno N°{{i+1}}: {{turnosArray[i].inscriptos.length}} inscriptos</h3>
+              <p *ngFor="let horario of turno">
+                {{horario}}
+              </p>
+            </button>
+          </div>
         </div>
 
         <div class="form-group">

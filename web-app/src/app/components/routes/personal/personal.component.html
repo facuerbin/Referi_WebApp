@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="mt-3 col-12">
-      <h2>Administrar Socios:</h2>
+      <h2>Recursos Humanos:</h2>
     </div>
     <div class="col-8">
       <form action="#">
@@ -9,7 +9,7 @@
           <input
             id="searchInput"
             name="search"
-            placeholder="Buscar socios"
+            placeholder="Buscar personal"
             type="text"
             class="form-control form-control-search"
             [(ngModel)]="search"
@@ -32,7 +32,7 @@
         (click)="openModal('modalAgregarUsuario')"
         class="btn btn-primary"
       >
-        INSCRIBIR NUEVO SOCIO
+        AGREGAR NUEVO EMPLEADO
       </button>
     </div>
 
@@ -45,7 +45,7 @@
             <th scope="col">DNI</th>
             <th scope="col">Email</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Fecha de Inscripción</th>
+            <th scope="col">Rol</th>
             <th scope="col">Estado</th>
             <!-- <th scope="col">Acciones</th> -->
           </tr>
@@ -53,41 +53,14 @@
         <tbody>
           <tr
             class="clickable-row"
-            *ngFor="let socio of sociosFiltered; let i = index"
-            [routerLink]="['/socios/detalle', socio.usuario.id]"
-          >
-            <td>{{ socio.usuario.dni }}</td>
-            <td>{{ socio.usuario.email }}</td>
-            <td>{{ socio.usuario.nombre }} {{ socio.usuario.apellido }}</td>
-            <td>{{ socio.turnoActividad.actividad?.nombre }}</td>
+            *ngFor="let personal of personalFiltered let i = index"
+            [routerLink]="['/personal/detalle', personal.id]"
+            >
+            <td>{{ personal.personal?.dni }}</td>
+            <td>{{ personal.personal?.email }}</td>
+            <td>{{ personal.personal?.nombre }} {{ personal.personal?.apellido }}</td>
+            <td>{{ personal.rol?.nombre }}</td>
             <td>ACTIVO</td>
-            <!-- <td>{{ socio.estados[socio.estados.length - 1].nombre }}</td> -->
-            <!-- <td class="d-flex justify-content-around">
-              <a
-                routerLink="/socios/detalle/{{ socio.usuario.id }}"
-                class="action-button"
-              >
-                <fa-icon
-                  class="action-icon"
-                  [icon]="detailIcon"
-                  aria-hidden="true"
-                ></fa-icon>
-              </a>
-              <a routerLink="/socios/editar" class="action-button">
-                <fa-icon
-                  class="action-icon"
-                  [icon]="editIcon"
-                  aria-hidden="true"
-                ></fa-icon>
-              </a>
-              <a routerLink="/socios/eliminar" class="action-button">
-                <fa-icon
-                  class="action-icon"
-                  [icon]="trashIcon"
-                  aria-hidden="true"
-                ></fa-icon>
-              </a>
-            </td> -->
           </tr>
         </tbody>
       </table>
@@ -108,7 +81,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLabel">
-          Inscribir nuevo Socio:
+          Agregar empleado:
         </h3>
         <button
           type="button"
@@ -117,9 +90,9 @@
           (click)="closeModal('modalAgregarUsuario')"
         ></button>
       </div>
-      <div class="modal-body container" [formGroup]="sociosForm">
+      <div class="modal-body container" [formGroup]="empleadoForm">
         <div class="row justify-content-around">
-          <h3>Datos del nuevo socio:</h3>
+          <h3>Datos del nuevo empleado:</h3>
           <div class="col-12">
             <div class="mb-3">
               <input
@@ -285,54 +258,31 @@
         </div>
 
         <div class="row">
-          <h3>Actividad:</h3>
+          <h3>Rol:</h3>
           <div class="form-group">
             <select
               class="form-control"
-              id="idActividad"
-              formControlName="idActividad"
-              (change)="onChange($event.target)"
+              id="rol"
+              formControlName="rol"
             >
               <option value="" disabled selected>
-                Selecciona una actividad
+                Asigne un rol
               </option>
-              <option *ngFor="let actividad of actividades" value="{{ actividad.id }}">
-                {{ actividad.nombre }}
+              <option *ngFor="let rol of roles" value="{{ rol.nombre }}">
+                {{ rol.nombre }}
               </option>
             </select>
-            <p *ngIf="isValid('idActividad')" class="form-error">
-              Por favor asigne una actividad
+            <p *ngIf="isValid('rol')" class="form-error">
+              Por favor asigne una rol
             </p>
           </div>
 
-          <div class="form-group">
-            <select
-              class="form-control"
-              id="idTurnoActividad"
-              formControlName="idTurnoActividad"
-              [value]=""
-              *ngIf="turnos.length > 0"
-            >
-              <option value="" disabled selected>
-                Selecciona un turno
-              </option>
-              <option *ngFor="let turno of turnos" value="{{ turno.id }}">
-                {{ parseTurno(turno) }}
-              </option>
-            </select>
-            <p *ngIf="isValid('idTurnoActividad')" class="form-error">
-              Por favor seleccione un turno
-            </p>
-            <p *ngIf="errorTurnos" class="form-error">
-              La actividad seleccionada no cuenta con turnos disponibles...
-            </p>
-          </div>
         </div>
       </div>
 
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-primary" (click)="handleForm()">
-          INSCRIBIR SOCIO
+          DAR DE ALTA
         </button>
       </div>
     </div>

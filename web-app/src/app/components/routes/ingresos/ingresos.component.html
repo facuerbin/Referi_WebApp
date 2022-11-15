@@ -6,10 +6,18 @@
     <div class="col-8">
       <form action="#">
         <div class="position-relative">
-          <input type="text" class="form-control" id="searchInput" />
+          <input
+          id="searchInput"
+          name="search"
+          placeholder="Buscar pagos"
+          type="text"
+          class="form-control form-control-search"
+          [(ngModel)]="search"
+          (ngModelChange)="filterSearch()"
+          />
           <button
           class="form-icon-right"
-          (click)="search($event)"
+          (click)="filterSearch()"
           type="button"
           >
           <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
@@ -19,32 +27,8 @@
   </div>
 
   <div class="col-4">
-    <a routerLink="/pagos/registrar" class="btn btn-primary">REGISTRAR INGRESO</a>
+    <button type="button" (click)="openModal()" class="btn btn-primary">REGISTRAR PAGO</button>
   </div>
-
-  <!-- Button trigger modal -->
-  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-  </button> -->
-
-  <!-- Modal -->
-  <!-- <div class="modal fade" #modal id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div> -->
 
   <div class="col-11 mt-4 table-wrapper">
     <table
@@ -77,6 +61,124 @@
       </tr>
     </tbody>
   </table>
+</div>
+</div>
+</div>
+
+
+<!-- Modal Registrar Pago -->
+<div class="modal fade" tabindex="-1" id="modalForm">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Registrar Pago:</h3>
+        <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        (click)="closeModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <form
+            (ngSubmit)="handleForm()"
+            [formGroup]="pagoForm"
+            class="container-fluid"
+            >
+            <h3>Datos del socio:</h3>
+            <div class="row">
+              <div class="form-group col-12 position-relative">
+                <input
+                id="searchEmail"
+                name="searchEmail"
+                placeholder="Email"
+                type="email"
+                class="form-control"
+                formControlName="email"
+                />
+                <button
+                class="form-icon-right"
+                (click)="searchEmail()"
+                type="button"
+                >
+                <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
+              </button>
+              <p *ngIf="isValid('email')" class="form-error">
+                Por favor ingrese un email válido
+              </p>
+            </div>
+
+            <div class="form-group col-12">
+              <h3>
+                {{nombre}}
+              </h3>
+            </div>
+
+            <div class="form-group">
+
+              <select
+              class="form-control"
+              id="medioDePago"
+              formControlName="medioDePago"
+              [value]=""
+              >
+              <option value="" disabled selected>
+                Selecciona el medio de pago
+              </option>
+              <option
+              value="{{ mediosDePago.EFECTIVO }}"
+              >
+              {{ mediosDePago.EFECTIVO }}
+            </option>
+            <option
+            value="{{ mediosDePago.TRANSFERENCIA }}"
+            >
+            {{ mediosDePago.TRANSFERENCIA }}
+          </option>
+          <option
+          value="{{ mediosDePago.PASARELADEPAGO }}"
+          >
+          {{ mediosDePago.PASARELADEPAGO }}
+        </option>
+      </select>
+    </div>
+    <p
+    *ngIf="isValid('medioDePago')"
+    class="form-error"
+    >
+    Por favor elija un medio de pago
+  </p>
+
+    <div class="form-check" *ngFor="let cuota of cuotas">
+      <input class="form-check-input" type="checkbox" value="{{cuota.id}}" id="flexCheckDefault" (change)="checkbox(cuota.id)">
+      <label class="form-check-label" for="flexCheckDefault">
+        {{cuota.tarifa.actividad.nombre}}:{{cuota.tarifa.nombre}} {{cuota.monto}}
+      </label>
+    </div>
+</div>
+</form>
+</div>
+<div class="modal-footer justify-content-center">
+  <button
+  type="button"
+  class="btn btn-primary"
+  (click)="handleForm()"
+  [disabled]="pagoForm.invalid"
+  >
+  <span
+  class="spinner-border spinner-border-sm"
+  role="status"
+  aria-hidden="true"
+  *ngIf="spinner"
+  ></span>
+  REGISTRAR PAGO
+</button>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
-  @Input() sidenavToggle = false;
+  @Input() sidenavToggle = true;
   permisos: Permisos = {
     reportes: false,
     socios: false,

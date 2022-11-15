@@ -46,7 +46,7 @@ mat-sidenav-container {
 }
 
 .form-control {
-  width: 30vw;
+  width: 90%;
 }
 
 .form-group {
@@ -61,7 +61,7 @@ mat-sidenav-container {
   display: inline;
 }
 
-.form-icon-right {
+.-right {
   position: absolute;
   top: 7px;
   right: 14px;
@@ -88,4 +88,5 @@ p {
 
 .form-icon {
   color: white;
+  size: 4rem;
 }

@@ -14,6 +14,7 @@ import { NotificacionesComponent } from './components/routes/notificaciones/noti
 import { OrganizacionComponent } from './components/routes/organizacion/organizacion.component';
 import { PagosComponent } from './components/routes/pagos/pagos.component';
 import { PerfilUsuarioComponent } from './components/routes/perfil-usuario/perfil-usuario.component';
+import { PersonalComponent } from './components/routes/personal/personal.component';
 import { RegisterComponent } from './components/routes/register/register.component';
 import { ReportesComponent } from './components/routes/reportes/reportes.component';
 import { SociosComponent } from './components/routes/socios/socios.component';
@@ -89,8 +90,12 @@ const routes: Routes = [
   },
   {
     path: "organizacion",
-    component:MaintenanceComponent
-    // component:OrganizacionComponent
+    // component:MaintenanceComponent
+    component:OrganizacionComponent
+  },
+  {
+    path: "organizacion/personal",
+    component:PersonalComponent
   },
   {
     path: "perfil",

@@ -8,6 +8,6 @@ export interface CreateUserDto {
   "dni": number,
   "telefono": string,
   "fechaNacimiento": string,
-  "fotoPerfil": string,
+  fotoPerfil?: string,
   "domicilio": Domicilio
 }

@@ -35,6 +35,12 @@ import { EditTarifaDto } from 'src/app/interfaces/edit.tarifa.dto';
 import { GetUserInscripciones } from 'src/app/interfaces/get.inscripciones.user.dto';
 import { CreateEmployeeResponse } from 'src/app/interfaces/create.owner.response.dto';
 import { InscribirSocioDto } from 'src/app/interfaces/inscribir.socio.dto';
+import { GetCuotasInscripto } from 'src/app/interfaces/get.cuotas.inscripto.dto';
+import { CreatePagoDto } from 'src/app/interfaces/create.pago.dto';
+import { CreatePagoResponseDto } from 'src/app/interfaces/create.pago.response.dto';
+import { OrganizationDetailDto } from 'src/app/interfaces/OrganizationDetailDto';
+import { ListPersonalOrganizacion } from 'src/app/interfaces/listPersonalOrganizacion.dto';
+import { ListRoles } from 'src/app/interfaces/list.roles.dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -99,6 +105,21 @@ export class AuthService {
     return this.user;
   }
 
+  async addUser(userForm: CreateUserDto) {
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/auth/register';
+    return (await axios.post<RegisterUserResponseDto>(url, userForm)).data;
+  }
+
+  async addOrganizationEmployee(orgId: string, userEmail: string, rol: string) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId  + '/personal';
+    const body = {
+      emailUsuario: userEmail,
+      rol: rol
+    }
+    return (await axios.post<CreateEmployeeResponse>(url, body, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
+
   async updateUserImage(path: string, uid: string) {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/usuarios/' + uid;
     const form = {
@@ -117,6 +138,14 @@ export class AuthService {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/' + actividad.id;
 
     const result = (await axios.patch<GetActividadDetail>(url, actividad, { headers: { Authorization: `Bearer ${token}` }})).data;
+    return result;
+  }
+
+  async updateOrganizacion(organizacion:Partial<OrganizationDetailDto>) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + organizacion.id;
+
+    const result = (await axios.patch<GetOrganizationResponseDto>(url, organizacion, { headers: { Authorization: `Bearer ${token}` }})).data;
     return result;
   }
 
@@ -140,6 +169,12 @@ export class AuthService {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/tarifas';
     const result = await axios.post<CreateTarifaDto>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
     return result;
+  }
+
+  async createPago(dto: CreatePagoDto) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/pagos';
+    return await axios.post<CreatePagoResponseDto>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
   }
 
   async deleteTarifa(idTarifa: string) {
@@ -229,6 +264,23 @@ export class AuthService {
     return (await axios.get<GetOrganizationResponseDto>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 
+  async suscribeOrgDetails() {
+    let orgId = this.cookieService.get('org');
+    const token = this.getToken();
+
+    if (! orgId) {
+      const decodedToken = this.getDecodedAccessToken();
+      if (! decodedToken) throw new Error("No token found.");
+      const uid = decodedToken.sub;
+      const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
+      orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion.id;
+      this.cookieService.set('org', orgId)
+    }
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId;
+
+    return (await this.http.get<OrganizationDetailDto>(url, { headers: { Authorization: `Bearer ${token}` }}));
+  }
+
   async listEmployeeOrganizations () {
     const token = this.getToken();
     const uid = (await this.getUser()).data.data.id;
@@ -248,6 +300,12 @@ export class AuthService {
 
   async getTipoActividad() {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/tipo';
+    const token = this.getToken();
+    return this.http.get<GetTipoActividad>(url, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+  async getTipoOrganizacion() {
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/tipos';
     const token = this.getToken();
     return this.http.get<GetTipoActividad>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
@@ -278,6 +336,20 @@ export class AuthService {
     return this.http.get<GetActividadesOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
+  async getPersonalOrganizacion () {
+    const orgId = await this.getOrgId();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId + '/personal';
+    const token = this.getToken();
+    return this.http.get<ListPersonalOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+  async getRoles () {
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/roles';
+    const token = this.getToken();
+    return this.http.get<ListRoles>(url, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+
   async getActividadById (actividadId: string) {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/' + actividadId;
     const token = this.getToken();
@@ -295,7 +367,14 @@ export class AuthService {
     const orgId = await this.getOrgId();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/pagos/organizacion/' + orgId;
     const token = this.getToken();
+    console.log(orgId)
     return this.http.get<GetPagosByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+  async getCuotasByUsr(idInscripto: string) {
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/pagos/cuotas/' + idInscripto;
+    const token = this.getToken();
+    return await this.http.get<GetCuotasInscripto>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
   async getTarifasByOrg() {

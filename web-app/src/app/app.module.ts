@@ -30,6 +30,7 @@ import { CrearActividadComponent } from './components/routes/crear-actividad/cre
 import { PerfilUsuarioComponent } from './components/routes/perfil-usuario/perfil-usuario.component';
 import { TablaComponent } from './components/shared/tabla/tabla.component';
 import { RecuperarContraseniaComponent } from './components/routes/recuperar-contrasenia/recuperar-contrasenia.component';
+import { PersonalComponent } from './components/routes/personal/personal.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { RecuperarContraseniaComponent } from './components/routes/recuperar-con
     VerificarComponent,
     TablaComponent,
     RecuperarContraseniaComponent,
+    PersonalComponent,
   ],
   imports: [
     BrowserModule,
