@@ -6,6 +6,7 @@ import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { Turno } from 'src/app/interfaces/get.detail.actividad.dto';
 import { Inscripto } from 'src/app/interfaces/get.inscriptos.organizacion.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-socios',
@@ -45,7 +46,7 @@ export class SociosComponent implements OnInit {
   });
 
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, public helper: HelperService) { }
 
 
   async ngOnInit(): Promise<void> {

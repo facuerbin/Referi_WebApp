@@ -7,6 +7,7 @@ import { CreatePagoDto } from 'src/app/interfaces/create.pago.dto';
 import { Inscripto } from 'src/app/interfaces/get.inscriptos.organizacion.dto';
 import { Cuota } from 'src/app/interfaces/get.pagos.organizacion.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-ingresos',
@@ -40,7 +41,7 @@ export class IngresosComponent implements OnInit {
   }
 
   // @ViewChild('modal') modal : ElementRef;
-  constructor(private auth: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, public helper: HelperService) { }
 
   async ngOnInit(): Promise<void> {
     this.getPagos();

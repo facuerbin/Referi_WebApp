@@ -13,7 +13,6 @@ import { ReportesComponent } from './components/routes/reportes/reportes.compone
 import { SociosComponent } from './components/routes/socios/socios.component';
 import { TarifasComponent } from './components/routes/tarifas/tarifas.component';
 import { NotificacionesComponent } from './components/routes/notificaciones/notificaciones.component';
-import { PagosComponent } from './components/routes/pagos/pagos.component';
 import { OrganizacionComponent } from './components/routes/organizacion/organizacion.component';
 import { ActividadesComponent } from './components/routes/actividades/actividades.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -43,7 +42,6 @@ import { EspaciosComponent } from './components/routes/espacios/espacios.compone
     TarifasComponent,
     NotificacionesComponent,
     PerfilUsuarioComponent,
-    PagosComponent,
     OrganizacionComponent,
     ActividadesComponent,
     RegisterComponent,

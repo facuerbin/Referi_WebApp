@@ -42,22 +42,22 @@
         <th scope="col">Medio de Pago</th>
         <th scope="col">Monto</th>
         <!-- <th scope="col">Actividad</th> -->
-        <th scope="col">Acción</th>
+        <!-- <th scope="col">Acción</th> -->
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let ingreso of ingresos; let i = index">
-        <td>{{ ingreso.fecha }}</td>
+        <td>{{ helper.parseDate(ingreso.fecha) }}</td>
         <td>{{ ingreso.email }}</td>
         <td>{{ ingreso.socio }}</td>
         <td>{{ ingreso.medioDePago }}</td>
         <td>{{ ingreso.monto }}</td>
         <!-- <td>{{ ingreso.actividad }}</td> -->
-        <td class="d-flex justify-content-around">
+        <!-- <td class="d-flex justify-content-around">
           <a routerLink="/pagos/registrar" class="action-button">
             <fa-icon class="action-icon"[icon]="paymentIcon" aria-hidden="true"></fa-icon>
           </a>
-        </td>
+        </td> -->
       </tr>
     </tbody>
   </table>

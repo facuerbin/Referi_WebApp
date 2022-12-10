@@ -45,6 +45,7 @@
             <th scope="col">DNI</th>
             <th scope="col">Email</th>
             <th scope="col">Nombre</th>
+            <th scope="col">Actividad</th>
             <th scope="col">Fecha de Inscripción</th>
             <th scope="col">Estado</th>
             <!-- <th scope="col">Acciones</th> -->
@@ -60,7 +61,8 @@
             <td>{{ socio.usuario.email }}</td>
             <td>{{ socio.usuario.nombre }} {{ socio.usuario.apellido }}</td>
             <td>{{ socio.turnoActividad.actividad?.nombre }}</td>
-            <td>ACTIVO</td>
+            <td>{{ helper.parseDate(''+socio.fechaCreacion) }}</td>
+            <td>{{ (socio.estados[0] && socio.estados[0].nombre) ? socio.estados[0].nombre: "ACTIVO" }}</td>
             <!-- <td>{{ socio.estados[socio.estados.length - 1].nombre }}</td> -->
             <!-- <td class="d-flex justify-content-around">
               <a

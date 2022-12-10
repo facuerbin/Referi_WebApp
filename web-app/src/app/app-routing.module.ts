@@ -10,10 +10,8 @@ import { HomeComponent } from './components/routes/home/home.component';
 import { IngresosComponent } from './components/routes/ingresos/ingresos.component';
 import { InscribirSocioComponent } from './components/routes/inscribir-socio/inscribir-socio.component';
 import { LoginComponent } from './components/routes/login/login.component';
-import { MaintenanceComponent } from './components/routes/maintenance/maintenance.component';
 import { NotificacionesComponent } from './components/routes/notificaciones/notificaciones.component';
 import { OrganizacionComponent } from './components/routes/organizacion/organizacion.component';
-import { PagosComponent } from './components/routes/pagos/pagos.component';
 import { PerfilUsuarioComponent } from './components/routes/perfil-usuario/perfil-usuario.component';
 import { PersonalComponent } from './components/routes/personal/personal.component';
 import { RegisterComponent } from './components/routes/register/register.component';
@@ -34,71 +32,80 @@ const routes: Routes = [
     path: "verify", component:VerificarComponent
   },
   {
-    path: "", component:HomeComponent
-    ,
+    path: "", component:HomeComponent,
     canActivate:[AuthGuardGuard]
   },
   {
     path: "reportes",
-    component:ReportesComponent
+    component:ReportesComponent,
+    canActivate:[AuthGuardGuard]
   },
   {
     path: "socios",
-    component:SociosComponent
+    component:SociosComponent,
+    canActivate:[AuthGuardGuard]
   },
   {
     path: "socios/detalle/:id",
-    component:DetalleSocioComponent
+    component:DetalleSocioComponent,
+    canActivate:[AuthGuardGuard]
   },
   {
     path: "socios/inscribir",
-    component:InscribirSocioComponent
+    component:InscribirSocioComponent,
+    canActivate:[AuthGuardGuard]
   },
   {
     path: "actividades", component:ActividadesComponent
   },
   {
-    path: "actividades/crear", component:CrearActividadComponent
+    path: "actividades/crear", component:CrearActividadComponent,
+    canActivate:[AuthGuardGuard]
   },
   {
     path: "actividades/detalle/:id", component:DetalleActividadComponent
+    ,canActivate:[AuthGuardGuard]
   },
   {
     path: "tarifas",
-    component:TarifasComponent
+    component:TarifasComponent,
+    canActivate:[AuthGuardGuard]
   },
   {
     path: "asistencia",
-    // component:MaintenanceComponent
-    component:AsistenciaComponent
+    // component,:MaintenanceComponent
+    component:AsistenciaComponent,
+    canActivate:[AuthGuardGuard]
   },
   {
     path: "notificaciones",
-    component:NotificacionesComponent
+    component:NotificacionesComponent,
+    canActivate:[AuthGuardGuard]
   },
   {
     path: "pagos",
-    component:IngresosComponent
-  },
-  {
-    path: "pagos/registrar",
-    component:PagosComponent
+    component:IngresosComponent,
+    canActivate:[AuthGuardGuard]
   },
   {
     path: "organizacion",
-    component:OrganizacionComponent
+    component:OrganizacionComponent,
+    canActivate:[AuthGuardGuard]
   },
   {
     path: "organizacion/personal",
-    component:PersonalComponent
+    component:PersonalComponent,
+    canActivate:[AuthGuardGuard]
   },
   {
     path: "organizacion/espacios",
-    component:EspaciosComponent
+    component:EspaciosComponent,
+    canActivate:[AuthGuardGuard]
   },
   {
     path: "perfil",
-    component:PerfilUsuarioComponent
+    component:PerfilUsuarioComponent,
+    canActivate:[AuthGuardGuard]
   },
 ];
 
