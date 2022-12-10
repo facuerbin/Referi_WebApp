@@ -15,11 +15,6 @@ import { Personal, Rol } from 'src/app/interfaces/listPersonalOrganizacion.dto';
 })
 
 export class PersonalComponent implements OnInit {
-  @Component({
-    selector: 'app-socios',
-    templateUrl: './socios.component.html',
-    styleUrls: ['./socios.component.css'],
-  })
   searchIcon = faSearch;
   detailIcon = faAddressCard;
   trashIcon = faTrash;
@@ -152,7 +147,8 @@ export class PersonalComponent implements OnInit {
     return null;
   }
 
-  isValid(control: string) {
-    return false;
+  isValid(field: string): boolean {
+    return this.empleadoForm.controls[field].errors !== null &&
+      (this.empleadoForm.controls[field].touched || this.empleadoForm.controls[field].dirty);
   }
 }

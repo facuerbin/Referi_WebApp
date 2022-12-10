@@ -14,7 +14,7 @@ export interface OrganizationDetailDto {
 }
 
 export interface Direccion {
-  id:        string;
+  id?:        string;
   calle:     string;
   numero:    number;
   ciudad:    string;

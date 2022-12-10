@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { faFileInvoiceDollar, faPencilAlt, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
 import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { Frecuencia } from 'src/app/interfaces/get.tarifa.frecuencia.res.dto';
@@ -129,6 +129,7 @@ export class TarifasComponent implements OnInit {
       return tarifa.id === idTarifa;
     })[0];
     this.tarifaAEditar = tarifa;
+
   }
 
   handleEliminarTarifa () {

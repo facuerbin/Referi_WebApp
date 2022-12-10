@@ -31,6 +31,7 @@ import { PerfilUsuarioComponent } from './components/routes/perfil-usuario/perfi
 import { TablaComponent } from './components/shared/tabla/tabla.component';
 import { RecuperarContraseniaComponent } from './components/routes/recuperar-contrasenia/recuperar-contrasenia.component';
 import { PersonalComponent } from './components/routes/personal/personal.component';
+import { EspaciosComponent } from './components/routes/espacios/espacios.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { PersonalComponent } from './components/routes/personal/personal.compone
     TablaComponent,
     RecuperarContraseniaComponent,
     PersonalComponent,
+    EspaciosComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,9 +2,9 @@
   <div class="row">
     <h2>{{organizacion?.nombre}}:</h2>
   </div>
-  <form [formGroup]="organizacionForm" class="container-fluid">
+  <form [formGroup]="organizacionForm" class="container-fluid" *ngIf="this.load">
     <div class="row">
-      <div class="col-4 mt-3 position-relative">
+      <div class="col-4 mt-3 position-relative img-div">
         <img
           *ngIf="organizacion"
           src="{{imgUrl}}"
@@ -39,7 +39,7 @@
           value="{{organizacion?.nombre}}"
           />
           <p *ngIf="isValid('nombre')" class="form-error">
-            Por favor asignele un nombre a la actividad
+            Por favor asignele un nombre a su organización
           </p>
         </div>
 
@@ -54,7 +54,7 @@
           value="{{organizacion?.descripcion}}"
           />
           <p *ngIf="isValid('descripcion')" class="form-error">
-            Por favor asignele un descripción a la actividad
+            Por favor asignele una descripción a su organización
           </p>
         </div>
 
@@ -68,9 +68,9 @@
           formControlName="telefono"
           value="{{organizacion?.telefono}}"
           />
-          <!-- <p *ngIf="isValid('telefono')" class="form-error">
-            Por favor asignele un descripción a la actividad
-          </p> -->
+          <p *ngIf="isValid('telefono')" class="form-error">
+            Por favor asignele un teléfono a su organización
+          </p>
         </div>
 
         <div class="form-group form-group-small">
@@ -88,12 +88,12 @@
               {{ tipo.nombre }}
             </option>
           </select>
-          <!-- <p
-            *ngIf="isValid('idTipoActividad')"
+          <p
+            *ngIf="isValid('tipo')"
             class="form-error"
           >
-            Por favor asignele un tipo a la actividad
-          </p> -->
+            Por favor asignele un tipo a su organización
+          </p>
         </div>
 
         <div class="form-group form-group-small">
@@ -106,24 +106,24 @@
           formControlName="calle"
           value="{{organizacion?.direccion?.calle}}"
           />
-          <!-- <p *ngIf="isValid('telefono')" class="form-error">
-            Por favor asignele un descripción a la actividad
-          </p> -->
+          <p *ngIf="isValid('calle')" class="form-error">
+            Por favor asignele una calle a su organización
+          </p>
         </div>
 
         <div class="form-group form-group-small">
           <label for="descripción">Número:</label>
           <input
-          type="text"
+          type="number"
           class="form-control"
           id="numero"
           placeholder="Número"
           formControlName="numero"
           value="{{organizacion?.direccion?.numero}}"
           />
-          <!-- <p *ngIf="isValid('telefono')" class="form-error">
-            Por favor asignele un descripción a la actividad
-          </p> -->
+          <p *ngIf="isValid('numero')" class="form-error">
+            Por favor asignele una dirección válida a su organización
+          </p>
         </div>
 
         <div class="form-group form-group-small">
@@ -136,9 +136,9 @@
           formControlName="ciudad"
           value="{{organizacion?.direccion?.ciudad}}"
           />
-          <!-- <p *ngIf="isValid('telefono')" class="form-error">
-            Por favor asignele un descripción a la actividad
-          </p> -->
+          <p *ngIf="isValid('ciudad')" class="form-error">
+            Por favor asignele una ciudad a su organización
+          </p>
         </div>
 
         <div class="form-group form-group-small">
@@ -151,9 +151,9 @@
           formControlName="provincia"
           value="{{organizacion?.direccion?.provincia}}"
           />
-          <!-- <p *ngIf="isValid('telefono')" class="form-error">
-            Por favor asignele un descripción a la actividad
-          </p> -->
+          <p *ngIf="isValid('provincia')" class="form-error">
+            Por favor asignele una provincia a su organización
+          </p>
         </div>
 
 
@@ -162,7 +162,7 @@
           <input
           type="text"
           class="form-control"
-          id="fecha"
+          id="fechaIni"
           placeholder="Fecha de inicio"
           value="{{ fechaCreacion }}"
           disabled
@@ -175,7 +175,7 @@
           <input
           type="text"
           class="form-control"
-          id="fecha"
+          id="fechaFin"
           placeholder="Fecha de inicio"
           value="{{ fechaActualizacion }}"
           disabled
@@ -193,7 +193,7 @@
 
       <div class="col-4 col-sm">
         <div class="form-group">
-          <button class="btn btn-primary" (click)="openModalTarifas()">AGREGAR ESPACIOS</button>
+          <a class="btn btn-primary" routerLink="espacios" >AGREGAR ESPACIOS</a>
         </div>
 
         <div class="form-group">
@@ -204,270 +204,3 @@
 
   </form>
 </div>
-
-
-
-<!-- Modale Crear Tarifa -->
-<div class="modal fade" tabindex="-1" id="modalTarifas">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Crear Tarifa:</h3>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="closeModalTarifas()"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-12">
-            <form
-              [formGroup]="tarifasForm"
-              class="container-fluid"
-              *ngIf="load"
-            >
-              <div class="row">
-                <div class="col-10 col-sm">
-                  <h3>Datos de la Tarifa</h3>
-                  <div class="form-group">
-                    <input
-                    type="text"
-                    class="form-control"
-                    id="nombreTarifa"
-                    placeholder="Nombre"
-                    formControlName="nombreTarifa"
-                    />
-                    <p *ngIf="isValidTarifa('nombreTarifa')" class="form-error">
-                      Por favor asignele un nombre a la tarifa
-                    </p>
-                  </div>
-                  <div class="form-group">
-                    <select
-                    class="form-control"
-                    id="frecuancia"
-                    formControlName="frecuencia"
-                    [value]=""
-                    >
-                    <option value="" disabled selected>
-                      Selecciona la frecuencia de la actividad
-                    </option>
-                      <option
-                        *ngFor="let frecuencia of frecuencias"
-                        value="{{ frecuencia.nombre }}"
-                      >
-                        {{ frecuencia.nombre }}
-                      </option>
-                    </select>
-                    <p
-                    *ngIf="isValidTarifa('frecuencia')"
-                    class="form-error"
-                    >
-                    Por favor asignele una frecuencia a la tarifa
-                  </p>
-                </div>
-                <div class="form-group">
-                  <input
-                      type="text"
-                      class="form-control"
-                      id="monto"
-                      placeholder="Monto de la tarifa"
-                      formControlName="monto"
-                    />
-                    <p
-                      *ngIf="isValidTarifa('monto')"
-                      class="form-error"
-                      >
-                      Por favor asignele un monto a la tarifa
-                    </p>
-                  </div>
-                  <label><input type="checkbox" class="m-4" id="tarifaOpcion" formControlName="tarifaOpcional" value="false"> ¿Es una tarifa opcional?</label>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer justify-content-center">
-            <button
-              type="button"
-              class="btn btn-primary"
-              (click)="handleTarifasForm()"
-              [disabled]="tarifasForm.invalid"
-            >
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-                *ngIf="spinner"
-              ></span>
-              AGREGAR TARIFA
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Modale Crear Turno -->
-<div class="modal fade" tabindex="-1" id="modalHorarios">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Agregar Turno:</h3>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="closeModalTarifas()"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-12">
-            <form
-              [formGroup]="horariosForm"
-              class="container-fluid"
-              *ngIf="load"
-            >
-              <div class="row">
-                <div class="col-10 col-sm">
-                  <h3>Turno:</h3>
-                  <div class="form-group">
-                    <select
-                    class="form-control"
-                    id="dia"
-                    formControlName="dia"
-                    >
-                    <option value="" disabled selected>
-                      Selecciona el día
-                    </option>
-                      <option
-                        *ngFor="let dia of dias"
-                        value="{{ dia }}"
-                      >
-                        {{ dia }}
-                      </option>
-                    </select>
-                    <!-- <p
-                    *ngIf="isValidTarifa('frecuencia')"
-                    class="form-error"
-                    >
-                    Por favor asignele una frecuencia a la tarifa
-                  </p> -->
-                </div>
-                  <div class="form-group d-flex justify-content-between align-items-center">
-                    <input
-                    type="number"
-                    min="0"
-                    max="23"
-                    class="form-control w-25"
-                    id="horaInicio"
-                    placeholder="Hora de Inicio"
-                    formControlName="horaInicio"
-                    />
-                    <!-- <p *ngIf="isValidTarifa('dia')" class="form-error">
-                      Por favor seleccione un día
-                    </p> -->
-
-                    <h2>:</h2>
-
-                    <input
-                        type="number"
-                        min="0"
-                        max="59"
-                        class="form-control w-25"
-                        id="minutosInicio"
-                        placeholder="Minutos"
-                        formControlName="minutosInicio"
-                        [defaultValue]="00"
-                      />
-                      <!-- <p
-                        *ngIf="isValidTarifa('monto')"
-                        class="form-error"
-                        >
-                        Por favor asignele un monto a la tarifa
-                      </p> -->
-
-                      <input
-                      type="number"
-                      class="form-control form-control-small"
-                      id="duracion"
-                      placeholder="Duración"
-                      formControlName="duracion"
-                    />
-                  </div>
-
-                  <div class="form-group">
-                    <select
-                    class="form-control"
-                    id="espacioSelect"
-                    formControlName="espacio"
-                    [value]=""
-                    >
-                    <option value="" disabled selected>
-                      Selecciona el espacio
-                    </option>
-                      <option
-                        *ngFor="let espacio of espacios"
-                        value="{{ espacio.id }}"
-                      >
-                        {{ espacio.nombre }}
-                      </option>
-                    </select>
-                    <!-- <p
-                    *ngIf="isValidTarifa('frecuencia')"
-                    class="form-error"
-                    >
-                    Por favor asignele una frecuencia a la tarifa
-                  </p> -->
-                </div>
-
-                </div>
-              </div>
-            </form>
-
-            <p *ngFor="let turno of horariosStrings">
-              {{turno}}
-            </p>
-          </div>
-          <div class="modal-footer justify-content-center">
-            <button
-              type="button"
-              class="btn btn-secondary m-3"
-              (click)="handleHorariosForm()"
-              >
-              <!-- [disabled]="tarifasForm.invalid" -->
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-                *ngIf="spinner"
-              ></span>
-              AGREGAR HORARIO
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-primary"
-              (click)="crearTurno()"
-              >
-              <!-- [disabled]="tarifasForm.invalid" -->
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-                *ngIf="spinner"
-              ></span>
-              CREAR TURNO
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-

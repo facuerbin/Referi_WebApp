@@ -5,6 +5,7 @@ import { AsistenciaComponent } from './components/routes/asistencia/asistencia.c
 import { CrearActividadComponent } from './components/routes/crear-actividad/crear-actividad.component';
 import { DetalleActividadComponent } from './components/routes/detalle-actividad/detalle-actividad.component';
 import { DetalleSocioComponent } from './components/routes/detalle-socio/detalle-socio.component';
+import { EspaciosComponent } from './components/routes/espacios/espacios.component';
 import { HomeComponent } from './components/routes/home/home.component';
 import { IngresosComponent } from './components/routes/ingresos/ingresos.component';
 import { InscribirSocioComponent } from './components/routes/inscribir-socio/inscribir-socio.component';
@@ -33,7 +34,7 @@ const routes: Routes = [
     path: "verify", component:VerificarComponent
   },
   {
-    path: "", component:ReportesComponent
+    path: "", component:HomeComponent
     ,
     canActivate:[AuthGuardGuard]
   },
@@ -43,17 +44,14 @@ const routes: Routes = [
   },
   {
     path: "socios",
-    // component:MaintenanceComponent
     component:SociosComponent
   },
   {
     path: "socios/detalle/:id",
-    // component:MaintenanceComponent
     component:DetalleSocioComponent
   },
   {
     path: "socios/inscribir",
-    // component:MaintenanceComponent
     component:InscribirSocioComponent
   },
   {
@@ -67,17 +65,15 @@ const routes: Routes = [
   },
   {
     path: "tarifas",
-    // component:MaintenanceComponent
     component:TarifasComponent
   },
   {
     path: "asistencia",
-    component:MaintenanceComponent
-    // component:AsistenciaComponent
+    // component:MaintenanceComponent
+    component:AsistenciaComponent
   },
   {
     path: "notificaciones",
-    // component:MaintenanceComponent
     component:NotificacionesComponent
   },
   {
@@ -95,6 +91,10 @@ const routes: Routes = [
   {
     path: "organizacion/personal",
     component:PersonalComponent
+  },
+  {
+    path: "organizacion/espacios",
+    component:EspaciosComponent
   },
   {
     path: "perfil",

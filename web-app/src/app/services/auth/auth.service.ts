@@ -41,6 +41,8 @@ import { CreatePagoResponseDto } from 'src/app/interfaces/create.pago.response.d
 import { OrganizationDetailDto } from 'src/app/interfaces/OrganizationDetailDto';
 import { ListPersonalOrganizacion } from 'src/app/interfaces/listPersonalOrganizacion.dto';
 import { ListRoles } from 'src/app/interfaces/list.roles.dto';
+import { CreateEspacioDto } from 'src/app/interfaces/create.espacio.dto';
+import { CreateEspacioResponse } from 'src/app/interfaces/create.espacio.response.dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -156,6 +158,14 @@ export class AuthService {
     this.cookieService.set('org', organization.id)
     this.organization = organization;
     return this.organization;
+  }
+
+  async createEspacio(orgId: string, espacioDto: CreateEspacioDto) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId + '/espacio';
+
+    const result = (await axios.post<CreateEspacioResponse>(url, espacioDto, { headers: { Authorization: `Bearer ${token}` }})).data;
+    return result;
   }
 
   async createActividad(dto: CreateActividadDto) {
@@ -367,12 +377,11 @@ export class AuthService {
     const orgId = await this.getOrgId();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/pagos/organizacion/' + orgId;
     const token = this.getToken();
-    console.log(orgId)
     return this.http.get<GetPagosByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
   async getCuotasByUsr(idInscripto: string) {
-    const url = '' + environment.appUrl + environment.apiVersionUri + '/pagos/cuotas/' + idInscripto;
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/pagos/cuotas/inscripto/' + idInscripto;
     const token = this.getToken();
     return await this.http.get<GetCuotasInscripto>(url, { headers: { Authorization: `Bearer ${token}` }});
   }

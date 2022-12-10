@@ -53,7 +53,7 @@ export class IngresosComponent implements OnInit {
           fecha: pago.fechaPago.slice(0,10),
           email: pago.usuario.email,
           socio: pago.usuario.nombre + " " + pago.usuario.apellido,
-          actividad: pago.cuotas[0].tarifa.actividad.nombre,
+          // actividad: pago.cuotas[0].tarifa.actividad.nombre,
           monto: pago.cuotas.reduce( (montoTotal, cuota) => montoTotal + cuota.monto, 0 ),
           medioDePago: pago.medioDePago
         }
@@ -97,10 +97,8 @@ export class IngresosComponent implements OnInit {
       idsCuota: [...this.idCuotas],
       numeroDeComprobante: '0'
     };
-    console.log(body)
 
     const result = await this.auth.createPago(body);
-    console.log(result)
     this.getPagos()
 
   }
@@ -138,7 +136,7 @@ interface Pago {
   fecha: string,
   email: string,
   socio: string,
-  actividad: string,
+  // actividad: string,
   monto: number,
   medioDePago: string
 }

@@ -43,7 +43,10 @@ input[type=number] {
 
 .profile-img {
   width: 100%;
+}
 
+.img-div {
+  height: 100%;
 }
 
 .upload-image {
