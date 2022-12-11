@@ -28,6 +28,7 @@ export class IngresosComponent implements OnInit {
   });
 
   ingresos: Pago[] = [];
+  ingresosFiltered: Pago[] = [];
   cuotas: Cuota[] = [];
   search: string = "";
   nombre: string = "";
@@ -54,25 +55,25 @@ export class IngresosComponent implements OnInit {
           fecha: pago.fechaPago.slice(0,10),
           email: pago.usuario.email,
           socio: pago.usuario.nombre + " " + pago.usuario.apellido,
-          // actividad: pago.cuotas[0].tarifa.actividad.nombre,
           monto: pago.cuotas.reduce( (montoTotal, cuota) => montoTotal + cuota.monto, 0 ),
           medioDePago: pago.medioDePago
         }
       });
+      this.ingresosFiltered = this.ingresos;
     });
   }
 
   filterSearch() {
-    // const result = this.actividades.filter(actividad => {
-    //   return actividad.nombre.toLowerCase().search(this.search.toLowerCase()) !== -1
-    //       || actividad.tipo.toLowerCase().search(this.search.toLowerCase()) !== -1
-    //   ;
-    // });
+    const result = this.ingresos.filter(pago => {
+      return pago.socio.toLowerCase().search(this.search.toLowerCase()) !== -1
+          || pago.email.toLowerCase().search(this.search.toLowerCase()) !== -1
+          || (pago.monto+ "").toLowerCase().search(this.search.toLowerCase()) !== -1
+          || (pago.fecha+ "").toLowerCase().search(this.search.toLowerCase()) !== -1
 
-    // this.actividadesFiltered = result;
+      ;
+    });
 
-
-    return "";
+    this.ingresosFiltered = result;
   }
 
   openModal() {

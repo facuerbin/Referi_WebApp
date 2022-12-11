@@ -34,13 +34,17 @@ export class SidenavComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     (await this.auth.listEmployeeOrganizations()).subscribe(result => {
-      (Object.keys(this.permisos) as (keyof typeof this.permisos)[]).forEach( (clave, i) => {
-        const permiso = result.data[0].rol.permisos.forEach( permiso => {
-          if (permiso.modulo === clave.toUpperCase()) {
-            this.permisos[clave] = true;
-          }
+      try {
+        (Object.keys(this.permisos) as (keyof typeof this.permisos)[]).forEach( (clave, i) => {
+          const permiso = result.data[0].rol.permisos.forEach( permiso => {
+            if (permiso.modulo === clave.toUpperCase()) {
+              this.permisos[clave] = true;
+            }
+          });
         });
-      });
+      }  catch (error) {
+        console.log(error);
+      }
     })
   }
 

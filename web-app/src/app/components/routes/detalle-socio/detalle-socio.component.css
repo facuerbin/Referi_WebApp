@@ -22,7 +22,9 @@ p {
 }
 
 .img-actividad {
-  width: 100%;
+  height: 8vh;
+  display: block;
+  margin: auto;
 }
 
 .estado {
@@ -30,7 +32,8 @@ p {
 }
 
 .actividad-container {
-  width: 30vw;
+  width: 20vw;
+  height: 100%;
 }
 
 a:hover {
@@ -44,3 +47,4 @@ a:hover {
   font: inherit;
   color: inherit;
 }
+

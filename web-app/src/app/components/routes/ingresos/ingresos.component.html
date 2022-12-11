@@ -46,7 +46,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ingreso of ingresos; let i = index">
+      <tr *ngFor="let ingreso of ingresosFiltered; let i = index">
         <td>{{ helper.parseDate(ingreso.fecha) }}</td>
         <td>{{ ingreso.email }}</td>
         <td>{{ ingreso.socio }}</td>
@@ -71,7 +71,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">Registrar Pago:</h3>
+        <h3 class="modal-title">REGISTRAR PAGO:</h3>
         <button
         type="button"
         class="btn-close"

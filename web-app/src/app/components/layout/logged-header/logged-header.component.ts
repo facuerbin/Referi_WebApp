@@ -29,7 +29,8 @@ export class LoggedHeaderComponent implements OnInit {
   user: GetUserResponseDto | null = null;
   rol: string = "";
   modal: bootstrap.Modal | undefined;
-  modalError = false;
+  changePasswordSucces = false;
+  changePasswordFail = false;
 
   contraseniaForm: FormGroup = this.formBuilder.group({
     oldPassword: ["", [Validators.required, Validators.minLength(8)]],
@@ -82,13 +83,36 @@ export class LoggedHeaderComponent implements OnInit {
     this.modal?.hide();
   }
 
-  handleForm() {
+  async handleForm() {
+    const dto = {
+      oldPassword: this.contraseniaForm.controls["oldPassword"].value,
+      newPassword: this.contraseniaForm.controls["newPassword"].value,
+    }
 
+    if (dto.oldPassword == dto.newPassword) return this.changePasswordFail = true;
+
+    try {
+      const result = await this.auth.changePassword(dto.oldPassword, dto.newPassword);
+      if (result.data == "Password updated") {
+        this.contraseniaForm.reset();
+        this.changePasswordFail = false;
+        return this.changePasswordSucces = true;
+      }
+    } catch (error) {
+      this.changePasswordSucces = false;
+      return this.changePasswordFail = true;
+    }
+    return ""
   }
 
   isValid(control: string) {
     return this.contraseniaForm.controls[control].errors !== null &&
       (this.contraseniaForm.controls[control].touched || this.contraseniaForm.controls[control].dirty);
+  }
+
+  isValidRepeatPassword(): boolean {
+    return this.contraseniaForm.controls['newPassword'].value != this.contraseniaForm.controls['confirmPassword'].value &&
+    (this.contraseniaForm.controls['confirmPassword'].touched || this.contraseniaForm.controls['confirmPassword'].dirty);
   }
 
   togglePassword(event: Event, field: string) {

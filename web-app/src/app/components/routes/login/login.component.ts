@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -21,11 +20,13 @@ export class LoginComponent implements OnInit {
   passwordIsVisible = false;
   loginFailed = false;
   modal: Modal | undefined;
+  load = false;
 
   constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
 
 
   ngOnInit(): void {
+    this.load = true;
   }
 
   async handleLogin() {

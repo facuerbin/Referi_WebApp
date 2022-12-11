@@ -336,6 +336,7 @@
         <button type="button" class="btn btn-primary" (click)="handleForm()">
           INSCRIBIR SOCIO
         </button>
+        <p class="form-error" *ngIf="!!errorInscripcion">{{errorInscripcion}}</p>
       </div>
     </div>
   </div>

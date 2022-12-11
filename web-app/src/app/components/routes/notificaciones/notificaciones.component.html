@@ -5,68 +5,64 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-7">
-      <h3>Destinatarios</h3>
-      <div class="form-group">
-        <input
-        type="text"
-        class="form-control"
-        id="nombre"
-        placeholder="Nombre"
-        formControlName="nombre"
-        />
-        <p *ngIf="isValid('nombre')" class="form-error">
-          Por favor asignele un nombre a la actividad
-        </p>
+    <form (ngSubmit)="handleForm()" [formGroup]="notificacionForm">
+      <div class="col-7">
+        <h3>Destinatarios</h3>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="destinatario"
+            placeholder="Destinatarios"
+            formControlName="destinatario"
+          />
+          <p *ngIf="isValid('destinatario')" class="form-error">
+            Por favor ingrese los destinatarios
+          </p>
+        </div>
+
+        <h3>Asunto</h3>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="asunto"
+            placeholder="Asunto"
+            formControlName="asunto"
+          />
+          <p *ngIf="isValid('asunto')" class="form-error">
+            Por favor ingrese un asunto
+          </p>
+        </div>
+
+        <h3>Mensaje</h3>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control mensaje"
+            id="mensaje"
+            placeholder="Cuerpo del mensaje..."
+            formControlName="mensaje"
+          />
+          <p *ngIf="isValid('mensaje')" class="form-error">
+            Por favor ingrese un mensaje
+          </p>
+        </div>
       </div>
 
-      <h3>Asunto</h3>
       <div class="form-group">
-        <input
-        type="text"
-        class="form-control"
-        id="asunto"
-        placeholder="Asunto"
-        formControlName="asunto"
-        />
-        <p *ngIf="isValid('nombre')" class="form-error">
-          Por favor asignele un nombre a la actividad
-        </p>
+        <button type="button" class="btn btn-primary mt-3">
+          ENVIAR NOTIFICACIÓN
+        </button>
       </div>
+      <div class="col-4"></div>
+    </form>
+  </div>
 
-      <h3>Mensaje</h3>
-      <div class="form-group">
-        <input
-        type="text"
-        class="form-control mensaje"
-        id="mensaje"
-        placeholder="Cuerpo del mensaje..."
-        formControlName="mensaje"
-        />
-        <p *ngIf="isValid('nombre')" class="form-error">
-          Por favor asignele un nombre a la actividad
-        </p>
-      </div>
-    </div>
-
-    <div class="form-group">
-
-      <button type="button" class="btn btn-primary mt-3">
-        ENVIAR NOTIFICACIÓN
-      </button>
-    </div>
-    <div class="col-4">
-
-    </div>
+  <div class="row">
+    <div class="col-12"></div>
   </div>
   <div class="row">
-    <div class="col-12">
-
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-
-    </div>
+    <div class="col-12"></div>
   </div>
 </div>

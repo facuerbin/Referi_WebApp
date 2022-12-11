@@ -1,0 +1,49 @@
+h3 {
+  z-index: 1;
+  position: absolute;
+  top: -7rem;
+  width: 100%;
+  margin: auto;
+  font-size: 2rem;
+}
+
+.card {
+  margin: auto;
+  margin-top: 5vh;
+  width: 30vw;
+  height: 80%;
+  background-color: white;
+}
+
+.card-text {
+  font-size: 16px;
+}
+
+.card-body {
+  padding: 0px;
+}
+
+.btn {
+  width: 70%;
+}
+
+
+a, a.nostyle:link {
+  text-decoration: inherit;
+  color: blue !important;
+  cursor: pointer !important;
+}
+
+a.nostyle:visited {
+  text-decoration: inherit;
+  color: blue;
+  cursor: pointer;
+}
+
+.btn-descarga-container {
+  height: 20%;
+}
+
+.download-image {
+  height: 30%;
+}

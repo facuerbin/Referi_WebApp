@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { faAddressCard, faIdCard, faSearch, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { faAddressCard, faSearch, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
 import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { Turno } from 'src/app/interfaces/get.detail.actividad.dto';
@@ -23,6 +23,7 @@ export class SociosComponent implements OnInit {
   modal: bootstrap.Modal | undefined;
   modalError = false;
   errorTurnos = false;
+  errorInscripcion = "";
   search: string = "";
   searchUser: string = "";
   socios: Inscripto[] = [];
@@ -73,13 +74,11 @@ export class SociosComponent implements OnInit {
       return socio.usuario.nombre.toLowerCase().search(this.search.toLowerCase()) !== -1
           || socio.usuario.apellido.toLowerCase().search(this.search.toLowerCase()) !== -1
           || socio.usuario.email.toLowerCase().search(this.search.toLowerCase()) !== -1
-          || socio.estados[0].nombre?.toString().search(this.search.toLowerCase()) !== -1
+          || (socio.usuario.dni+"").toLowerCase().search(this.search.toLowerCase()) !== -1
       ;
     });
 
     this.sociosFiltered = result;
-
-
     return "";
   }
 
@@ -111,23 +110,33 @@ export class SociosComponent implements OnInit {
   }
 
   async handleForm() {
-    const result = await this.auth.registerNewSocio({
-      email: this.sociosForm.value['email'],
-      nombre: this.sociosForm.value['nombre'],
-      apellido: this.sociosForm.value['apellido'],
-      dni: +this.sociosForm.value['dni'],
-      telefono: this.sociosForm.value['telefono'],
-      fechaNacimiento: this.sociosForm.value['fechaNac'],
-      domicilio: {
-        calle: this.sociosForm.value['calle'],
-        numero: this.sociosForm.value['numero'],
-        ciudad: this.sociosForm.value['ciudad'],
-        provincia: this.sociosForm.value['provincia']
-      },
-      idTurnoActividad: this.sociosForm.value['idTurnoActividad'],
-    });
-    this.getSocios();
-    this.closeModal('modalAgregarUsuario');
+    try {
+      const result = await this.auth.registerNewSocio({
+        email: this.sociosForm.value['email'],
+        nombre: this.sociosForm.value['nombre'],
+        apellido: this.sociosForm.value['apellido'],
+        dni: +this.sociosForm.value['dni'],
+        telefono: this.sociosForm.value['telefono'],
+        fechaNacimiento: this.sociosForm.value['fechaNac'],
+        domicilio: {
+          calle: this.sociosForm.value['calle'],
+          numero: this.sociosForm.value['numero'],
+          ciudad: this.sociosForm.value['ciudad'],
+          provincia: this.sociosForm.value['provincia']
+        },
+        idTurnoActividad: this.sociosForm.value['idTurnoActividad'],
+      });
+
+      this.getSocios();
+      this.closeModal('modalAgregarUsuario');
+    } catch (error: any) {
+      console.log(error)
+      if (error && error?.response && error?.response.data && error.response.data.error){
+        this.errorInscripcion = error.response.data.error;
+      } else {
+        this.errorInscripcion = "Ocurrió un error al realizar la inscripción"
+      }
+    }
 
   }
 

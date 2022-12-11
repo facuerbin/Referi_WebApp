@@ -4,101 +4,102 @@
       <h2>Información del Socio:</h2>
     </div>
 
-    <div class="col-6 mt-3">
-      <a routerLink="/socios" class="btn btn-primary">VOLVER</a>
-      <a routerLink="/socios/eliminar" class="btn btn-outline-danger"
-        >DAR DE BAJA</a
-      >
-    </div>
+    <div class="col-6 mt-3"></div>
   </div>
 
   <div class="row justify-content-around align-items-center">
     <div class="col-4 mt-3">
-      <img
-        src="{{profileImg}}"
-        alt="Foto de perfil"
-        class="profile-img"
-      />
+      <img src="{{ profileImg }}" alt="Foto de perfil" class="profile-img" />
     </div>
     <div class="col-5">
       <div class="row">
         <div class="col-6">
           <div class="mt-3">
             <p>Nombre completo</p>
-            <h3>{{user?.nombre}}  {{user?.apellido}}</h3>
+            <h3>{{ user?.nombre }} {{ user?.apellido }}</h3>
           </div>
 
           <div class="mt-3">
             <p>DNI</p>
-            <h3>{{user?.dni}}</h3>
+            <h3>{{ user?.dni }}</h3>
           </div>
 
           <div class="mt-3">
             <p>Domicilio</p>
-            <h3>{{user?.domicilio?.calle}} {{user?.domicilio?.numero}}, {{user?.domicilio?.ciudad}}, {{user?.domicilio?.provincia}}</h3>
+            <h3>
+              {{ user?.domicilio?.calle }} {{ user?.domicilio?.numero }},
+              {{ user?.domicilio?.ciudad }}, {{ user?.domicilio?.provincia }}
+            </h3>
           </div>
         </div>
-
-
 
         <div class="col-6">
           <div class="mt-3">
             <p>Correo electrónico</p>
-            <h3>{{user?.email}}</h3>
+            <h3>{{ user?.email }}</h3>
           </div>
 
           <div class="mt-3">
             <p>Fecha de nacimiento:</p>
-            <h3>{{birthDate}}</h3>
+            <h3>{{ birthDate }}</h3>
           </div>
 
           <div class="mt-3">
             <p>Teléfono</p>
-            <h3>{{user?.telefono}}</h3>
+            <h3>{{ user?.telefono }}</h3>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row justify-content-around">
+  <div class="row justify-content-start">
     <div class="col-4 mt-3">
       <h2>Actividades:</h2>
     </div>
-
-    <div class="col-7 mt-3">
-      <a routerLink="/socios/inscribir" class="btn btn-primary">INSCRIBIR</a>
-    </div>
   </div>
 
-
-  <div class="d-flex flex-row mt-3 justify-content-start">
-    <div class="row justify-content-end">
-      <div class="actividad-container" *ngFor="let inscripcion of inscripciones">
-        <a class="row actividad-link" routerLink="/actividades/detalle/{{inscripcion.turnoActividad.actividad.id}}">
+  <div class="row">
+    <div class="d-flex flex-row flex-wrap align-content-start">
+      <div
+        class="actividad-container p-2"
+        *ngFor="let inscripcion of inscripciones"
+      >
+        <a
+          class="row actividad-link"
+          routerLink="/actividades/detalle/{{
+            inscripcion.turnoActividad.actividad.id
+          }}"
+        >
           <div class="col-5 align-self-center">
             <img
-              src="{{ getImageUrl(inscripcion.turnoActividad.actividad.imgUrl) }}"
+              src="{{
+                getImageUrl(inscripcion.turnoActividad.actividad.imgUrl)
+              }}"
               alt="Portada de actividad"
               class="img-actividad"
             />
           </div>
           <div class="col-7">
-            <span class="estado">Activo</span>
-            <h3>{{inscripcion.turnoActividad.actividad.nombre}}</h3>
+            <h3>{{ inscripcion.turnoActividad.actividad.nombre }}</h3>
             <p>
               <span *ngFor="let horario of inscripcion.turnoActividad.horarios">
-                {{ formatHorarios(horario)  }}
-                <br>
+                {{ formatHorarios(horario) }}
+                <br />
               </span>
-
             </p>
+            <span class="estado">Activo</span>
           </div>
         </a>
       </div>
-
     </div>
-    <div></div>
-    <div></div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="d-flex justify-content-end">
+      <a routerLink="/socios/eliminar" class="btn btn-outline-danger align-self-center"
+        >DAR DE BAJA</a
+      >
+    </div>
   </div>
 </div>

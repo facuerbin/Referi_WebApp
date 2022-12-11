@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as bootstrap from 'bootstrap';
-import { CreateActividadDto } from 'src/app/interfaces/create.actividad.dto';
-import { TipoActividad } from 'src/app/interfaces/get.tipo.actividad.dto';
+import { faAddressCard, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Modal } from 'bootstrap';
+import { PlanillaAsistencia } from 'src/app/interfaces/planilla.asistencia.dto';
+import { RegistrarAsistencia } from 'src/app/interfaces/registrar.asistencia.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
   selector: 'app-asistencia',
@@ -10,67 +11,102 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./asistencia.component.css']
 })
 export class AsistenciaComponent implements OnInit {
-  modal: bootstrap.Modal | undefined;
-  modalError = false;
-  tipoActividad: TipoActividad[] = [];
-  load = false;
-  spinner = false;
+    searchIcon = faSearch;
+    detailIcon = faAddressCard;
+    modal: bootstrap.Modal | undefined;
+    modalError = false;
+    load = false;
+    spinner = false;
+    search: string = "";
+    date: string = (new Date()).toISOString().slice(0,10);
+    selectedDate: string = this.date;
+    planillaVacia: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
-
-
-  async ngOnInit(): Promise<void> {
-    const res = (await this.auth.getTipoActividad()).subscribe(res => {
-      res.data.forEach(element => {
-        this.tipoActividad.push(element);
-      })
-      this.load = true;
-    })
-  }
-
-  openModal() {
-    this.modal = new bootstrap.Modal(document.getElementById("modalForm") || "", {
-      keyboard: false
-    });
-    this.modal.show();
-  }
+    planillaAsistencia: PlanillaAsistencia | null = null;
+    planillaAsistenciaFiltered: PlanillaAsistencia | null = null;
 
 
-  actividadForm: FormGroup = this.formBuilder.group({
-    nombre: ["", [Validators.required]],
-    idTipoActividad: ["", [Validators.required]],
-    descripcion: ["", [Validators.required]],
-    cupo: ["", [Validators.required]],
-  });
+    constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
 
 
-  selectedValue: any;
-  selectChange() {
-    this.selectedValue = this.auth.getTipoActividad();
-  }
-
-  handleForm() {
-    this.spinner = true;
-    const form = this.actividadForm.value;
-
-    const req: CreateActividadDto = {
-      ...form,
-      imgUrl: "",
-      idOrganizacion: this.auth.getOrgId(),
+    ngOnInit(): void {
+      this.getPlanillaAsistencia(new Date())
     }
 
-    const res = this.auth.createActividad(req);
-    res.
-      then( result => {
-        this.spinner = false
+    async getPlanillaAsistencia (fecha: Date) {
+      const orgId = await this.auth.getOrgId();
+      return (await this.auth.getPlanillaAsistencia(orgId, fecha.toISOString())).subscribe(result => {
+        this.planillaAsistencia = result;
+        this.planillaVacia =  !this.planillaAsistencia?.asistentes?.length;
+        if (!this.planillaVacia) this.planillaAsistencia.asistentes = this.planillaAsistencia.asistentes.sort((asistenteA, asistenteB) => {
+          if (asistenteA.hora > asistenteB.hora) return -1;
+          if (asistenteA.hora < asistenteB.hora) return 1;
+          return 0
+        });
+        this.planillaAsistenciaFiltered = this.planillaAsistencia
+        this.load = true;
       })
-      .catch(e => {
-        this.modalError = true;
-      });
-  }
+    }
 
-  isValidActividad(field: string): boolean {
-    return this.actividadForm.controls[field].errors !== null &&
-      (this.actividadForm.controls[field].touched || this.actividadForm.controls[field].dirty);
+    filterSearch() {
+      if (! this.planillaAsistencia?.asistentes) return null;
+      const result = this.planillaAsistencia?.asistentes.filter(asistente => {
+        return asistente.nombre.toLowerCase().search(this.search.toLowerCase()) !== -1
+            || asistente.apellido.toLowerCase().search(this.search.toLowerCase()) !== -1
+            || (asistente.dni + "").search(this.search) !== -1
+        ;
+      });
+      this.planillaAsistenciaFiltered = {
+        ...this.planillaAsistencia,
+        asistentes: result
+      };
+
+      return "";
+    }
+
+    filterDate() {
+      this.getPlanillaAsistencia(new Date(this.selectedDate));
+    }
+
+    openModal() {
+      this.modal = new Modal(document.getElementById("modalForm") || "", {
+        keyboard: false
+      });
+      this.modal.show();
+    }
+
+    closeModal() {
+      this.modal?.hide();
+    }
+
+
+    asistenciaForm: FormGroup = this.formBuilder.group({
+      nombre: ["", [Validators.required]],
+      apellido: ["", [Validators.required]],
+      dni: ["", [Validators.required]],
+    });
+
+    async handleForm() {
+      this.spinner = true;
+      const form = this.asistenciaForm.value;
+
+      const req: RegistrarAsistencia = {
+        ...form,
+        idOrg: await this.auth.getOrgId(),
+        hora: (new Date()).toISOString()
+      };
+
+      (await this.auth.registrarAsistencia(req)).subscribe(result => {
+        this.getPlanillaAsistencia(new Date())
+        this.asistenciaForm.reset();
+        this.spinner = false;
+        this.closeModal();
+      });
+    }
+
+    isValidActividad(field: string): boolean {
+      return this.asistenciaForm.controls[field].errors !== null &&
+        (this.asistenciaForm.controls[field].touched || this.asistenciaForm.controls[field].dirty);
+    }
+
   }
-}

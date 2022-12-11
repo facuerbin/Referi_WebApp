@@ -43,6 +43,9 @@ import { ListPersonalOrganizacion } from 'src/app/interfaces/listPersonalOrganiz
 import { ListRoles } from 'src/app/interfaces/list.roles.dto';
 import { CreateEspacioDto } from 'src/app/interfaces/create.espacio.dto';
 import { CreateEspacioResponse } from 'src/app/interfaces/create.espacio.response.dto';
+import { RegistrarAsistencia } from 'src/app/interfaces/registrar.asistencia.dto';
+import { RegistrarAsistenciaResponse } from 'src/app/interfaces/registrar.asistencia.response.dto';
+import { PlanillaAsistencia } from 'src/app/interfaces/planilla.asistencia.dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -67,8 +70,13 @@ export class AuthService {
     this.user = data.data.user
     this.cookieService.set('token', data.data.access_token)
     this.cookieService.set('uid',data.data.user.id)
-    if (data.data.access_token) await this.getOrganizationDetail();
-    return this.router.navigate([""]);
+    this.getOrganizationDetail().then(result => {
+      return this.router.navigate([""]);
+    })
+    .catch(e => {
+      console.log(e);
+      return this.router.navigate(['/', 'login'])
+    })
   }
 
   async processRegistry(registryForm: RegisterDto) {
@@ -85,6 +93,18 @@ export class AuthService {
   async recoverPassword(email: string) {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/auth/recover';
     return (await axios.post(url, {email}));
+  }
+
+  async changePassword(oldPassword: string, newPassword: string) {
+    const token = this.getToken();
+    const uid = this.cookieService.get('uid');
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/auth/change_password';
+    const dto = {
+      id: uid,
+      oldPassword,
+      newPassword
+    }
+    return (await axios.post(url, dto, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 
   async addOrganizationOwner(orgId: string, userEmail: string) {
@@ -164,21 +184,31 @@ export class AuthService {
     const token = this.getToken();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId + '/espacio';
 
-    const result = (await axios.post<CreateEspacioResponse>(url, espacioDto, { headers: { Authorization: `Bearer ${token}` }})).data;
-    return result;
+    return (await axios.post<CreateEspacioResponse>(url, espacioDto, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 
   async createActividad(dto: CreateActividadDto) {
+    const token = this.getToken();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades';
-    const result = await axios.post<CreateActividadResponse>(url, dto);
-    return result;
+    return await axios.post<CreateActividadResponse>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+  async registrarAsistencia(dto: RegistrarAsistencia) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/asistencias/crear';
+    return this.http.post<RegistrarAsistenciaResponse>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+  async getPlanillaAsistencia(idOrg: string, fecha: string) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/asistencias/' + idOrg + '?fecha=' + fecha;
+    return this.http.get<PlanillaAsistencia>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
   async createTarifa(dto: CreateTarifaDto) {
     const token = this.getToken();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/tarifas';
-    const result = await axios.post<CreateTarifaDto>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
-    return result;
+    return await axios.post<CreateTarifaDto>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
   }
 
   async createPago(dto: CreatePagoDto) {
@@ -266,8 +296,13 @@ export class AuthService {
       if (! decodedToken) throw new Error("No token found.");
       const uid = decodedToken.sub;
       const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
-      orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion.id;
-      this.cookieService.set('org', orgId)
+      try {
+        orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion.id;
+        this.cookieService.set('org', orgId)
+      } catch (e) {
+        return new Error("Login failed");
+        ;
+      }
     }
     const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId;
 
@@ -297,6 +332,14 @@ export class AuthService {
 
     const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
     return this.http.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+  async promiseEmployeePermissions () {
+    const token = this.getToken();
+    const uid = (await this.getUser()).data.data.id;
+
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
+    return (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 
   getDecodedAccessToken(): any {

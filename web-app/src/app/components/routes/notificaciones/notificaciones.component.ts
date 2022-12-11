@@ -7,9 +7,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./notificaciones.component.css']
 })
 export class NotificacionesComponent implements OnInit {
-  actividadForm: FormGroup = this.formBuilder.group({
-    email: ["", [Validators.required, Validators.email]],
-    password: ["", [Validators.required, Validators.minLength(8)]]
+  notificacionForm: FormGroup = this.formBuilder.group({
+    destinatario: ["", [Validators.required]],
+    asunto: ["", [Validators.required, Validators.minLength(4)]],
+    mensaje: ["", [Validators.required, Validators.minLength(10)]],
+
   });
   constructor(private formBuilder: FormBuilder) { }
 
@@ -21,7 +23,7 @@ export class NotificacionesComponent implements OnInit {
   }
 
   isValid(field: string): boolean {
-    return this.actividadForm.controls[field].errors !== null &&
-    (this.actividadForm.controls[field].touched || this.actividadForm.controls[field].dirty);
+    return this.notificacionForm.controls[field].errors !== null &&
+    (this.notificacionForm.controls[field].touched || this.notificacionForm.controls[field].dirty);
   }
 }

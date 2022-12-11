@@ -1,7 +1,7 @@
 <div class="background"></div>
 <div class="card text-center">
-  <img src="/assets/img/login.svg" class="login-background card-img-top" />
-  <section class="card-body position-relative">
+  <img src="/assets/img/login.svg" class="login-background card-img-top" priority/>
+  <section class="card-body position-relative" *ngIf="load">
     <h3 class="card-title">¡Bienvenido a Referí!</h3>
     <form (ngSubmit)="handleLogin()" [formGroup]="loginForm">
       <p class="card-text">Iniciar sesión</p>

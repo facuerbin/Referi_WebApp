@@ -161,7 +161,7 @@
               aria-hidden="true"
             ></fa-icon>
           </button>
-          <p *ngIf="isValid('confirmPassword')" class="form-error">
+          <p *ngIf="isValidRepeatPassword()" class="form-error">
             Por favor ingrese nuevamente la nueva contraseña
           </p>
         </div>
@@ -171,6 +171,12 @@
           CAMBIAR CONTRASEÑA
         </button>
       </div>
+      <p class="form-succes" *ngIf="changePasswordSucces">
+        Se actualizó la contraseña correctamente
+      </p>
+      <p class="form-error" *ngIf="changePasswordFail">
+        Verifique los datos ingresados e intente nuevamente
+      </p>
     </div>
   </div>
 </div>

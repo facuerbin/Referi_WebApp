@@ -1,0 +1,28 @@
+<div class="background"></div>
+<div class="card text-center">
+  <img
+    src="/assets/img/login.svg"
+    class="login-background card-img-top"
+    priority
+  />
+  <section class="card-body position-relative" *ngIf="load">
+    <h3 class="card-title">¡Descargá la App!</h3>
+    <img
+      src="/assets/img/descargar.png"
+      class="download-image"
+      priority
+    />
+    <p class="card-text">
+      Vemos que tenés ganas de realizar actividad física, pero para brindarte la
+      mejor experiencia te pedimos utilices Referia a través de la app que
+      tenemos para Android.
+    </p>
+    <p class="card-text">¡A continuación te dejamos el link de descarga!</p>
+
+    <div
+      class=""
+    >
+      <button type="btn" class="btn btn-primary" (click)="downloadApp()">INICIAR DESCARGA</button>
+    </div>
+  </section>
+</div>

@@ -22,15 +22,14 @@ import { AsistenciaComponent } from './components/routes/asistencia/asistencia.c
 import { MaintenanceComponent } from './components/routes/maintenance/maintenance.component';
 import { IngresosComponent } from './components/routes/ingresos/ingresos.component';
 import { DetalleSocioComponent } from './components/routes/detalle-socio/detalle-socio.component';
-import { InscribirSocioComponent } from './components/routes/inscribir-socio/inscribir-socio.component';
 import { DetalleActividadComponent } from './components/routes/detalle-actividad/detalle-actividad.component';
 import { VerificarComponent } from './components/routes/verificar/verificar.component';
-import { CrearActividadComponent } from './components/routes/crear-actividad/crear-actividad.component';
 import { PerfilUsuarioComponent } from './components/routes/perfil-usuario/perfil-usuario.component';
 import { TablaComponent } from './components/shared/tabla/tabla.component';
 import { RecuperarContraseniaComponent } from './components/routes/recuperar-contrasenia/recuperar-contrasenia.component';
 import { PersonalComponent } from './components/routes/personal/personal.component';
 import { EspaciosComponent } from './components/routes/espacios/espacios.component';
+import { DownloadComponent } from './components/routes/download/download.component';
 
 @NgModule({
   declarations: [
@@ -48,15 +47,14 @@ import { EspaciosComponent } from './components/routes/espacios/espacios.compone
     AsistenciaComponent,
     MaintenanceComponent,
     IngresosComponent,
-    CrearActividadComponent,
     DetalleSocioComponent,
-    InscribirSocioComponent,
     DetalleActividadComponent,
     VerificarComponent,
     TablaComponent,
     RecuperarContraseniaComponent,
     PersonalComponent,
     EspaciosComponent,
+    DownloadComponent,
   ],
   imports: [
     BrowserModule,
