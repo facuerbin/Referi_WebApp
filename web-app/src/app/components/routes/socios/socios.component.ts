@@ -103,7 +103,6 @@ export class SociosComponent implements OnInit {
   backupSucces: boolean = false;
   csvRecords: any;
   fileChangeListener($event: any): void {
-    console.log($event);
     const files = $event.srcElement.files;
     this.header = (this.header as unknown as string) === 'true' || this.header === true;
 

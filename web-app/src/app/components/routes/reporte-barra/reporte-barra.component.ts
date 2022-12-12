@@ -17,7 +17,6 @@ export class ReporteBarraComponent implements OnInit{
   constructor(private auth: AuthService) {}
 
   async ngOnInit(): Promise<void> {
-    console.log(this.chartType)
       const range = Object.keys(this.data);
       const values = Object.values(this.data);
       this.chart.dataTable = [

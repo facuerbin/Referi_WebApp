@@ -490,7 +490,6 @@ export class AuthService {
       toMonth: today.month(),
       fromYear: today.subtract(1, 'year').year(),
     }
-    console.log(dto)
     return (await axios.post<any>(url, dto, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 }

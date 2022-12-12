@@ -42,7 +42,6 @@ export class GraficaReporteComponent implements OnInit {
       this.title = "Distribución Inscriptos por Mes";
       this.chartType = GoogleChartType.BarChart;
       this.data = await this.getDataInscriptosMes();
-      console.log(this.data)
     }
 
     this.render = true;
