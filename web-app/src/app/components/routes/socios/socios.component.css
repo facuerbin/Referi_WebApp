@@ -112,7 +112,7 @@ div.position-relative {
 }
 
 .table-wrapper {
-  max-height: 70vh;
+  max-height: 60vh;
   overflow: auto;
   display:inline-block;
 }

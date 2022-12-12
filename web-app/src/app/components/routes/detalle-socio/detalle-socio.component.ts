@@ -45,9 +45,11 @@ export class DetalleSocioComponent implements OnInit {
         const birthday = new Date(this.user.fechaNacimiento);
         this.birthDate = birthday.getDate() + "/" + birthday.getMonth() + "/" + birthday.getFullYear();
       });
-
+      const orgId = await this.auth.getOrgId();
       (await this.auth.getInscripcionesByUserId(this.userId)).subscribe(result => {
-        this.inscripciones = result.data;
+        this.inscripciones = result.data.filter(inscripcion => {
+          return inscripcion.organizacion.id = orgId;
+        });
       })
       this.load = true;
     });
