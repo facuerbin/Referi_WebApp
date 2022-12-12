@@ -12,6 +12,11 @@
   color: #323232;
 }
 
+.form-check {
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
 div.position-relative {
   width: fit-content;
 }

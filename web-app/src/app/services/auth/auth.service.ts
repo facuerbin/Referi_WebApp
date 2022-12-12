@@ -464,6 +464,13 @@ export class AuthService {
     return (await axios.post<any>(url, csvArray, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 
+  async bajaSocio(idInscripcion: string) {
+    const orgId = await this.getOrgId();
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/' + idInscripcion;
+    return (await axios.delete<any>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
+
   async reporteRangoEtarioSocios() {
     const orgId = await this.getOrgId();
     const token = this.getToken();

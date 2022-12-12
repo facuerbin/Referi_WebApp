@@ -48,3 +48,14 @@ a:hover {
   color: inherit;
 }
 
+.form-error {
+  color: red;
+  font-size: 0.8rem;
+  display: inline;
+}
+
+.form-success {
+  color: green;
+  font-size: 0.8rem;
+  display: inline;
+}

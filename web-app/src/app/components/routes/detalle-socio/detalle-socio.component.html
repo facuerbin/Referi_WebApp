@@ -95,13 +95,103 @@
 
       <div class="">
         <div class="m-4">
-          <a routerLink="/socios/eliminar" class="btn btn-outline-danger align-self-center"
-            >DAR DE BAJA</a
+          <button type="button" (click)="openModal()" class="btn btn-outline-danger align-self-center"
+            >DAR DE BAJA</button
           >
         </div>
       </div>
 
     </div>
   </div>
-
 </div>
+
+
+<!-- Modale Crear Turno -->
+<div class="modal fade" tabindex="-1" id="modalBaja">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">BAJA SOCIO:</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <form
+              [formGroup]="bajaForm"
+              class="container-fluid"
+              *ngIf="load"
+            >
+              <div class="row">
+                <div class="col-10 col-sm">
+                  <h3>Seleccione la inscripción a dar de baja:</h3>
+
+                  <div class="form-group">
+                    <select
+                    class="form-control"
+                    id="actividadSelect"
+                    formControlName="idInscripcion"
+                    [value]=""
+                    >
+                    <option value="" disabled selected>
+                      Seleccione la actividad
+                    </option>
+                      <option
+                        *ngFor="let inscripcion of inscripciones"
+                        value="{{ inscripcion.id }}"
+                      >
+                        {{ inscripcion.turnoActividad.actividad.nombre }}
+                        <p *ngFor="let horario of inscripcion.turnoActividad.horarios">
+                          {{horario.horario.diaSemana}} : {{horario.horario.horaInicio}}
+                        </p>
+                      </option>
+                    </select>
+                    <p
+                    *ngIf="isValid('idInscripcion')"
+                    class="form-error"
+                    >
+                    Por favor elija una inscripción
+                  </p>
+                </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button
+            type="button"
+            class="btn btn-danger m-3"
+            (click)="handleForm()"
+            [disabled]="bajaForm.invalid"
+            >
+            <span
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+              *ngIf="spinner"
+            ></span>
+            CONFIRMAR BAJA
+          </button>
+          <p class="form-success" *ngIf="bajaSucces">
+            ¡La baja se realizó con éxito!
+          </p>
+          <p class="form-error" *ngIf="bajaError">
+            Ocurrió un error, intente de nuevo más tarde...
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- [disabled]="bajaForm.invalid" -->

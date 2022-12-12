@@ -155,7 +155,7 @@
     <div class="form-check" *ngFor="let cuota of cuotas">
       <input class="form-check-input" type="checkbox" value="{{cuota.id}}" id="flexCheckDefault" (change)="checkbox(cuota.id)">
       <label class="form-check-label" for="flexCheckDefault">
-        {{cuota.tarifa.actividad.nombre}}:{{cuota.tarifa.nombre}} {{cuota.monto}}
+        {{cuota.tarifa.actividad.nombre}}:{{cuota.tarifa.nombre}} {{cuota.monto}} (Vencimiento:{{helper.parseDate(''+cuota.fechaVencimiento)}})
       </label>
     </div>
 </div>
