@@ -5,6 +5,7 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
 import { OrganizationDetailDto } from 'src/app/interfaces/OrganizationDetailDto';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { HelperService } from 'src/app/services/helper.service';
 import { UploadService } from 'src/app/services/upload/upload.service';
 import { environment } from 'src/environments/environment';
 
@@ -46,7 +47,7 @@ export class OrganizacionComponent implements OnInit {
     "DOMINGO"
   ];
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private auth: AuthService, private upload: UploadService) { }
+  constructor(private formBuilder: FormBuilder, public helper: HelperService, private auth: AuthService, private upload: UploadService) { }
 
   ngOnInit() {
     this.getOrganizacion();

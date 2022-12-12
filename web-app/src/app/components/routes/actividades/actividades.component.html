@@ -57,7 +57,7 @@
             <td>{{ actividad.tipo }}</td>
             <td>{{ actividad.cupo }}</td>
             <td>{{ actividad.turnos }}</td>
-            <td>{{ actividad.fechaInicio }}</td>
+            <td>{{ helper.parseDate(actividad.fechaInicio) }}</td>
             <td>{{ actividad.estado }}</td>
             <td class="d-flex justify-content-around">
               <fa-icon

@@ -9,6 +9,7 @@ import { Espacio } from 'src/app/interfaces/get.espacios.response.dto';
 import { Frecuencia } from 'src/app/interfaces/get.tarifa.frecuencia.res.dto';
 import { TipoActividad } from 'src/app/interfaces/get.tipo.actividad.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { HelperService } from 'src/app/services/helper.service';
 import { UploadService } from 'src/app/services/upload/upload.service';
 import { environment } from 'src/environments/environment';
 
@@ -69,16 +70,16 @@ export class DetalleActividadComponent implements OnInit {
     "DOMINGO"
   ];
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private auth: AuthService, private upload: UploadService) { }
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private auth: AuthService, private upload: UploadService, public helper: HelperService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.route.params.subscribe(async params => {
       this.actividadId = params['id'];
     });
-    this.getTurnosActividad();
-    this.getTipoActividad();
-    this.getFrecuencias();
-    this.getEspacios();
+    await this.getTurnosActividad();
+    await this.getTipoActividad();
+    await this.getFrecuencias();
+    await this.getEspacios();
   }
 
   async getTurnosActividad() {

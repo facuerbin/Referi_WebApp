@@ -4,7 +4,7 @@
   </div>
   <form [formGroup]="actividadForm" class="container-fluid">
     <div class="row">
-      <div class="col-4 mt-3 position-relative">
+      <div class="col-5 mt-3 position-relative">
         <img
           *ngIf="actividad"
           src="{{imgUrl}}"
@@ -24,7 +24,7 @@
           (change)="onChange($event)"
         />
       </div>
-      <div class="col-6 col-sm">
+      <div class="col-7 col-sm">
         <h3>Datos de la Actividad</h3>
 
         <div class="container-fluid row">
@@ -88,7 +88,7 @@
           class="form-control"
           id="fecha"
           placeholder="Fecha de inicio"
-          value="{{ fechaCreacion }}"
+          value="{{ helper.parseDate(fechaCreacion) }}"
           disabled
           style="background-color: white; border: none;"
           />

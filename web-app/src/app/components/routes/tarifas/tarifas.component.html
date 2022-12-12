@@ -52,7 +52,7 @@
         <td>{{ tarifa.monto }}</td>
         <td>{{ tarifa.frecuencia }}</td>
         <td>{{ tarifa.opcional }}</td>
-        <td>{{ tarifa.fechaActualizacion }}</td>
+        <td>{{ helper.parseDate(tarifa.fechaActualizacion) }}</td>
         <td class="d-flex justify-content-around">
           <button class="action-button" (click)="editarTarifaModal(tarifa.id)">
             <fa-icon class="action-icon"[icon]="pencil" aria-hidden="true"></fa-icon>

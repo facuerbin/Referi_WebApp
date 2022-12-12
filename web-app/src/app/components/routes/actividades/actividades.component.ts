@@ -6,6 +6,7 @@ import { ActividadTableElement } from 'src/app/interfaces/actividad.table';
 import { CreateActividadDto } from 'src/app/interfaces/create.actividad.dto';
 import { TipoActividad } from 'src/app/interfaces/get.tipo.actividad.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-actividades',
@@ -25,7 +26,7 @@ export class ActividadesComponent implements OnInit {
   actividadesFiltered: ActividadTableElement[] = [];
   actividades: ActividadTableElement[] = []
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, public helper: HelperService) { }
 
 
   async ngOnInit(): Promise<void> {

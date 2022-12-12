@@ -146,9 +146,9 @@
                         *ngFor="let inscripcion of inscripciones"
                         value="{{ inscripcion.id }}"
                       >
-                        {{ inscripcion.turnoActividad.actividad.nombre }}
+                        {{ inscripcion.turnoActividad.actividad.nombre }}:
                         <p *ngFor="let horario of inscripcion.turnoActividad.horarios">
-                          {{horario.horario.diaSemana}} : {{horario.horario.horaInicio}}
+                          {{helper.formatHorarios(horario)}}
                         </p>
                       </option>
                     </select>

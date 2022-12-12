@@ -164,7 +164,7 @@
           class="form-control"
           id="fechaIni"
           placeholder="Fecha de inicio"
-          value="{{ fechaCreacion }}"
+          value="{{ helper.parseDate(fechaCreacion) }}"
           disabled
           style="background-color: white; border: none;"
           />
@@ -177,7 +177,7 @@
           class="form-control"
           id="fechaFin"
           placeholder="Fecha de inicio"
-          value="{{ fechaActualizacion }}"
+          value="{{ helper.parseDate(fechaActualizacion) }}"
           disabled
           style="background-color: white; border: none;"
           />

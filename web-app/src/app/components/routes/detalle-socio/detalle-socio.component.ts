@@ -6,6 +6,7 @@ import { Horario } from 'src/app/interfaces/create.turno.dto';
 import { HorarioElement, Inscripcion } from 'src/app/interfaces/get.inscripciones.user.dto';
 import { User } from 'src/app/interfaces/get.user.response.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { HelperService } from 'src/app/services/helper.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -32,7 +33,7 @@ export class DetalleSocioComponent implements OnInit {
 
 
 
-  constructor(private route: ActivatedRoute, private auth: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private route: ActivatedRoute, private auth: AuthService, private formBuilder: FormBuilder, public helper: HelperService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(async params => {

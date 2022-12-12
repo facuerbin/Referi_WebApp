@@ -5,6 +5,7 @@ import { Modal } from 'bootstrap';
 import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { Frecuencia } from 'src/app/interfaces/get.tarifa.frecuencia.res.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-tarifas',
@@ -34,7 +35,7 @@ export class TarifasComponent implements OnInit {
     frecuencia: ["", [Validators.required]],
   });
 
-  constructor(private auth: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, public helper: HelperService) { }
 
   async ngOnInit(): Promise<void> {
     this.getTarifas();
