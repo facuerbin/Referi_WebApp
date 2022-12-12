@@ -8,17 +8,86 @@
     <form (ngSubmit)="handleForm()" [formGroup]="notificacionForm">
       <div class="col-7">
         <h3>Destinatarios</h3>
-        <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            id="destinatario"
-            placeholder="Destinatarios"
-            formControlName="destinatario"
-          />
-          <p *ngIf="isValid('destinatario')" class="form-error">
-            Por favor ingrese los destinatarios
-          </p>
+        <div class="form-group d-flex">
+          <div>
+            <label for="idTipoDestinatario">Tipo de Destinatarios:</label>
+            <select
+              class="form-control form-control-short"
+              id="idTipoDestinatario"
+              formControlName="tipoDestinatario"
+              value=""
+              (change)="onChange($event.target)"
+            >
+              <option value="" disabled selected>
+                Seleccione los destinatarios
+              </option>
+              <option *ngFor="let tipo of tipoDestinatarios" value="{{ tipo }}">
+                {{ tipo }}
+              </option>
+            </select>
+            <!-- <p
+              *ngIf="isValid('idTipoDestinatario')"
+              class="form-error"
+            >
+              Por favor asignele un tipo a la actividad
+            </p> -->
+          </div>
+
+          <div *ngIf="actividadSelect || turnoSelect">
+            <label for="idActividad">Seleccione la actividad:</label>
+            <select
+              class="form-control form-control-short"
+              id="idActividad"
+              formControlName="actividad"
+              value=""
+              (change)="onChangeActividad($event.target)"
+            >
+              <option value="" disabled selected>
+                Seleccione la Actividad
+              </option>
+              <option *ngFor="let actividad of actividades" value="{{ actividad.id }}">
+                {{ actividad.nombre }}
+              </option>
+            </select>
+          </div>
+
+          <div *ngIf="turnoSelect && this.turnos.length > 0">
+            <label for="idActividadTurno">Seleccione el turno:</label>
+            <select
+              class="form-control form-control-short"
+              id="idActividadTurno"
+              formControlName="turno"
+              value=""
+              (change)="onChangeTurno($event.target)"
+            >
+              <option value="" disabled selected>
+                Seleccione el Turno
+              </option>
+              <option *ngFor="let turno of turnos" value="{{ turno.id }}">
+                <p *ngFor="let horario of turno.horarios">
+                  {{ parseHorarios(horario) }}
+                </p>
+              </option>
+            </select>
+          </div>
+
+          <div *ngIf="socioSelect && this.socios.length > 0">
+            <label for="idSocioSelect">Seleccione un socio:</label>
+            <select
+              class="form-control form-control-short"
+              id="idSocioSelect"
+              formControlName="socio"
+              value=""
+              (change)="onChangeSocio($event.target)"
+            >
+              <option value="" disabled selected>
+                Seleccione un Socio
+              </option>
+              <option *ngFor="let socio of socios" value="{{ socio.id }}">
+                {{ socio.usuario.nombre }} {{ socio.usuario.apellido }} - {{ socio.usuario.email }}
+              </option>
+            </select>
+          </div>
         </div>
 
         <h3>Asunto</h3>
@@ -51,7 +120,7 @@
       </div>
 
       <div class="form-group">
-        <button type="button" class="btn btn-primary mt-3">
+        <button type="button" class="btn btn-primary mt-3" (click)="handleForm()">
           ENVIAR NOTIFICACIÓN
         </button>
       </div>

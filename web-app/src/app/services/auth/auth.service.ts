@@ -46,6 +46,8 @@ import { CreateEspacioResponse } from 'src/app/interfaces/create.espacio.respons
 import { RegistrarAsistencia } from 'src/app/interfaces/registrar.asistencia.dto';
 import { RegistrarAsistenciaResponse } from 'src/app/interfaces/registrar.asistencia.response.dto';
 import { PlanillaAsistencia } from 'src/app/interfaces/planilla.asistencia.dto';
+import { SendNotificationDto } from 'src/app/interfaces/send.notification.dto';
+import { SendNotificationResponse } from 'src/app/interfaces/send.notification.response.dto';
 @Injectable({
   providedIn: 'root'
 })
@@ -446,5 +448,11 @@ export class AuthService {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/usuario/' + userId;
     const token = this.getToken();
     return this.http.get<GetUserInscripciones>(url, { headers: { Authorization: `Bearer ${token}` }});
+  }
+
+  async sendNotification(dto: SendNotificationDto) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/notificaciones/socios';
+    return (await axios.post<SendNotificationResponse>(url, dto, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 }

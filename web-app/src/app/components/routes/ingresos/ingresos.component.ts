@@ -1,5 +1,4 @@
-import { CDK_DESCRIBEDBY_HOST_ATTRIBUTE } from '@angular/cdk/a11y';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faFileInvoiceDollar, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';

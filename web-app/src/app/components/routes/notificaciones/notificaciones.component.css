@@ -5,3 +5,8 @@
 .btn {
   width: 20vw;
 }
+
+.form-control-short {
+  width: 15vw !important;
+  margin-right: 2rem !important;
+}
