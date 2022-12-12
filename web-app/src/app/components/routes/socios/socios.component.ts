@@ -109,10 +109,8 @@ export class SociosComponent implements OnInit {
     this.csvParser.parse(files[0], { header: this.header, delimiter: ',', encoding: 'utf8' })
       .pipe().subscribe({
         next: async (result): Promise<void> => {
-          console.log('Result', result);
           this.csvRecords = result;
           const response = await this.auth.restoreSocios(this.csvRecords);
-          console.log(response);
         },
         error: (error: NgxCSVParserError): void => {
           console.log('Error', error);
