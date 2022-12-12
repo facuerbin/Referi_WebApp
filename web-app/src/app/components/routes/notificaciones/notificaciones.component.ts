@@ -30,6 +30,9 @@ export class NotificacionesComponent implements OnInit {
   selectedActividadId: string = "";
   turnoSelect: boolean = false;
   socioSelect: boolean = false;
+  notificationSuccess: boolean = false;
+  notificationError: boolean = false;
+
 
 
 
@@ -57,6 +60,13 @@ export class NotificacionesComponent implements OnInit {
     }
 
     const response = await this.auth.sendNotification(dto);
+
+    if (response) this.notificationSuccess = true;
+    else this.notificationError = true;
+
+    setTimeout(() => {
+      return window.location.reload();
+    }, 2000);
   }
 
   async getActividades() {

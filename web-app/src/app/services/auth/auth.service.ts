@@ -455,4 +455,11 @@ export class AuthService {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/notificaciones/socios';
     return (await axios.post<SendNotificationResponse>(url, dto, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
+
+  async restoreSocios(csvArray: string[]) {
+    const orgId = await this.getOrgId();
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/organizacion/' + orgId + '/backup';
+    return (await axios.post<any>(url, csvArray, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
 }

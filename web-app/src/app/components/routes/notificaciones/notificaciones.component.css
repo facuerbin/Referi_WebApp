@@ -10,3 +10,11 @@
   width: 15vw !important;
   margin-right: 2rem !important;
 }
+
+.form-error {
+  color: red;
+}
+
+.form-success {
+  color: green;
+}

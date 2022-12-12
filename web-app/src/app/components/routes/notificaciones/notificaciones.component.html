@@ -123,6 +123,13 @@
         <button type="button" class="btn btn-primary mt-3" (click)="handleForm()">
           ENVIAR NOTIFICACIÓN
         </button>
+        <p class="form-success" *ngIf="notificationSuccess">
+          ¡La notificación fue enviada correctamente!
+        </p>
+        <p class="form-error" *ngIf="notificationError">
+          Algo salió mal, prueba enviando la notificación más tarde.
+        </p>
+
       </div>
       <div class="col-4"></div>
     </form>

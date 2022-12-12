@@ -2,18 +2,19 @@
 <div class="card text-center">
   <img src="/assets/img/login.svg" class="login-background card-img-top" />
   <section class="card-body position-relative">
-    <h3 class="card-title">Registra tu institución</h3>
+    <h3 class="card-title">Verificá tu correo electrónico</h3>
     <form (ngSubmit)="handleVerification()" [formGroup]="verificationForm">
       <section>
-        <p>¡Estás a un paso!</p>
+        <h2>¡Estás a un paso!</h2>
         <div class="container">
           <div class="form-group col-10">
             <input type="hidden" [value]="email" formControlName="email">
             <input
-              type="number"
+              type="text"
               class="form-control"
               id="codigo"
               placeholder="Código de 4 dígitos"
+              maxlength="4"
               formControlName="codigo"
             />
             <p *ngIf="isValid('codigo')" class="form-error">

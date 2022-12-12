@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faAddressCard, faSearch, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
@@ -7,7 +7,7 @@ import { Turno } from 'src/app/interfaces/get.detail.actividad.dto';
 import { Inscripto } from 'src/app/interfaces/get.inscriptos.organizacion.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { HelperService } from 'src/app/services/helper.service';
-
+import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
 @Component({
   selector: 'app-socios',
   templateUrl: './socios.component.html',
@@ -47,7 +47,7 @@ export class SociosComponent implements OnInit {
   });
 
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService, public helper: HelperService) { }
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, public helper: HelperService, private csvParser: NgxCsvParser) { }
 
 
   async ngOnInit(): Promise<void> {
@@ -96,6 +96,39 @@ export class SociosComponent implements OnInit {
     return turno.horarios.map(horario => {
       return `${horario.horario.diaSemana}: de ${horario.horario.horaInicio}:${horario.horario.minutosInicio>9  ? horario.horario.minutosInicio: '0'+horario.horario.minutosInicio} a ${Math.floor(horario.horario.horaInicio + horario.horario.duracion / 60)}:${((horario.horario.minutosInicio + horario.horario.duracion) % 60) >9  ? (horario.horario.minutosInicio + horario.horario.duracion) % 60: '0'+(horario.horario.minutosInicio + horario.horario.duracion) % 60}`
     });
+  }
+
+  @ViewChild('fileImportInput') fileImportInput: any;
+  header: boolean = false;
+  csvRecords: any;
+  fileChangeListener($event: any): void {
+    console.log($event);
+    const files = $event.srcElement.files;
+    this.header = (this.header as unknown as string) === 'true' || this.header === true;
+
+    this.csvParser.parse(files[0], { header: this.header, delimiter: ',', encoding: 'utf8' })
+      .pipe().subscribe({
+        next: async (result): Promise<void> => {
+          console.log('Result', result);
+          this.csvRecords = result;
+          const response = await this.auth.restoreSocios(this.csvRecords);
+          console.log(response);
+        },
+        error: (error: NgxCSVParserError): void => {
+          console.log('Error', error);
+        }
+      });
+  }
+
+  async exportarSocios() {
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
+    const orgId = await this.auth.getOrgId();
+    link.setAttribute('href', '/v1/socios/organizacion/'+ orgId + '/backup');
+    link.setAttribute('download', `socios.csv`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   }
 
   openModal(id: string) {
