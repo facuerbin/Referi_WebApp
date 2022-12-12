@@ -6,6 +6,7 @@ import { DetalleActividadComponent } from './components/routes/detalle-actividad
 import { DetalleSocioComponent } from './components/routes/detalle-socio/detalle-socio.component';
 import { DownloadComponent } from './components/routes/download/download.component';
 import { EspaciosComponent } from './components/routes/espacios/espacios.component';
+import { GraficaReporteComponent } from './components/routes/grafica-reporte/grafica-reporte.component';
 import { HomeComponent } from './components/routes/home/home.component';
 import { IngresosComponent } from './components/routes/ingresos/ingresos.component';
 import { LoginComponent } from './components/routes/login/login.component';
@@ -14,6 +15,7 @@ import { OrganizacionComponent } from './components/routes/organizacion/organiza
 import { PerfilUsuarioComponent } from './components/routes/perfil-usuario/perfil-usuario.component';
 import { PersonalComponent } from './components/routes/personal/personal.component';
 import { RegisterComponent } from './components/routes/register/register.component';
+import { ReporteBarraComponent } from './components/routes/reporte-barra/reporte-barra.component';
 import { ReportesComponent } from './components/routes/reportes/reportes.component';
 import { SociosComponent } from './components/routes/socios/socios.component';
 import { TarifasComponent } from './components/routes/tarifas/tarifas.component';
@@ -49,6 +51,11 @@ const routes: Routes = [
   {
     path: "reportes",
     component:ReportesComponent,
+    canActivate:[AuthGuardGuard, EmployeeGuard, ReportesGuard]
+  },
+  {
+    path: "reportes/:reporte",
+    component:GraficaReporteComponent,
     canActivate:[AuthGuardGuard, EmployeeGuard, ReportesGuard]
   },
   {

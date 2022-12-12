@@ -1,0 +1,27 @@
+.card-img-top {
+  width: 40%;
+  margin: 0.5rem auto;
+  height: 40%;
+}
+
+.card:hover {
+  background-color: #4FC3F7;
+  color: white;
+  transform: scale(1.01);
+  transition: transform 0.5s;
+  cursor: pointer;
+}
+
+.card {
+  height: 80%;
+  margin-right: 2rem;
+  margin-left: 1rem;
+}
+
+a,
+a:hover,
+a:visited {
+  text-decoration: none;
+  font: inherit;
+  color: inherit;
+}

@@ -100,6 +100,7 @@ export class SociosComponent implements OnInit {
 
   @ViewChild('fileImportInput') fileImportInput: any;
   header: boolean = false;
+  backupSucces: boolean = false;
   csvRecords: any;
   fileChangeListener($event: any): void {
     console.log($event);
@@ -111,6 +112,12 @@ export class SociosComponent implements OnInit {
         next: async (result): Promise<void> => {
           this.csvRecords = result;
           const response = await this.auth.restoreSocios(this.csvRecords);
+          if (response) {
+            this.backupSucces = true;
+            setTimeout(() => {
+              return window.location.reload();
+            }, 3000);
+          }
         },
         error: (error: NgxCSVParserError): void => {
           console.log('Error', error);

@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, TestabilityRegistry } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { CreateOrganizationDto } from 'src/app/interfaces/create.organization.dto';
 import { CreateUserDto } from 'src/app/interfaces/create.user.dto';
 import { LoginDto } from 'src/app/interfaces/login.dto';
-import { Data, LoginResponseDto, User } from 'src/app/interfaces/login.response.dto';
+import { LoginResponseDto, User } from 'src/app/interfaces/login.response.dto';
 import { RegisterDto } from 'src/app/interfaces/register.organizacion.dto';
 import { RegisterUserResponseDto } from 'src/app/interfaces/user.registry.response.dto';
 import { environment } from 'src/environments/environment';
@@ -48,6 +48,7 @@ import { RegistrarAsistenciaResponse } from 'src/app/interfaces/registrar.asiste
 import { PlanillaAsistencia } from 'src/app/interfaces/planilla.asistencia.dto';
 import { SendNotificationDto } from 'src/app/interfaces/send.notification.dto';
 import { SendNotificationResponse } from 'src/app/interfaces/send.notification.response.dto';
+import * as moment from 'moment';
 @Injectable({
   providedIn: 'root'
 })
@@ -461,5 +462,35 @@ export class AuthService {
     const token = this.getToken();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/organizacion/' + orgId + '/backup';
     return (await axios.post<any>(url, csvArray, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
+
+  async reporteRangoEtarioSocios() {
+    const orgId = await this.getOrgId();
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/reporte/rango-etario/' + orgId;
+    return (await axios.get<any>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
+
+  async reporteSociosPorEstado() {
+    const orgId = await this.getOrgId();
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/reporte/distribucion-estados/' + orgId;
+    return (await axios.get<any>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
+
+  async reporteInscriptosMes() {
+    const orgId = await this.getOrgId();
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/reporte/inscriptos-mes/';
+    const today = moment();
+    const dto = {
+      idOrg: orgId,
+      toYear: today.year(),
+      fromMonth: today.month(),
+      toMonth: today.month(),
+      fromYear: today.subtract(1, 'year').year(),
+    }
+    console.log(dto)
+    return (await axios.post<any>(url, dto, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 }

@@ -104,6 +104,9 @@
           <input type="file" id="fileImportInput" (change)="fileChangeListener($event)" accept=".csv" class="d-none">
       </button>
     </div>
+    <h2 class="form-success text-end mr-4" *ngIf="backupSucces">
+      ¡Socios importados con éxito!
+    </h2>
   </div>
 </div>
 

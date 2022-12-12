@@ -119,19 +119,17 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group d-flex justify-content-center">
         <button type="button" class="btn btn-primary mt-3" (click)="handleForm()">
           ENVIAR NOTIFICACIÓN
         </button>
-        <p class="form-success" *ngIf="notificationSuccess">
-          ¡La notificación fue enviada correctamente!
-        </p>
-        <p class="form-error" *ngIf="notificationError">
-          Algo salió mal, prueba enviando la notificación más tarde.
-        </p>
-
       </div>
-      <div class="col-4"></div>
+      <p class="form-success text-center" *ngIf="notificationSuccess">
+        ¡La notificación fue enviada correctamente!
+      </p>
+      <p class="form-error text-center" *ngIf="notificationError">
+        Algo salió mal, prueba enviando la notificación más tarde.
+      </p>
     </form>
   </div>
 

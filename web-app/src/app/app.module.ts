@@ -30,6 +30,9 @@ import { RecuperarContraseniaComponent } from './components/routes/recuperar-con
 import { PersonalComponent } from './components/routes/personal/personal.component';
 import { EspaciosComponent } from './components/routes/espacios/espacios.component';
 import { DownloadComponent } from './components/routes/download/download.component';
+import { ReporteBarraComponent } from './components/routes/reporte-barra/reporte-barra.component';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { GraficaReporteComponent } from './components/routes/grafica-reporte/grafica-reporte.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +58,8 @@ import { DownloadComponent } from './components/routes/download/download.compone
     PersonalComponent,
     EspaciosComponent,
     DownloadComponent,
+    ReporteBarraComponent,
+    GraficaReporteComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +69,7 @@ import { DownloadComponent } from './components/routes/download/download.compone
     LayoutModule,
     FormsModule,
     FontAwesomeModule,
+    Ng2GoogleChartsModule,
     ReactiveFormsModule,
     HttpClientModule,
   ],

@@ -150,3 +150,8 @@ tr:hover {
 .action-button:hover {
   color: #8BF6FF;
 }
+
+.form-success {
+  color: green;
+  padding-right: 6rem;
+}
