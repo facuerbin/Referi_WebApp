@@ -8,6 +8,7 @@ import { Inscripto } from 'src/app/interfaces/get.inscriptos.organizacion.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { HelperService } from 'src/app/services/helper.service';
 import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
+import { isValidDate } from 'src/app/helpers/date.validator';
 @Component({
   selector: 'app-socios',
   templateUrl: './socios.component.html',
@@ -36,7 +37,7 @@ export class SociosComponent implements OnInit {
     nombre: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)],
     apellido: ["", [Validators.required,  Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)],
     dni: ["", [Validators.required, Validators.maxLength(10), Validators.minLength(8), Validators.pattern('^[0-9]*$')]],
-    fechaNac: ["", [Validators.required]],
+    fechaNac: ["", [Validators.required, isValidDate]],
     telefono: ["", [Validators.required, Validators.maxLength(120)]],
     calle: ["", [Validators.required, Validators.maxLength(120)]],
     numero: ["", [Validators.required, Validators.pattern('^[0-9]*$')]],

@@ -68,10 +68,10 @@
               formControlName="numero"
             />
             <p *ngIf="isValid('calle')" class="form-error">
-              Por favor complete el campo calle
+              Por favor complete el campo calle correctamente
             </p>
             <p *ngIf="isValid('numero')" class="form-error">
-              Por favor complete el campo número
+              Por favor complete el campo número correctamente
             </p>
           </div>
 
@@ -84,7 +84,7 @@
               formControlName="ciudad"
             />
             <p *ngIf="isValid('ciudad')" class="form-error">
-              Por favor complete este campo
+              Por favor complete este campo correctamente
             </p>
           </div>
 
@@ -97,7 +97,7 @@
               formControlName="provincia"
             />
             <p *ngIf="isValid('provincia')" class="form-error">
-              Por favor complete este campo
+              Por favor complete el campo provincia correctamente
             </p>
           </div>
 
@@ -110,7 +110,7 @@
               formControlName="telefono"
             />
             <p *ngIf="isValid('telefono')" class="form-error">
-              Por favor complete este campo
+              Por favor complete el campo teléfono correctamente
             </p>
           </div>
         </div>
@@ -128,7 +128,7 @@
               formControlName="fname"
             />
             <p *ngIf="isValid('fname')" class="form-error">
-              Ingrese su nombre
+              Por favor complete el campo nombre correctamente
             </p>
           </div>
 
@@ -141,7 +141,7 @@
               formControlName="lname"
             />
             <p *ngIf="isValid('lname')" class="form-error">
-              Ingrese su apellido
+              Por favor complete el campo apellido correctamente
             </p>
           </div>
 
@@ -154,7 +154,7 @@
               formControlName="dni"
             />
             <p *ngIf="isValid('dni')" class="form-error">
-              Ingrese su DNI
+              Por favor complete el campo DNI correctamente
             </p>
           </div>
 
@@ -166,9 +166,10 @@
               placeholder="Fecha de Nacimiento"
               formControlName="fechaNac"
               onfocus="(this.type='date')"
+              min='1920-01-01' max='2022-01-01'
             />
             <p *ngIf="isValid('fechaNac')" class="form-error">
-              Ingrese su fecha de nacimiento
+              Por favor complete el campo fecha de nacimiento correctamente
             </p>
           </div>
         </div>
