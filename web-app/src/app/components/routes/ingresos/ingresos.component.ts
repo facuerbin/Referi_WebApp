@@ -22,7 +22,7 @@ export class IngresosComponent implements OnInit {
   spinner = false;
 
   pagoForm: FormGroup = this.formBuilder.group({
-    email: ["", [Validators.required, Validators.email]],
+    email: ["", [Validators.required, Validators.email, Validators.maxLength(200)]],
     medioDePago: ["", [Validators.required]],
   });
 

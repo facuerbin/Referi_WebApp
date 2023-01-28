@@ -1,4 +1,4 @@
-<div class="container-fluid mt-3">
+<div class="container mt-3 overflow-scroll">
   <div class="row">
     <h2>Reportes:</h2>
   </div>
@@ -8,8 +8,8 @@
     </div>
     <div class="col-10 d-flex justify-content-start align-items-center">
       <a [routerLink]="['/', 'reportes', 'cant-inscriptos-mes']">
-        <div class="card" style="width: 16rem">
-          <img src="/assets/img/chart.png" class="card-img-top" alt="..." />
+        <div class="card">
+          <img src="/assets/img/chart.png" class="card-img-top" alt="Gráfico de lineas" />
           <div class="card-body">
             <h3 class="card-title text-center">
               Cantidad de Inscriptos por Mes
@@ -19,8 +19,8 @@
       </a>
 
       <a [routerLink]="['/', 'reportes', 'rango-etario-socios']">
-        <div class="card" style="width: 16rem">
-          <img src="/assets/img/pie.png" class="card-img-top" alt="..." />
+        <div class="card">
+          <img src="/assets/img/pie.png" class="card-img-top" alt="Gráfico de torta" />
           <div class="card-body">
             <h3 class="card-title text-center">
               Distribución de Rango Etario de Socios
@@ -30,8 +30,8 @@
       </a>
 
       <a [routerLink]="['/', 'reportes', 'socios-por-estado']">
-        <div class="card" style="width: 16rem">
-          <img src="/assets/img/pie.png" class="card-img-top" alt="..." />
+        <div class="card">
+          <img src="/assets/img/pie.png" class="card-img-top" alt="Gráfico de torta" />
           <div class="card-body">
             <h3 class="card-title text-center">
               Distribución de socios por estado
@@ -40,21 +40,24 @@
         </div>
       </a>
     </div>
+
     <div class="col-12">
       <h2>Actividades</h2>
     </div>
     <div class="col-10 d-flex justify-content-start align-items-center">
-      <div class="card" style="width: 16rem">
-        <img src="/assets/img/chart.png" class="card-img-top" alt="..." />
-        <div class="card-body">
-          <h3 class="card-title text-center">
-            Cantidad de inscriptos por Actividad por mes
-          </h3>
+      <a [routerLink]="['/', 'reportes', 'socios-por-estado']">
+        <div class="card">
+          <img src="/assets/img/chart.png" class="card-img-top" alt="Gráfico de lineas" />
+          <div class="card-body">
+            <h3 class="card-title text-center">
+              Cantidad de inscriptos por Actividad por mes
+            </h3>
+          </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card" style="width: 16rem">
-        <img src="/assets/img/pie.png" class="card-img-top" alt="..." />
+      <div class="card">
+        <img src="/assets/img/pie.png" class="card-img-top" alt="Gráfico de torta" />
         <div class="card-body">
           <h3 class="card-title text-center">
             Distribución de rango etario de socios por Actividad
@@ -62,26 +65,27 @@
         </div>
       </div>
     </div>
+
     <div class="col-12">
       <h2>Ingresos</h2>
     </div>
     <div class="col-10 d-flex justify-content-start align-items-center">
-      <div class="card" style="width: 16rem">
-        <img src="/assets/img/chart.png" class="card-img-top" alt="..." />
+      <div class="card">
+        <img src="/assets/img/chart.png" class="card-img-top" alt="Gráfico de lineas" />
         <div class="card-body">
           <h3 class="card-title text-center">Ingresos por actividad</h3>
         </div>
       </div>
 
-      <div class="card" style="width: 16rem">
-        <img src="/assets/img/chart.png" class="card-img-top" alt="..." />
+      <div class="card">
+        <img src="/assets/img/chart.png" class="card-img-top" alt="Gráfico de lineas" />
         <div class="card-body">
           <h3 class="card-title text-center">Deuda por actividad</h3>
         </div>
       </div>
 
-      <div class="card" style="width: 16rem">
-        <img src="/assets/img/pie.png" class="card-img-top" alt="..." />
+      <div class="card">
+        <img src="/assets/img/pie.png" class="card-img-top" alt="Gráfico de torta" />
         <div class="card-body">
           <h3 class="card-title text-center">
             Socios deudores por rango de fecha

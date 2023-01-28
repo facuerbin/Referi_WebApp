@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import axios from 'axios';
-import { CookieService } from 'ngx-cookie-service';
-import { FileUpload } from 'src/app/interfaces/file.upload.response.dto';
 import { HorarioElement } from '../interfaces/get.detail.actividad.dto';
 
 @Injectable({

@@ -90,10 +90,10 @@ export class ActividadesComponent implements OnInit {
 
 
   actividadForm: FormGroup = this.formBuilder.group({
-    nombre: ["", [Validators.required]],
+    nombre: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u) , Validators.minLength(2)]],
     idTipoActividad: ["", [Validators.required]],
-    descripcion: ["", [Validators.required]],
-    cupo: ["", [Validators.required]],
+    descripcion: ["", [Validators.required, Validators.minLength(5)]],
+    cupo: ["", [Validators.required, Validators.pattern(/^[0-9]*$/)]],
   });
 
 

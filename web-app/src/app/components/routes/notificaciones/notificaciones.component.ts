@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Actividad, GetActividadesOrganizacion } from 'src/app/interfaces/get.actividades.organizacion.dto';
+import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { HorarioElement, Turno } from 'src/app/interfaces/get.detail.actividad.dto';
 import { Inscripto } from 'src/app/interfaces/get.inscriptos.organizacion.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';

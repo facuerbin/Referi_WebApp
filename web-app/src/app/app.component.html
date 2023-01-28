@@ -4,7 +4,15 @@
 </div>
 <div *ngIf="!logged">
   <app-logged-header (sidebarToggle)="toggleSidebar($event)"></app-logged-header>
-  <app-sidenav [sidenavToggle]="toggle"></app-sidenav>
+  <div class="d-flex container-fluid">
+    <section class="nav flex-column">
+      <app-sidenav [sidenavToggle]="toggle"></app-sidenav>
+    </section>
+
+    <section class="container-fluid">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
 </div>
 
 

@@ -20,25 +20,24 @@ import { environment } from 'src/environments/environment';
 })
 export class DetalleActividadComponent implements OnInit {
   actividadForm: FormGroup = this.formBuilder.group({
-    nombre: ["", [Validators.required]],
+    nombre: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2)],
     idTipoActividad: ["", [Validators.required]],
-    descripcion: ["", [Validators.required]],
-    cupo: ["", [Validators.required]],
+    descripcion: ["", [Validators.required, Validators.minLength(5)]],
+    cupo: ["", [Validators.required, Validators.pattern(/^[0-9]*$/)]],
   });
 
-
   tarifasForm: FormGroup = this.formBuilder.group({
-    nombreTarifa: ["", [Validators.required]],
+    nombreTarifa: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2)],
     frecuencia: ["", [Validators.required]],
-    monto: ["", [Validators.required]],
+    monto: ["", [Validators.required, Validators.pattern(/^[0-9]*$/)]],
     tarifaOpcional: ["", [Validators.nullValidator]],
   });
 
   horariosForm: FormGroup = this.formBuilder.group({
     dia: ["", [Validators.required]],
-    horaInicio: ["", [Validators.required]],
-    minutosInicio: ["", [Validators.required]],
-    duracion: ["", [Validators.required]],
+    horaInicio: ["", [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+    minutosInicio: ["", [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+    duracion: ["", [Validators.required, Validators.pattern(/^[0-9]*$/)]],
     espacio: ["", [Validators.required]],
   })
 

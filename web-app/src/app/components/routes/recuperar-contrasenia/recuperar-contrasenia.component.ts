@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class RecuperarContraseniaComponent implements OnInit {
   spinner: any;
   recoverForm: FormGroup = this.formBuilder.group({
-    email: ["", [Validators.required, Validators.email]],
+    email: ["", [Validators.required, Validators.email, Validators.maxLength(200)]],
   });
   load: any;
   emailStatus: boolean = false;

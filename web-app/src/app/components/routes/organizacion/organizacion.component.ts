@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
 import { OrganizationDetailDto } from 'src/app/interfaces/OrganizationDetailDto';
@@ -16,16 +15,15 @@ import { environment } from 'src/environments/environment';
 })
 export class OrganizacionComponent implements OnInit {
   organizacionForm: FormGroup = this.formBuilder.group({
-    nombre: ["", [Validators.required,Validators.maxLength(120)]],
+    nombre: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)],
     descripcion: ["", [Validators.required, Validators.maxLength(250)]],
-    telefono: ["", [Validators.required]],
-    calle: ["", [Validators.required]],
-    numero: ["", [Validators.required]],
-    ciudad: ["", [Validators.required]],
-    provincia: ["", [Validators.required]],
+    telefono: ["", [Validators.required, Validators.maxLength(120)]],
+    calle: ["", [Validators.required, Validators.maxLength(120)]],
+    numero: ["", [Validators.required, Validators.maxLength(12)]],
+    ciudad: ["", [Validators.required, Validators.maxLength(120)]],
+    provincia: ["", [Validators.required, Validators.maxLength(100)]],
     tipo: ["", [Validators.required]],
   })
-
 
   organizacion: OrganizationDetailDto | null = null;
   load = false;

@@ -1,7 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow: hidden;
+}
 
 .background {
   position: absolute;
@@ -13,6 +20,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-image: url('/assets/img/login1.jpg');
   background-size: cover;
   background-position-x: 0;
+}
+
+.container-fluid {
+  padding: 0px;
+}
+
+.nav {
+  font-size: 24px;
+  font-weight: 400;
+  background-color: #F5F5F5;
+  height: 90vh;
+  margin-right: 1rem
+}
+
+.d-flex {
+  min-height: min-content;
 }
 
 .form-error {
@@ -57,4 +80,12 @@ thead {
   font-size: 18px;
   position:sticky;
   top: -1px;
+}
+
+a,
+a:hover,
+a:visited {
+  text-decoration: none;
+  font: inherit;
+  color: inherit;
 }

@@ -13,15 +13,13 @@
 }
 
 .card {
-  height: 80%;
+  height: 200px;
   margin-right: 2rem;
   margin-left: 1rem;
+  margin-bottom: 2rem;
+  width: 16rem;
 }
 
-a,
-a:hover,
-a:visited {
-  text-decoration: none;
-  font: inherit;
-  color: inherit;
+.container {
+  height: 80vh;
 }

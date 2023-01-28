@@ -31,7 +31,7 @@ export class EspaciosComponent implements OnInit {
     actividades: Actividad[] = [];
 
     espacioForm: FormGroup = this.formBuilder.group({
-      nombre: ["", [Validators.required]],
+      nombre: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2)],
       capacidad: ["", [Validators.required, Validators.pattern('^[0-9]*$')]],
       id: [""]
     })

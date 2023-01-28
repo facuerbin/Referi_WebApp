@@ -21,21 +21,21 @@ export class RegisterComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true }
   }
 
-  loginForm: FormGroup = this.formBuilder.group({
-    calle: ["", [Validators.required]],
-    numero: ["", [Validators.required]],
-    ciudad: ["", [Validators.required]],
-    provincia: ["", [Validators.required]],
-    telefono: ["", [Validators.required]],
+  registerForm: FormGroup = this.formBuilder.group({
+    calle: ["", [Validators.required, Validators.maxLength(120)]],
+    numero: ["", [Validators.required, Validators.pattern('^[0-9]*$')]],
+    ciudad: ["", [Validators.required, Validators.maxLength(120)]],
+    provincia: ["", [Validators.required, Validators.maxLength(120)]],
+    telefono: ["", [Validators.required, Validators.maxLength(120)]],
     nombre: ["", [Validators.required]],
     tipo: ["", [Validators.required]],
-    descripcion: ["", [Validators.required]],
-    email: ["", [Validators.required, Validators.email]],
+    descripcion: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(250)]],
+    email: ["", [Validators.required, Validators.email, Validators.maxLength(200)]],
     password: ["", [Validators.required, Validators.minLength(8)]],
     repeatPassword: ["", [Validators.required, Validators.minLength(8)]],
-    fname: ["", [Validators.required, Validators.minLength(2)]],
-    lname: ["", [Validators.required, Validators.minLength(2)]],
-    dni: ["", [Validators.required, Validators.maxLength(8), Validators.minLength(8)]],
+    fname: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)],
+    lname: ["", [Validators.required,  Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)],
+    dni: ["", [Validators.required, Validators.maxLength(10), Validators.minLength(8), Validators.pattern('^[0-9]*$')]],
     fechaNac: ["", [Validators.required]]
   }, {validators: this.checkPasswords});
 
@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
   section = 1;
 
   constructor(private formBuilder: FormBuilder,private changeDetector: ChangeDetectorRef,  private router: Router, private auth: AuthService, private http: HttpClient) {
-    this.loginForm.controls['tipo'].setValue("default", {onlySelf: true})
+    this.registerForm.controls['tipo'].setValue("default", {onlySelf: true})
   }
 
 
@@ -64,20 +64,20 @@ export class RegisterComponent implements OnInit {
 
   async handleRegistry() {
     const registerForm = {
-      calle: this.loginForm.controls["calle"].value,
-      numero: this.loginForm.controls["numero"].value,
-      ciudad: this.loginForm.controls["ciudad"].value,
-      provincia: this.loginForm.controls["provincia"].value,
-      telefono: this.loginForm.controls["telefono"].value,
-      nombre: this.loginForm.controls["nombre"].value,
-      tipo: this.loginForm.controls["tipo"].value,
-      descripcion: this.loginForm.controls["descripcion"].value,
-      fname: this.loginForm.controls["fname"].value,
-      lname: this.loginForm.controls["lname"].value,
-      dni: this.loginForm.controls["dni"].value,
-      fechaNac: this.loginForm.controls["fechaNac"].value,
-      email: this.loginForm.controls["email"].value,
-      password: this.loginForm.controls["password"].value,
+      calle: this.registerForm.controls["calle"].value,
+      numero: this.registerForm.controls["numero"].value,
+      ciudad: this.registerForm.controls["ciudad"].value,
+      provincia: this.registerForm.controls["provincia"].value,
+      telefono: this.registerForm.controls["telefono"].value,
+      nombre: this.registerForm.controls["nombre"].value,
+      tipo: this.registerForm.controls["tipo"].value,
+      descripcion: this.registerForm.controls["descripcion"].value,
+      fname: this.registerForm.controls["fname"].value,
+      lname: this.registerForm.controls["lname"].value,
+      dni: this.registerForm.controls["dni"].value,
+      fechaNac: this.registerForm.controls["fechaNac"].value,
+      email: this.registerForm.controls["email"].value,
+      password: this.registerForm.controls["password"].value,
     }
 
     const domicilio: Domicilio = {
@@ -126,13 +126,13 @@ export class RegisterComponent implements OnInit {
 
 
   isValid(field: string): boolean {
-    return this.loginForm.controls[field].errors !== null &&
-    (this.loginForm.controls[field].touched || this.loginForm.controls[field].dirty);
+    return this.registerForm.controls[field].errors !== null &&
+    (this.registerForm.controls[field].touched || this.registerForm.controls[field].dirty);
   }
 
   isValidRepeatPassword(): boolean {
-    return this.loginForm.controls['password'].value != this.loginForm.controls['repeatPassword'].value &&
-    (this.loginForm.controls['repeatPassword'].touched || this.loginForm.controls['repeatPassword'].dirty);
+    return this.registerForm.controls['password'].value != this.registerForm.controls['repeatPassword'].value &&
+    (this.registerForm.controls['repeatPassword'].touched || this.registerForm.controls['repeatPassword'].dirty);
   }
 
   togglePassword(event: MouseEvent, field: number) {

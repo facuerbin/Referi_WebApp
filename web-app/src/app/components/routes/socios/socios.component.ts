@@ -32,16 +32,16 @@ export class SociosComponent implements OnInit {
   turnos: Turno[] = [];
 
   sociosForm: FormGroup = this.formBuilder.group({
-    email: ["", [Validators.required, Validators.email]],
-    nombre: ["", [Validators.required]],
-    apellido: ["", [Validators.required]],
-    dni: ["", [Validators.required]],
+    email: ["", [Validators.required, Validators.email, Validators.maxLength(200)]],
+    nombre: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)],
+    apellido: ["", [Validators.required,  Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)],
+    dni: ["", [Validators.required, Validators.maxLength(10), Validators.minLength(8), Validators.pattern('^[0-9]*$')]],
     fechaNac: ["", [Validators.required]],
-    telefono: ["", [Validators.required]],
-    calle: ["", [Validators.required]],
-    numero: ["", [Validators.required]],
-    ciudad: ["", [Validators.required]],
-    provincia: ["", [Validators.required]],
+    telefono: ["", [Validators.required, Validators.maxLength(120)]],
+    calle: ["", [Validators.required, Validators.maxLength(120)]],
+    numero: ["", [Validators.required, Validators.pattern('^[0-9]*$')]],
+    ciudad: ["", [Validators.required, Validators.maxLength(120)]],
+    provincia: ["", [Validators.required, Validators.maxLength(120)]],
     idActividad: ["", [Validators.required]],
     idTurnoActividad: ["", [Validators.required]],
   });

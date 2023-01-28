@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class VerificarComponent implements OnInit {
   verificationForm: FormGroup = this.formBuilder.group({
-    email: ["", [Validators.required, Validators.email]],
+    email: ["", [Validators.required, Validators.email, Validators.maxLength(200)]],
     codigo: ["", [Validators.required, Validators.minLength(4)]],
   });
 
@@ -37,7 +37,7 @@ export class VerificarComponent implements OnInit {
   async handleVerification() {
     const form: VerifyEmailDto = {
       email: this.verificationForm.controls['email'].value,
-      code: this.verificationForm.controls['codigo'].value,
+      code: parseInt(this.verificationForm.controls['codigo'].value),
     }
     const result = await this.auth.verifyEmail({email: this.email, code: form.code});
     if (!result) this.showError = true;
