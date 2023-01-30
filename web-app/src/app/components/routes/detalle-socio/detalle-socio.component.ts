@@ -78,6 +78,7 @@ export class DetalleSocioComponent implements OnInit {
     this.modal = new Modal(document.getElementById("modalBaja") || "", {
       keyboard: false
     });
+    this.bajaForm.reset();
     this.modal.show();
   }
 

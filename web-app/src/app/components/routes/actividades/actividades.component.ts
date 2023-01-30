@@ -81,6 +81,7 @@ export class ActividadesComponent implements OnInit {
     this.modal = new Modal(document.getElementById("modalForm") || "", {
       keyboard: false
     });
+    this.actividadForm.reset();
     this.modal.show();
   }
 

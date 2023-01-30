@@ -79,6 +79,7 @@ export class IngresosComponent implements OnInit {
     this.modal = new Modal(document.getElementById("modalForm") || "", {
       keyboard: false
     });
+    this.pagoForm.reset();
     this.modal.show();
   }
 

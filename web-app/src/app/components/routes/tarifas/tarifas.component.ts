@@ -84,6 +84,7 @@ export class TarifasComponent implements OnInit {
     this.modal = new Modal(document.getElementById(id) || "", {
       keyboard: false
     });
+    this.tarifasForm.reset();
     this.modal.show();
   }
 

@@ -76,6 +76,7 @@ export class LoggedHeaderComponent implements OnInit {
     this.modal = new Modal(document.getElementById(id) || "", {
       keyboard: false,
     });
+    this.contraseniaForm.reset();
     this.modal.show();
   }
 

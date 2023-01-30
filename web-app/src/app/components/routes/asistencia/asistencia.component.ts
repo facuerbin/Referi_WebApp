@@ -72,6 +72,7 @@ export class AsistenciaComponent implements OnInit {
       this.modal = new Modal(document.getElementById("modalForm") || "", {
         keyboard: false
       });
+      this.asistenciaForm.reset();
       this.modal.show();
     }
 

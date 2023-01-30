@@ -108,6 +108,7 @@ export class PersonalComponent implements OnInit {
     this.modal = new Modal(document.getElementById(id) || "", {
       keyboard: false
     });
+    this.empleadoForm.reset();
     this.modal.show();
   }
 

@@ -322,6 +322,7 @@
 
                     <input
                         type="number"
+                      onkeydown="return event.keyCode !== 69"
                         min="0"
                         max="59"
                         class="form-control w-25"
@@ -339,6 +340,7 @@
 
                       <input
                       type="number"
+                      onkeydown="return event.keyCode !== 69"
                       class="form-control form-control-small"
                       id="duracion"
                       placeholder="Duración"

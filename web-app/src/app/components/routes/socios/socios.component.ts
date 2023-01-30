@@ -141,9 +141,10 @@ export class SociosComponent implements OnInit {
       keyboard: false
     });
     this.modal.show();
+    this.sociosForm.reset();
   }
 
-  closeModal(id: string) {
+  closeModal() {
     this.modal?.hide();
   }
 
@@ -166,7 +167,7 @@ export class SociosComponent implements OnInit {
       });
 
       this.getSocios();
-      this.closeModal('modalAgregarUsuario');
+      this.closeModal();
     } catch (error: any) {
       console.log(error)
       if (error && error?.response && error?.response.data && error.response.data.error){
