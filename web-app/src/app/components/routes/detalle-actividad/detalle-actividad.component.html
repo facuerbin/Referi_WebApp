@@ -5,18 +5,20 @@
   <form [formGroup]="actividadForm" class="container-fluid">
     <div class="row">
       <div class="col-5 mt-3 position-relative">
-        <img
+        <div class="img-container">
+          <img
           *ngIf="actividad"
           src="{{imgUrl}}"
           alt="imagen de la actividad"
           class="profile-img"
-        />
-        <label class="upload-image" for="file">
-          <fa-icon
-              [icon]="pencil"
-              aria-hidden="true"
-            ></fa-icon>
-        </label>
+          />
+          <label class="upload-image" for="file">
+            <fa-icon
+                [icon]="pencil"
+                aria-hidden="true"
+              ></fa-icon>
+          </label>
+        </div>
         <input
           type="file"
           class="d-none"

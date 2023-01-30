@@ -1,28 +1,29 @@
-.nav-item {
-  padding-left: 1rem;
+.nav-list {
+  list-style: none;
+  padding: 0;
 }
 
-ul {
+li {
   text-align: left;
   margin-top: 24px;
   height: 5vh;
   min-height: 4vh;
-  padding:  8px;
   margin: 0px;
   display: flex;
   align-items: center;
 }
 
-ul.active {
+li.active {
   background-color: #8BF6FF;
 }
 
 a {
   padding: 3px 2px;
   margin: 0px;
+  padding: 8px;
 }
 
-ul:hover {
+li:hover {
   background-color: #4FC3F7;
   color: white;
   transform: scale(1.1);
@@ -34,6 +35,24 @@ a:hover,
 a:visited {
   width: 100%;
 }
+
+.col-8 span {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+.col-8 span.expand {
+  display: inline;
+  visibility: visible;
+  opacity: 1;
+}
+
+.col- {
+  padding: 0;
+}
+
 
 a.expand {
   width: 12rem;

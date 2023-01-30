@@ -12,18 +12,6 @@ input {
   padding: auto;
 }
 
-.card {
-  margin: auto;
-  margin-top: 5vh;
-  width: 30vw;
-  height: 80vh;
-  background-color: white;
-}
-
-.card-text {
-  font-size: 20px;
-}
-
 .card-body {
   padding: 0px;
 }
@@ -127,4 +115,20 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+a, a.nostyle:link {
+  text-decoration: inherit;
+  color: blue !important;
+  cursor: pointer !important;
+}
+
+a.nostyle:visited {
+  text-decoration: inherit;
+  color: blue;
+  cursor: pointer;
+}
+
+form p {
+  margin-top: 1rem;
 }

@@ -187,6 +187,7 @@ export class SociosComponent implements OnInit {
   }
 
   isValid(control: string) {
-    return false;
+    return this.sociosForm.controls[control].errors !== null &&
+      (this.sociosForm.controls[control].touched || this.sociosForm.controls[control].dirty);
   }
 }

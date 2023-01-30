@@ -16,7 +16,6 @@ export class HelperService {
     }
 
     formatHorarios(horario: HorarioElement) {
-      console.log(horario)
       return horario.horario.diaSemana +
         " de " +
         horario.horario.horaInicio +

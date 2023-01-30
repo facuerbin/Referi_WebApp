@@ -4,19 +4,20 @@
   </div>
   <form [formGroup]="organizacionForm" class="container-fluid" *ngIf="this.load">
     <div class="row">
-      <div class="col-4 mt-3 position-relative img-div">
-        <img
+      <div class="col-4 mt-3 position-relative">
+        <div class="img-container">
+          <img
           *ngIf="organizacion"
           src="{{imgUrl}}"
-          alt="imagen de la organizacion"
-          class="profile-img"
-        />
-        <label class="upload-image" for="file">
-          <fa-icon
-              [icon]="pencil"
-              aria-hidden="true"
-            ></fa-icon>
-        </label>
+          alt="imagen de la ogranización"
+          />
+          <label class="upload-image" for="file">
+            <fa-icon
+                [icon]="pencil"
+                aria-hidden="true"
+              ></fa-icon>
+          </label>
+        </div>
         <input
           type="file"
           class="d-none"

@@ -179,7 +179,6 @@ export class DetalleActividadComponent implements OnInit {
   }
 
   isValid(field: string): boolean {
-    return false
     return this.actividadForm.controls[field].errors !== null &&
       (this.actividadForm.controls[field].touched || this.actividadForm.controls[field].dirty);
   }

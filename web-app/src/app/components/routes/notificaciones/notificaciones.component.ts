@@ -99,7 +99,6 @@ export class NotificacionesComponent implements OnInit {
 
 
   isValid(field: string): boolean {
-    return false;
     return this.notificacionForm.controls[field].errors !== null &&
     (this.notificacionForm.controls[field].touched || this.notificacionForm.controls[field].dirty);
   }

@@ -27,14 +27,24 @@ mat-sidenav-container {
 }
 
 .profile {
-  height: 2rem;
+  height: 100%;
+  width: 100%;
   border-radius: 50%;
+  object-fit: cover;
   margin: 0px 0.5rem
+}
+
+.profile-img-container {
+  height: 3rem;
 }
 
 
 .btn-profile:hover {
   background-color: #FFB74D;
+}
+
+.btn-profile {
+  border: none;
 }
 
 .dropdown-menu-right {
