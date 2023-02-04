@@ -53,20 +53,77 @@
         <tbody>
           <tr
             class="clickable-row"
-            *ngFor="let personal of personalFiltered let i = index"
+            *ngFor="let personal of personalFiltered; let i = index"
             [routerLink]="['/personal/detalle', personal.id]"
-            >
+          >
             <td>{{ personal.personal?.dni }}</td>
             <td>{{ personal.personal?.email }}</td>
-            <td>{{ personal.personal?.nombre }} {{ personal.personal?.apellido }}</td>
+            <td>
+              {{ personal.personal?.nombre }} {{ personal.personal?.apellido }}
+            </td>
             <td>{{ personal.rol?.nombre }}</td>
-            <td>ACTIVO</td>
+            <td>
+              <button class="action-button" (click)=" openModal('modalModificarUsuario', personal.id)" *ngIf="personal.rol?.nombre != 'PROPIETARIO'">
+                <fa-icon class="action-icon"[icon]="pencil" aria-hidden="true"></fa-icon>
+              </button>
+              <button class="action-button" (click)="deletePersonal(personal.id)" *ngIf="personal.rol?.nombre != 'PROPIETARIO'">
+                <fa-icon class="action-icon"[icon]="trashIcon" aria-hidden="true"></fa-icon>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
+<!-- Modal Agregar Usuario -->
+<div
+  class="modal fade"
+  #modal
+  id="modalModificarUsuario"
+  tabindex="-1"
+  aria-labelledby="modalModificarUsuario"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Modificar empleado:</h3>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="closeModal('modalModificarUsuario')"
+        ></button>
+      </div>
+      <div class="modal-body container" [formGroup]="empleadoForm">
+        <div class="row">
+          <h3>Rol:</h3>
+          <div class="form-group">
+            <select class="form-control" id="rol" formControlName="rol">
+              <option value="" disabled selected>Asigne un rol</option>
+              <option *ngFor="let rol of roles" value="{{ rol.nombre }}">
+                {{ rol.nombre }}
+              </option>
+            </select>
+            <p *ngIf="isValid('rol')" class="form-error">
+              Por favor asigne una rol
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" (click)="handleEditForm()" [disabled]="! empleadoForm.controls['rol'].value">
+          GUARDAR CAMBIOS
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <!-- Modal Agregar Usuario -->
 <div
@@ -80,9 +137,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">
-          Agregar empleado:
-        </h3>
+        <h3 class="modal-title" id="exampleModalLabel">Agregar empleado:</h3>
         <button
           type="button"
           class="btn-close"
@@ -96,11 +151,11 @@
           <div class="col-12">
             <div class="mb-3">
               <input
-              type="text"
-              class="form-control"
-              id="email"
-              placeholder="Email"
-              formControlName="email"
+                type="text"
+                class="form-control"
+                id="email"
+                placeholder="Email"
+                formControlName="email"
               />
               <p *ngIf="isValid('email')" class="form-error">
                 Ingrese el email del nuevo inscripto
@@ -260,14 +315,8 @@
         <div class="row">
           <h3>Rol:</h3>
           <div class="form-group">
-            <select
-              class="form-control"
-              id="rol"
-              formControlName="rol"
-            >
-              <option value="" disabled selected>
-                Asigne un rol
-              </option>
+            <select class="form-control" id="rol" formControlName="rol">
+              <option value="" disabled selected>Asigne un rol</option>
               <option *ngFor="let rol of roles" value="{{ rol.nombre }}">
                 {{ rol.nombre }}
               </option>
@@ -276,12 +325,11 @@
               Por favor asigne una rol
             </p>
           </div>
-
         </div>
       </div>
 
       <div class="modal-footer d-flex justify-content-center">
-        <button type="button" class="btn btn-primary" (click)="handleForm()">
+        <button type="button" class="btn btn-primary" (click)="handleForm()" [disabled]="! empleadoForm.controls['rol'].value">
           DAR DE ALTA
         </button>
       </div>

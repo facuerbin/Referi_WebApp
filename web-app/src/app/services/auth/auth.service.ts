@@ -234,6 +234,13 @@ export class AuthService {
     return result;
   }
 
+  async editPersonal(id: string, idRole: string) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + id + '/' + idRole;
+    const result = await axios.patch<CreateTarifaDto>(url, { headers: { Authorization: `Bearer ${token}` }});
+    return result;
+  }
+
   async createTurno(dto: CreateTurnoDto) {
     const token = this.getToken();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/turno';
@@ -465,9 +472,15 @@ export class AuthService {
   }
 
   async bajaSocio(idInscripcion: string) {
-    const orgId = await this.getOrgId();
     const token = this.getToken();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/' + idInscripcion;
+    return (await axios.delete<any>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
+
+  async bajaPersonal(idPersonal: string) {
+    const orgId = await this.getOrgId();
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId + '/personal/' + idPersonal;
     return (await axios.delete<any>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 

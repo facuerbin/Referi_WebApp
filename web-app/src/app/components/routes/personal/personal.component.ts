@@ -1,5 +1,5 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { faAddressCard, faSearch, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { faAddressCard, faPencilAlt, faSearch, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
 import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { Turno } from 'src/app/interfaces/get.detail.actividad.dto';
@@ -19,6 +19,7 @@ export class PersonalComponent implements OnInit {
   searchIcon = faSearch;
   detailIcon = faAddressCard;
   trashIcon = faTrash;
+  pencil = faPencilAlt;
   editIcon = faUserEdit;
   spinner = false;
 
@@ -36,19 +37,20 @@ export class PersonalComponent implements OnInit {
   actividades: Actividad[] = [];
   roles: Rol[] = [];
   turnos: Turno[] = [];
+  editPersonalId:string = "";
 
   empleadoForm: FormGroup = this.formBuilder.group({
-    email: ["", [Validators.required, Validators.email, Validators.maxLength(200)]],
-    nombre: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)],
-    apellido: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)],
-    dni: ["", [Validators.required, Validators.maxLength(10), Validators.minLength(8), Validators.pattern('^[0-9]*$')]],
-    fechaNac: ["", [Validators.required, isValidDate]],
-    telefono: ["", [Validators.required, Validators.maxLength(15)]],
-    calle: ["", [Validators.required, Validators.maxLength(120)]],
-    numero: ["", [Validators.required, Validators.pattern('^[0-9]*$')]],
-    ciudad: ["", [Validators.required, Validators.maxLength(120)]],
-    provincia: ["", [Validators.required, Validators.maxLength(120)]],
-    rol: ["", [Validators.required]],
+    email: new FormControl(["", [Validators.required, Validators.email, Validators.maxLength(200)]]),
+    nombre: new FormControl(["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)]),
+    apellido: new FormControl(["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)]),
+    dni: new FormControl(["", [Validators.required, Validators.maxLength(10), Validators.minLength(8), Validators.pattern('^[0-9]*$')]]),
+    fechaNac: new FormControl(["", [Validators.required, isValidDate]]),
+    telefono: new FormControl(["", [Validators.required, Validators.maxLength(15)]]),
+    calle: new FormControl(["", [Validators.required, Validators.maxLength(120)]]),
+    numero: new FormControl(["", [Validators.required, Validators.pattern('^[0-9]*$')]]),
+    ciudad: new FormControl(["", [Validators.required, Validators.maxLength(120)]]),
+    provincia: new FormControl(["", [Validators.required, Validators.maxLength(120)]]),
+    rol: new FormControl(["", [Validators.required, Validators.minLength(1)]]),
   });
 
 
@@ -78,7 +80,7 @@ export class PersonalComponent implements OnInit {
   async getRoles() {
     const roles = this.auth.getRoles();
     (await roles).subscribe(result => {
-      this.roles = result.data;
+      this.roles = result.data.filter(rol => rol.nombre != "PROPIETARIO");
     })
   }
 
@@ -97,6 +99,11 @@ export class PersonalComponent implements OnInit {
     return "";
   }
 
+  async deletePersonal(idPersonal: string) {
+    await this.auth.bajaPersonal(idPersonal);
+    this.getPersonal();
+  }
+
 
   parseTurno(turno: Turno): string[] {
     return turno.horarios.map(horario => {
@@ -104,12 +111,13 @@ export class PersonalComponent implements OnInit {
     });
   }
 
-  openModal(id: string) {
+  openModal(id: string, personalId?: string) {
     this.modal = new Modal(document.getElementById(id) || "", {
       keyboard: false
     });
     this.empleadoForm.reset();
     this.modal.show();
+    this.editPersonalId = '' + personalId;
   }
 
   closeModal(id: string) {
@@ -117,7 +125,8 @@ export class PersonalComponent implements OnInit {
   }
 
   async handleForm() {
-    const user = await this.auth.addUser({
+    const rol = this.empleadoForm.value['rol']
+    this.auth.addUser({
       email: this.empleadoForm.value['email'],
       password: this.empleadoForm.value['email'],
       nombre: this.empleadoForm.value['nombre'],
@@ -131,14 +140,21 @@ export class PersonalComponent implements OnInit {
         ciudad: this.empleadoForm.value['ciudad'],
         provincia: this.empleadoForm.value['provincia']
       },
+    }).then(async user => {
+      await this.auth.addOrganizationEmployee(this.orgId, user.email , rol);
+      this.getPersonal()
+      this.closeModal('modalAgregarUsuario');
+    }).catch(async e => {
+      await this.auth.addOrganizationEmployee(this.orgId, this.empleadoForm.value['email'] , rol);
+      this.getPersonal()
+      this.closeModal('modalAgregarUsuario');
     });
+  }
 
-    const rol = this.empleadoForm.value['rol']
-
-    await this.auth.addOrganizationEmployee(this.orgId, user.email, rol);
-    this.getPersonal()
-    this.closeModal('modalAgregarUsuario');
-
+  async handleEditForm() {
+    const rol = this.empleadoForm.value['rol'];
+    await this.auth.editPersonal(this.editPersonalId, rol);
+    this.getPersonal();
   }
 
   buscarSocio() {

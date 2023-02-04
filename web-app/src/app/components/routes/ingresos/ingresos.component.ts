@@ -20,6 +20,7 @@ export class IngresosComponent implements OnInit {
   modalError = false;
   load = false;
   spinner = false;
+  userNotFound = false;
 
   pagoForm: FormGroup = this.formBuilder.group({
     email: ["", [Validators.required, Validators.email, Validators.maxLength(200)]],
@@ -79,7 +80,10 @@ export class IngresosComponent implements OnInit {
     this.modal = new Modal(document.getElementById("modalForm") || "", {
       keyboard: false
     });
+    this.load = false;
+    this.userNotFound = false;
     this.pagoForm.reset();
+    this.cuotas = [];
     this.modal.show();
   }
 
@@ -110,10 +114,16 @@ export class IngresosComponent implements OnInit {
     (await this.auth.getSociosByOrg()).subscribe(async result => {
       this.socios = result.data;
       const user = this.socios.find(socio => socio.usuario.email === email);
+      if (!user) {
+        return this.userNotFound = true;
+      }
+      else this.userNotFound = false;
+      this.load = true;
       this.nombre = user?.usuario.nombre + " " + user?.usuario.apellido;
       if (user?.id) (await this.auth.getCuotasByUsr(user?.id)).subscribe(result => {
         this.cuotas = result.data.filter(cuota => ! cuota.pago);
       })
+      return true;
     })
 
   }
@@ -124,7 +134,6 @@ export class IngresosComponent implements OnInit {
     } else {
       this.idCuotas.push(idCuota);
     }
-
   }
 
   async getSocios () {

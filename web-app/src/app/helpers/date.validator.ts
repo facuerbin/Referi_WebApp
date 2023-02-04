@@ -1,6 +1,11 @@
 import { FormControl } from "@angular/forms";
 
 export const isValidDate = (c: FormControl) => {
+  if (typeof(c.value) != 'string') return {
+    validateDate: {
+      valid: false
+    }
+  };
   // Checks date not from 10 years ago
   if (parseInt(c.value.slice(0,4)) > (+(new Date().getFullYear()) - 10)) return {
     validateDate: {

@@ -31,6 +31,7 @@ export class SociosComponent implements OnInit {
   sociosFiltered: Inscripto[] = [];
   actividades: Actividad[] = [];
   turnos: Turno[] = [];
+  canImport = false;
 
   sociosForm: FormGroup = this.formBuilder.group({
     email: ["", [Validators.required, Validators.email, Validators.maxLength(200)]],
@@ -39,12 +40,12 @@ export class SociosComponent implements OnInit {
     dni: ["", [Validators.required, Validators.maxLength(10), Validators.minLength(8), Validators.pattern('^[0-9]*$')]],
     fechaNac: ["", [Validators.required, isValidDate]],
     telefono: ["", [Validators.required, Validators.maxLength(120)]],
-    calle: ["", [Validators.required, Validators.maxLength(120)]],
+    calle: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(120)]],
     numero: ["", [Validators.required, Validators.pattern('^[0-9]*$')]],
-    ciudad: ["", [Validators.required, Validators.maxLength(120)]],
-    provincia: ["", [Validators.required, Validators.maxLength(120)]],
-    idActividad: ["", [Validators.required]],
-    idTurnoActividad: ["", [Validators.required]],
+    ciudad: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(120)]],
+    provincia: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(120)]],
+    idActividad: ["", [Validators.required, Validators.minLength(1)]],
+    idTurnoActividad: ["", [Validators.required, Validators.minLength(1)]],
   });
 
 
@@ -52,6 +53,7 @@ export class SociosComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
+    this.canImport = !! (await this.auth.promiseEmployeePermissions()).data.find(role => role.rol.nombre == 'PROPIETARIO');
     this.getSocios();
     this.getActividadOrganizacion();
   }
@@ -140,12 +142,20 @@ export class SociosComponent implements OnInit {
     this.modal = new Modal(document.getElementById(id) || "", {
       keyboard: false
     });
-    this.modal.show();
     this.sociosForm.reset();
+    this.modal.show();
   }
 
   closeModal() {
     this.modal?.hide();
+  }
+
+  isFormComplete() {
+    let touched = [];
+    for (let value in this.sociosForm.controls) {
+      touched.push(!this.sociosForm.controls['' + value].touched);
+    }
+    return touched.every( element => element == true);
   }
 
   async handleForm() {

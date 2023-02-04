@@ -109,16 +109,19 @@
               <p *ngIf="isValid('email')" class="form-error">
                 Por favor ingrese un email válido
               </p>
+              <p *ngIf="userNotFound && ! isValid('email')" class="form-error">
+                El socio ingresado no se encuentra registrado en el sistema
+              </p>
             </div>
 
             <div class="form-group col-12">
-              <h3>
-                {{nombre}}
+              <h3 *ngIf="load">
+                Socio: {{nombre}}
               </h3>
             </div>
 
             <div class="form-group">
-
+              <label for="medioDePago">Medio de pago:</label>
               <select
               class="form-control"
               id="medioDePago"
@@ -166,7 +169,7 @@
   type="button"
   class="btn btn-primary"
   (click)="handleForm()"
-  [disabled]="pagoForm.invalid"
+  [disabled]="pagoForm.invalid || ! pagoForm.controls['medioDePago'].value || ! idCuotas.length"
   >
   <span
   class="spinner-border spinner-border-sm"

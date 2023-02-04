@@ -25,12 +25,9 @@
                 {{ tipo }}
               </option>
             </select>
-            <!-- <p
-              *ngIf="isValid('idTipoDestinatario')"
-              class="form-error"
-            >
-              Por favor asignele un tipo a la actividad
-            </p> -->
+            <p *ngIf="isValid('tipoDestinatario')" class="form-error">
+              Debe seleccionar un tipo de notificación
+            </p>
           </div>
 
           <div *ngIf="actividadSelect || turnoSelect">
@@ -45,7 +42,10 @@
               <option value="" disabled selected>
                 Seleccione la Actividad
               </option>
-              <option *ngFor="let actividad of actividades" value="{{ actividad.id }}">
+              <option
+                *ngFor="let actividad of actividades"
+                value="{{ actividad.id }}"
+              >
                 {{ actividad.nombre }}
               </option>
             </select>
@@ -60,9 +60,7 @@
               value=""
               (change)="onChangeTurno($event.target)"
             >
-              <option value="" disabled selected>
-                Seleccione el Turno
-              </option>
+              <option value="" disabled selected>Seleccione el Turno</option>
               <option *ngFor="let turno of turnos" value="{{ turno.id }}">
                 <p *ngFor="let horario of turno.horarios">
                   {{ parseHorarios(horario) }}
@@ -80,11 +78,13 @@
               value=""
               (change)="onChangeSocio($event.target)"
             >
-              <option value="" disabled selected>
-                Seleccione un Socio
-              </option>
-              <option *ngFor="let socio of socios" value="{{ socio.id }}">
-                {{ socio.usuario.nombre }} {{ socio.usuario.apellido }} - {{ socio.usuario.email }}
+              <option value="" disabled selected>Seleccione un Socio</option>
+              <option
+                *ngFor="let socio of socios"
+                value="{{ socio.usuario.id }}"
+              >
+                {{ socio.usuario.nombre }} {{ socio.usuario.apellido }} -
+                {{ socio.usuario.email }}
               </option>
             </select>
           </div>
@@ -120,7 +120,12 @@
       </div>
 
       <div class="form-group d-flex justify-content-center">
-        <button type="button" class="btn btn-primary mt-3" (click)="handleForm()">
+        <button
+          type="button"
+          class="btn btn-primary mt-3"
+          (click)="handleForm()"
+          [disabled]="notificacionForm.invalid"
+        >
           ENVIAR NOTIFICACIÓN
         </button>
       </div>

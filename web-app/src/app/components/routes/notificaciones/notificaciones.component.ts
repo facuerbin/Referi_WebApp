@@ -13,9 +13,9 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class NotificacionesComponent implements OnInit {
   notificacionForm: FormGroup = this.formBuilder.group({
     tipoDestinatario: ["", [Validators.required]],
-    actividad: ["", [Validators.required]],
-    turno: ["", [Validators.required]],
-    socio: ["", [Validators.required]],
+    actividad: ["", []],
+    turno: ["", []],
+    socio: ["", []],
     asunto: ["", [Validators.required, Validators.minLength(4)]],
     mensaje: ["", [Validators.required, Validators.minLength(10)]],
   });
@@ -50,10 +50,11 @@ export class NotificacionesComponent implements OnInit {
 
   async handleForm() {
     const orgId = await this.auth.getOrgId();
+    console.log(this.notificacionForm.controls['socio'])
     const dto = {
       idRemitente: orgId,
       tipoDestinatario: this.notificacionForm.controls['tipoDestinatario'].value,
-      idDestinatario: this.notificacionForm.controls['turno'].value,
+      idDestinatario: this.notificacionForm.controls['turno'].value || this.notificacionForm.controls['socio'].value,
       titulo: this.notificacionForm.controls['asunto'].value,
       cuerpo: this.notificacionForm.controls['mensaje'].value,
       tipoRemitente: 'Organizacion'
