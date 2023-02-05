@@ -26,25 +26,15 @@
       </form>
     </div>
 
-    <!-- <div class="col-4">
-      <form action="#">
-        <div class="form-group">
-          <input
-            id="dateInput"
-            name="date"
-            value="{{ date }}"
-            type="date"
-            class="form-control form-control-date"
-            [(ngModel)]="date"
-            />
-        </div>
-      </form>
-    </div> -->
-
     <div class="col-4">
       <button type="button" (click)="openModal()" class="btn btn-primary">
         REGISTRAR ASISTENTE
       </button>
+      <a routerLink="qr">
+        <button class="btn btn-secondary mt-3">
+          MOSTRAR QR
+        </button>
+      </a>
     </div>
 
     <div class="col-12 mt-3">

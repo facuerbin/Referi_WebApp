@@ -66,7 +66,7 @@
             class="form-control"
             id="tipo"
             formControlName="idTipoActividad"
-            value="{{actividad?.tipo?.id}}"
+            [value]="actividad?.tipo?.id"
           >
             <option
               *ngFor="let tipo of tipoActividad"
@@ -114,6 +114,7 @@
           <div class="form-group d-flex justify-content-center">
             <button class="btn btn-primary" (click)="saveUpdate()">GUARDAR CAMBIOS</button>
           </div>
+          <p class="success text-center" *ngIf="updateSuccess">Los cambios se guardaron correctamente...</p>
 
       </div>
       </div>
@@ -331,12 +332,12 @@
                         formControlName="minutosInicio"
                         [defaultValue]="00"
                       />
-                      <!-- <p
+                      <p
                         *ngIf="isValidTarifa('monto')"
                         class="form-error"
                         >
                         Por favor asignele un monto a la tarifa
-                      </p> -->
+                      </p>
 
                       <input
                       type="number"

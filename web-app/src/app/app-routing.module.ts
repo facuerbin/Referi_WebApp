@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ActividadesComponent } from './components/routes/actividades/actividades.component';
+import { AsistenciaQRComponent } from './components/routes/asistencia-qr/asistencia.component';
 import { AsistenciaComponent } from './components/routes/asistencia/asistencia.component';
 import { DetalleActividadComponent } from './components/routes/detalle-actividad/detalle-actividad.component';
 import { DetalleSocioComponent } from './components/routes/detalle-socio/detalle-socio.component';
@@ -84,6 +85,11 @@ const routes: Routes = [
   {
     path: "asistencia",
     component:AsistenciaComponent,
+    canActivate:[AuthGuardGuard, EmployeeGuard, AsistenciaGuard]
+  },
+  {
+    path: "asistencia/qr",
+    component:AsistenciaQRComponent,
     canActivate:[AuthGuardGuard, EmployeeGuard, AsistenciaGuard]
   },
   {

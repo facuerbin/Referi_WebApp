@@ -35,15 +35,15 @@ export class SociosComponent implements OnInit {
 
   sociosForm: FormGroup = this.formBuilder.group({
     email: ["", [Validators.required, Validators.email, Validators.maxLength(200)]],
-    nombre: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)],
-    apellido: ["", [Validators.required,  Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)],
-    dni: ["", [Validators.required, Validators.maxLength(10), Validators.minLength(8), Validators.pattern('^[0-9]*$')]],
+    nombre: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u), Validators.minLength(2), Validators.maxLength(120)]],
+    apellido: ["", [Validators.required,  Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u), Validators.minLength(2), Validators.maxLength(120)]],
+    dni: ["", Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(8), Validators.pattern('^[0-9]*$')])],
     fechaNac: ["", [Validators.required, isValidDate]],
     telefono: ["", [Validators.required, Validators.maxLength(120)]],
     calle: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(120)]],
     numero: ["", [Validators.required, Validators.pattern('^[0-9]*$')]],
-    ciudad: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(120)]],
-    provincia: ["", [Validators.required, Validators.minLength(1), Validators.maxLength(120)]],
+    ciudad: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u), Validators.minLength(2), Validators.maxLength(80)]],
+    provincia: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u), Validators.minLength(2), Validators.maxLength(80)]],
     idActividad: ["", [Validators.required, Validators.minLength(1)]],
     idTurnoActividad: ["", [Validators.required, Validators.minLength(1)]],
   });
@@ -148,14 +148,6 @@ export class SociosComponent implements OnInit {
 
   closeModal() {
     this.modal?.hide();
-  }
-
-  isFormComplete() {
-    let touched = [];
-    for (let value in this.sociosForm.controls) {
-      touched.push(!this.sociosForm.controls['' + value].touched);
-    }
-    return touched.every( element => element == true);
   }
 
   async handleForm() {

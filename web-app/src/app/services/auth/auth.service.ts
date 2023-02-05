@@ -202,6 +202,10 @@ export class AuthService {
     return this.http.post<RegistrarAsistenciaResponse>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
   }
 
+  getAsistenciaUrl() {
+    return '' + environment.appUrl + environment.apiVersionUri + '/asistencias/';
+  }
+
   async getPlanillaAsistencia(idOrg: string, fecha: string) {
     const token = this.getToken();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/asistencias/' + idOrg + '?fecha=' + fecha;
@@ -310,7 +314,7 @@ export class AuthService {
         orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion.id;
         this.cookieService.set('org', orgId)
       } catch (e) {
-        return new Error("Login failed");
+        throw new Error("Login failed");
         ;
       }
     }

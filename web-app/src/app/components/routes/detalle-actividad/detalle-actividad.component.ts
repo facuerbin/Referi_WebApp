@@ -20,14 +20,14 @@ import { environment } from 'src/environments/environment';
 })
 export class DetalleActividadComponent implements OnInit {
   actividadForm: FormGroup = this.formBuilder.group({
-    nombre: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2)],
+    nombre: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u), Validators.minLength(2)]],
     idTipoActividad: ["", [Validators.required]],
     descripcion: ["", [Validators.required, Validators.minLength(5)]],
     cupo: ["", [Validators.required, Validators.pattern(/^[0-9]*$/)]],
   });
 
   tarifasForm: FormGroup = this.formBuilder.group({
-    nombreTarifa: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2)],
+    nombreTarifa: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u), Validators.minLength(2)]],
     frecuencia: ["", [Validators.required]],
     monto: ["", [Validators.required, Validators.pattern(/^[0-9]*$/)]],
     tarifaOpcional: ["", [Validators.nullValidator]],
@@ -49,6 +49,7 @@ export class DetalleActividadComponent implements OnInit {
   actividadId: string = "";
   actividad: GetActividadDetail | null = null;
   load = false;
+  updateSuccess = false;
   spinner = false;
   tipoActividad: TipoActividad[] = [];
   fechaCreacion = "";
@@ -72,13 +73,15 @@ export class DetalleActividadComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private auth: AuthService, private upload: UploadService, public helper: HelperService) { }
 
   async ngOnInit() {
+    this.updateSuccess = false;
     this.route.params.subscribe(async params => {
       this.actividadId = params['id'];
+      await this.getTipoActividad();
+      await this.getTurnosActividad();
+      await this.getFrecuencias();
+      await this.getEspacios();
+      this.actividadForm.controls['idTipoActividad'].setValue(this.actividad?.tipo.id);
     });
-    await this.getTurnosActividad();
-    await this.getTipoActividad();
-    await this.getFrecuencias();
-    await this.getEspacios();
   }
 
   async getTurnosActividad() {
@@ -227,14 +230,16 @@ export class DetalleActividadComponent implements OnInit {
     form.nombre ? req.nombre = form.nombre : "";
     form.descripcion ? req.descripcion = form.descripcion : "";
     form.cupo ? req.cupo = form.cupo : "";
-    form.tipo ? req.tipo = form.tipo : "";
-
+    form.idTipoActividad ? req.tipo = form.idTipoActividad : "";
 
     const res = this.auth.updateActividad(req);
     res.
       then(result => {
         this.spinner = false;
-        return window.location.reload();
+        this.updateSuccess = true;
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 5000)
       })
       .catch(e => {
         console.log(e);

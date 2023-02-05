@@ -369,7 +369,7 @@
             type="button"
             class="btn btn-primary"
             (click)="handleForm()"
-            [disabled]="(! sociosForm.value['idTurnoActividad'])"
+            [disabled]="sociosForm.invalid"
           >
             INSCRIBIR SOCIO
           </button>

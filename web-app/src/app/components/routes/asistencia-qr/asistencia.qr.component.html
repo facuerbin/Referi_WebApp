@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="row" id="print-section">
+    <div class="mt-3 col-12">
+      <h2>¡Bienvenido a {{orgName}}!</h2>
+      <p>Escanea el QR para registrar tu asistencia al establecimiento</p>
+    </div>
+    <div class="col-12" *ngIf="!!url">
+      <qrcode [qrdata]="url" [width]="400" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <a routerLink="/asistencia">
+        <button class="btn btn-secondary mt-3">
+          REGRESAR
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+

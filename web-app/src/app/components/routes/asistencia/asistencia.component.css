@@ -98,12 +98,3 @@ thead {
 tr:hover {
   cursor: pointer;
 }
-
-.action-button {
-  border: none;
-  color: #377BFF;
-}
-
-.action-button:hover {
-  color: #8BF6FF;
-}

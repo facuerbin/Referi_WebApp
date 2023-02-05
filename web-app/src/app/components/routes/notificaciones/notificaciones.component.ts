@@ -50,7 +50,7 @@ export class NotificacionesComponent implements OnInit {
 
   async handleForm() {
     const orgId = await this.auth.getOrgId();
-    console.log(this.notificacionForm.controls['socio'])
+
     const dto = {
       idRemitente: orgId,
       tipoDestinatario: this.notificacionForm.controls['tipoDestinatario'].value,

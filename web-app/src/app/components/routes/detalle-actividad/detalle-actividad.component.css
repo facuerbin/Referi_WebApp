@@ -44,3 +44,7 @@ input[type=number] {
 .btn-horario:hover {
   background-color: #bbbec3;
 }
+
+p.success {
+  color:green;
+}

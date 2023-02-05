@@ -1,4 +1,4 @@
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faAddressCard, faPencilAlt, faSearch, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
 import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
@@ -40,17 +40,17 @@ export class PersonalComponent implements OnInit {
   editPersonalId:string = "";
 
   empleadoForm: FormGroup = this.formBuilder.group({
-    email: new FormControl(["", [Validators.required, Validators.email, Validators.maxLength(200)]]),
-    nombre: new FormControl(["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)]),
-    apellido: new FormControl(["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u)], Validators.minLength(2), Validators.maxLength(120)]),
-    dni: new FormControl(["", [Validators.required, Validators.maxLength(10), Validators.minLength(8), Validators.pattern('^[0-9]*$')]]),
-    fechaNac: new FormControl(["", [Validators.required, isValidDate]]),
-    telefono: new FormControl(["", [Validators.required, Validators.maxLength(15)]]),
-    calle: new FormControl(["", [Validators.required, Validators.maxLength(120)]]),
-    numero: new FormControl(["", [Validators.required, Validators.pattern('^[0-9]*$')]]),
-    ciudad: new FormControl(["", [Validators.required, Validators.maxLength(120)]]),
-    provincia: new FormControl(["", [Validators.required, Validators.maxLength(120)]]),
-    rol: new FormControl(["", [Validators.required, Validators.minLength(1)]]),
+    email: ["", [Validators.required, Validators.email, Validators.maxLength(200)]],
+    nombre: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u), Validators.minLength(2), Validators.maxLength(120)]],
+    apellido: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u), Validators.minLength(2), Validators.maxLength(120)]],
+    dni: ["", [Validators.required, Validators.maxLength(10), Validators.minLength(8), Validators.pattern('^[0-9]*$')]],
+    fechaNac: ["", [Validators.required, isValidDate]],
+    telefono: ["", [Validators.required, Validators.maxLength(15)]],
+    calle: ["", [Validators.required, Validators.maxLength(120)]],
+    numero: ["", [Validators.required, Validators.pattern('^[0-9]*$')]],
+    ciudad: ["", [Validators.required, Validators.maxLength(120)]],
+    provincia: ["", [Validators.required, Validators.maxLength(120)]],
+    rol: ["", [Validators.required, Validators.minLength(1)]],
   });
 
 

@@ -33,6 +33,8 @@ import { DownloadComponent } from './components/routes/download/download.compone
 import { ReporteBarraComponent } from './components/routes/reporte-barra/reporte-barra.component';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { GraficaReporteComponent } from './components/routes/grafica-reporte/grafica-reporte.component';
+import { AsistenciaQRComponent } from './components/routes/asistencia-qr/asistencia.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { GraficaReporteComponent } from './components/routes/grafica-reporte/gra
     ActividadesComponent,
     RegisterComponent,
     AsistenciaComponent,
+    AsistenciaQRComponent,
     MaintenanceComponent,
     IngresosComponent,
     DetalleSocioComponent,
@@ -72,6 +75,7 @@ import { GraficaReporteComponent } from './components/routes/grafica-reporte/gra
     Ng2GoogleChartsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    QRCodeModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
