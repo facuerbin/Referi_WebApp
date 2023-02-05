@@ -1,3 +1,60 @@
+<div *ngIf="dateQuery">
+  <!-- (ngSubmit)="handleLogin()" -->
+  <form class="d-flex"  [formGroup]="queryForm"(ngSubmit)="filter()">
+    <div class="form-group m-3">
+      <label for="anioDesde">Fecha desde: </label>
+      20
+      <input
+        type="number"
+        name="anioDesde"
+        id="anioDesde"
+        placeholder="YY"
+        onKeyPress="if(this.value.length==2) return false;"
+        class="date-input"
+        formControlName="anioDesde"
+      />
+      /
+      <input
+        type="number"
+        name="mesDesde"
+        id="mesDesde"
+        placeholder="MM"
+        onKeyPress="if(this.value.length==2) return false;"
+        class="date-input"
+        formControlName="mesDesde"
+      />
+      <p *ngIf="isValid('anioDesde')" class="form-error">Revise el año ingresado</p>
+      <p *ngIf="isValid('mesDesde')" class="form-error">Revise el mes ingresado</p>
+    </div>
+    <div class="form-group m-3">
+      <label for="anioHasta">Fecha hasta: </label>
+      20
+      <input
+        type="number"
+        name="anioHasta"
+        id="anioHasta"
+        placeholder="YY"
+        onKeyPress="if(this.value.length==2) return false;"
+        class="date-input"
+        formControlName="anioHasta"
+      />
+      /
+      <input
+        type="number"
+        name="mesHasta"
+        id="mesHasta"
+        placeholder="MM"
+        onKeyPress="if(this.value.length==2) return false;"
+        class="date-input"
+        formControlName="mesHasta"
+      />
+      <p *ngIf="isValid('anioHasta')" class="form-error">Revise el año ingresado</p>
+      <p *ngIf="isValid('mesHasta')" class="form-error">Revise el mes ingresado</p>
+    </div>
+    <button type="submit" class="btn btn-outline-primary">FILTRAR</button>
+  </form>
+</div>
+
 <app-reporte-barra
   [key]="key"
   [value]="value"
@@ -5,4 +62,9 @@
   [title]="title"
   [chartType]="chartType"
   *ngIf="render"
+  class="report-container"
 ></app-reporte-barra>
+
+<div *ngIf="noData">
+  <h2>No hay datos que se puedan mostrar aún...</h2>
+</div>

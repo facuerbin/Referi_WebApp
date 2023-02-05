@@ -26,256 +26,309 @@
       </form>
     </div>
 
-  <div class="col-4">
-    <button class="btn btn-primary" (click)="openModal('modalAgregarTarifa')">AGREGAR TARIFA</button>
+    <div class="col-4">
+      <button class="btn btn-primary" (click)="openModal('modalAgregarTarifa')">
+        AGREGAR TARIFA
+      </button>
+    </div>
+
+    <div class="col-11 mt-4 table-wrapper">
+      <table
+        class="table table-striped table-hover table-bordered table-responsive"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Actividad</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Monto</th>
+            <th scope="col">Frecuencia</th>
+            <th scope="col">¿Es opcional?</th>
+            <th scope="col">Ultima actualización</th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tarifa of tarifasFiltered; let i = index">
+            <td>{{ tarifa.actividad }}</td>
+            <td>{{ tarifa.nombre }}</td>
+            <td>{{ tarifa.monto }}</td>
+            <td>{{ tarifa.frecuencia }}</td>
+            <td>{{ tarifa.opcional }}</td>
+            <td>{{ helper.parseDate(tarifa.fechaActualizacion) }}</td>
+            <td class="d-flex justify-content-around">
+              <button
+                class="action-button"
+                (click)="editarTarifaModal(tarifa.id)"
+              >
+                <fa-icon
+                  class="action-icon"
+                  [icon]="pencil"
+                  aria-hidden="true"
+                ></fa-icon>
+              </button>
+              <button
+                class="action-button"
+                (click)="deleteTarifaModal(tarifa.id)"
+              >
+                <fa-icon
+                  class="action-icon"
+                  [icon]="trashIcon"
+                  aria-hidden="true"
+                ></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-
-  <div class="col-11 mt-4 table-wrapper">
-    <table
-    class="table table-striped table-hover table-bordered table-responsive"
-    >
-    <thead>
-      <tr>
-        <th scope="col">Actividad</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Monto</th>
-        <th scope="col">Frecuencia</th>
-        <th scope="col">¿Es opcional?</th>
-        <th scope="col">Ultima actualización</th>
-        <th scope="col">Acción</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let tarifa of tarifasFiltered; let i = index">
-        <td>{{ tarifa.actividad }}</td>
-        <td>{{ tarifa.nombre }}</td>
-        <td>{{ tarifa.monto }}</td>
-        <td>{{ tarifa.frecuencia }}</td>
-        <td>{{ tarifa.opcional }}</td>
-        <td>{{ helper.parseDate(tarifa.fechaActualizacion) }}</td>
-        <td class="d-flex justify-content-around">
-          <button class="action-button" (click)="editarTarifaModal(tarifa.id)">
-            <fa-icon class="action-icon"[icon]="pencil" aria-hidden="true"></fa-icon>
-          </button>
-          <button class="action-button" (click)="deleteTarifaModal(tarifa.id)">
-            <fa-icon class="action-icon"[icon]="trashIcon" aria-hidden="true"></fa-icon>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-</div>
 </div>
 
-
-  <!-- Modal Crear Tarifa-->
-  <div class="modal fade" #modal id="modalAgregarTarifa" tabindex="-1" aria-labelledby="modalAgregarTarifa" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title" id="exampleModalLabel">Crear nueva Tarifa</h3>
-          <button type="button" class="btn-close" aria-label="Close" (click)="closeModal('modalAgregarTarifa')"></button>
+<!-- Modal Crear Tarifa-->
+<div
+  class="modal fade"
+  #modal
+  id="modalAgregarTarifa"
+  tabindex="-1"
+  aria-labelledby="modalAgregarTarifa"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Crear nueva Tarifa</h3>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="closeModal('modalAgregarTarifa')"
+        ></button>
+      </div>
+      <div class="modal-body" [formGroup]="tarifasForm">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="nombre"
+            placeholder="Nombre de la tarifa"
+            formControlName="nombre"
+          />
+          <p *ngIf="isValid('nombre')" class="form-error">
+            Por favor asignele un nombre a la tarifa
+          </p>
         </div>
-        <div class="modal-body" [formGroup]="tarifasForm">
 
-          <div class="form-group">
-            <input
-                      type="text"
-                      class="form-control"
-                      id="nombre"
-                      placeholder="Nombre de la tarifa"
-                      formControlName="nombre"
-                    />
-                    <p
-                      *ngIf="isValid('nombre')"
-                      class="form-error"
-                    >
-                      Por favor asignele un nombre a la tarifa
-                    </p>
-          </div>
-
-          <div class="form-group">
-            <input
-                      type="number"
-                      onkeydown="return event.keyCode !== 69"
-                      class="form-control"
-                      id="monto"
-                      placeholder="Monto"
-                      formControlName="monto"
-                    />
-                    <p
-                      *ngIf="isValid('monto')"
-                      class="form-error"
-                    >
-                      Por favor ingrese el monto de la tarifa
-                    </p>
-          </div>
-
-          <div class="form-group">
-            <select
-              class="form-control"
-              id="frecuencia"
-              formControlName="frecuencia"
-              [value]=""
-            >
-              <option value="" disabled selected>
-                Selecciona la frecuencia
-              </option>
-              <option
-                *ngFor="let frecuencia of frecuencias"
-                value="{{ frecuencia.nombre }}"
-              >
-                {{ frecuencia.nombre }}
-              </option>
-            </select>
-            <p
-            *ngIf="isValid('frecuencia')"
-            class="form-error"
-            >
-              Por favor asigne una frecuencia a la tarifa
-            </p>
-          </div>
-
-          <div class="form-group">
-            <select
-              class="form-control"
-              id="tipo"
-              formControlName="idActividad"
-              [value]=""
-            >
-              <option value="" disabled selected>
-                Selecciona un tipo de actividad
-              </option>
-              <option
-                *ngFor="let tipo of actividades"
-                value="{{ tipo.id }}"
-              >
-                {{ tipo.nombre }}
-              </option>
-            </select>
-            <p
-            *ngIf="isValid('idActividad')"
-            class="form-error"
-            >
-              Por favor asigne la tarifa a una actividad
-            </p>
-          </div>
-
-          <label><input type="checkbox" class="m-4" id="tarifaOpcion" formControlName="esOpcional" value="false"> ¿Es una tarifa opcional?</label>
-
-
+        <div class="form-group">
+          <input
+            type="number"
+            onkeydown="return event.keyCode !== 69"
+            class="form-control"
+            id="monto"
+            placeholder="Monto"
+            formControlName="monto"
+          />
+          <p *ngIf="isValid('monto')" class="form-error">
+            Por favor ingrese el monto de la tarifa
+          </p>
         </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button type="button" class="btn btn-primary" (click)="handleTarifasForm()">AGREGAR TARIFA</button>
+
+        <div class="form-group">
+          <select
+            class="form-control"
+            id="frecuencia"
+            formControlName="frecuencia"
+            [value]=""
+          >
+            <option value="" disabled selected>Selecciona la frecuencia</option>
+            <option
+              *ngFor="let frecuencia of frecuencias"
+              value="{{ frecuencia.nombre }}"
+            >
+              {{ frecuencia.nombre }}
+            </option>
+          </select>
+          <p *ngIf="isValid('frecuencia')" class="form-error">
+            Por favor asigne una frecuencia a la tarifa
+          </p>
         </div>
+
+        <div class="form-group">
+          <select
+            class="form-control"
+            id="tipo"
+            formControlName="idActividad"
+            [value]=""
+          >
+            <option value="" disabled selected>
+              Selecciona un tipo de actividad
+            </option>
+            <option *ngFor="let tipo of actividades" value="{{ tipo.id }}">
+              {{ tipo.nombre }}
+            </option>
+          </select>
+          <p *ngIf="isValid('idActividad')" class="form-error">
+            Por favor asigne la tarifa a una actividad
+          </p>
+        </div>
+
+        <label
+          ><input
+            type="checkbox"
+            class="m-4"
+            id="tarifaOpcion"
+            formControlName="esOpcional"
+            value="false"
+          />
+          ¿Es una tarifa opcional?</label
+        >
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="handleTarifasForm()"
+        >
+          AGREGAR TARIFA
+        </button>
       </div>
     </div>
   </div>
+</div>
 
-    <!-- Modal Borrar Tarifa-->
-    <div class="modal fade" #modal id="modalEliminarTarifa" tabindex="-1" aria-labelledby="modalBorrarTarifa" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title" id="exampleModalLabel">Eliminar Tarifa</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" [formGroup]="tarifasForm">
-
-            <h3>¿Desea eliminar la siguiente tarifa?</h3>
-            <div class="">
-              <p>Nombre: {{tarifaAEliminar?.nombre}}</p>
-              <p>Monto: {{tarifaAEliminar?.monto}}</p>
-              <p>Frecuencia: {{tarifaAEliminar?.frecuencia}}</p>
-              <p>Actividad: {{tarifaAEliminar?.actividad}}</p>
-              <p>¿Opcional?:{{tarifaAEliminar?.opcional}}</p>
-            </div>
-          </div>
-          <div class="modal-footer d-flex justify-content-center">
-            <button type="button" class="btn btn-danger" (click)="handleEliminarTarifa()">ELIMINAR TARIFA</button>
-          </div>
+<!-- Modal Borrar Tarifa-->
+<div
+  class="modal fade"
+  #modal
+  id="modalEliminarTarifa"
+  tabindex="-1"
+  aria-labelledby="modalBorrarTarifa"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Eliminar Tarifa</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" [formGroup]="tarifasForm">
+        <h3>¿Desea eliminar la siguiente tarifa?</h3>
+        <div class="">
+          <p>Nombre: {{ tarifaAEliminar?.nombre }}</p>
+          <p>Monto: {{ tarifaAEliminar?.monto }}</p>
+          <p>Frecuencia: {{ tarifaAEliminar?.frecuencia }}</p>
+          <p>Actividad: {{ tarifaAEliminar?.actividad }}</p>
+          <p>¿Opcional?:{{ tarifaAEliminar?.opcional }}</p>
         </div>
       </div>
-    </div>
-
-      <!-- Modal Editar Tarifa-->
-  <div class="modal fade" #modal id="modalEditarTarifa" tabindex="-1" aria-labelledby="modalEditarTarifa" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title" id="exampleModalLabel">Editar Tarifa</h3>
-          <button type="button" class="btn-close" aria-label="Close" (click)="closeModal('modalEditarTarifa')"></button>
-        </div>
-        <div class="modal-body" [formGroup]="tarifasForm">
-          <h3>Actividad: {{tarifaAEditar?.actividad}}</h3>
-          <div class="form-group">
-            <input
-                      type="text"
-                      class="form-control"
-                      id="nombreEditar"
-                      placeholder="Nombre de la tarifa"
-                      formControlName="nombre"
-                      value="{{tarifaAEditar?.nombre}}"
-                    />
-                    <p
-                      *ngIf="isValid('nombre')"
-                      class="form-error"
-                    >
-                      Por favor asignele un nombre a la tarifa
-                    </p>
-          </div>
-
-          <div class="form-group">
-            <input
-                      type="number"
-                      onkeydown="return event.keyCode !== 69"
-                      class="form-control"
-                      id="monto"
-                      placeholder="Monto"
-                      formControlName="monto"
-                      value="{{tarifaAEditar?.monto}}"
-                    />
-                    <p
-                      *ngIf="isValid('monto')"
-                      class="form-error"
-                    >
-                      Por favor ingrese el monto de la tarifa
-                    </p>
-          </div>
-
-          <div class="form-group">
-            <select
-              class="form-control"
-              id="frecuencia"
-              formControlName="frecuencia"
-              value="{{tarifaAEditar?.frecuencia}}"
-            >
-              <option value="" disabled selected>
-                Selecciona la frecuencia
-              </option>
-              <option
-                *ngFor="let frecuencia of frecuencias"
-                value="{{ frecuencia.nombre }}"
-              >
-                {{ frecuencia.nombre }}
-              </option>
-            </select>
-            <p
-            *ngIf="isValid('frecuencia')"
-            class="form-error"
-            >
-              Por favor asigne una frecuencia a la tarifa
-            </p>
-          </div>
-
-          <label><input type="checkbox" class="m-4" id="tarifaOpcion" formControlName="esOpcional" value="{{tarifaAEditar?.opcional}}"> ¿Es una tarifa opcional?</label>
-
-
-        </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button type="button" class="btn btn-primary" (click)="handleTarifasEdit()">GUARDAR CAMBIOS</button>
-        </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="handleEliminarTarifa()"
+        >
+          ELIMINAR TARIFA
+        </button>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Modal Editar Tarifa-->
+<div
+  class="modal fade"
+  #modal
+  id="modalEditarTarifa"
+  tabindex="-1"
+  aria-labelledby="modalEditarTarifa"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Editar Tarifa</h3>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="closeModal('modalEditarTarifa')"
+        ></button>
+      </div>
+      <div class="modal-body" [formGroup]="tarifasForm">
+        <h3>Actividad: {{ tarifaAEditar?.actividad }}</h3>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="nombreEditar"
+            placeholder="Nombre de la tarifa"
+            formControlName="nombre"
+            value="{{ tarifaAEditar?.nombre }}"
+          />
+          <p *ngIf="isValid('nombre')" class="form-error">
+            Por favor asignele un nombre a la tarifa
+          </p>
+        </div>
+
+        <div class="form-group">
+          <input
+            type="number"
+            onkeydown="return event.keyCode !== 69"
+            class="form-control"
+            id="monto"
+            placeholder="Monto"
+            formControlName="monto"
+            value="{{ tarifaAEditar?.monto }}"
+          />
+          <p *ngIf="isValid('monto')" class="form-error">
+            Por favor ingrese el monto de la tarifa
+          </p>
+        </div>
+
+        <div class="form-group">
+          <select
+            class="form-control"
+            id="frecuencia"
+            formControlName="frecuencia"
+            value="{{ tarifaAEditar?.frecuencia }}"
+          >
+            <option value="" disabled selected>Selecciona la frecuencia</option>
+            <option
+              *ngFor="let frecuencia of frecuencias"
+              value="{{ frecuencia.nombre }}"
+            >
+              {{ frecuencia.nombre }}
+            </option>
+          </select>
+          <p *ngIf="isValid('frecuencia')" class="form-error">
+            Por favor asigne una frecuencia a la tarifa
+          </p>
+        </div>
+
+        <label
+          ><input
+            type="checkbox"
+            class="m-4"
+            id="tarifaOpcion"
+            formControlName="esOpcional"
+            value="{{ tarifaAEditar?.opcional }}"
+          />
+          ¿Es una tarifa opcional?</label
+        >
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="handleTarifasEdit()"
+        >
+          GUARDAR CAMBIOS
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

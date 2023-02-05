@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
 import { Horario } from 'src/app/interfaces/create.turno.dto';
-import { GetActividadDetail, Tarifas, Turno } from 'src/app/interfaces/get.detail.actividad.dto';
+import { GetActividadDetail, Turno } from 'src/app/interfaces/get.detail.actividad.dto';
+import { Tarifas } from 'src/app/interfaces/get.tarifas.actividad.dto';
 import { Espacio } from 'src/app/interfaces/get.espacios.response.dto';
 import { Frecuencia } from 'src/app/interfaces/get.tarifa.frecuencia.res.dto';
 import { TipoActividad } from 'src/app/interfaces/get.tipo.actividad.dto';
@@ -35,9 +36,9 @@ export class DetalleActividadComponent implements OnInit {
 
   horariosForm: FormGroup = this.formBuilder.group({
     dia: ["", [Validators.required]],
-    horaInicio: ["", [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-    minutosInicio: ["", [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-    duracion: ["", [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+    horaInicio: ["", [Validators.required, Validators.pattern(/^\d{1,2}$/), Validators.max(23), Validators.min(0)]],
+    minutosInicio: ["", [Validators.required, Validators.pattern(/^\d{1,2}$/), Validators.max(59), Validators.min(1)]],
+    duracion: ["", [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.min(15)]],
     espacio: ["", [Validators.required]],
   })
 
@@ -79,6 +80,7 @@ export class DetalleActividadComponent implements OnInit {
       await this.getTipoActividad();
       await this.getTurnosActividad();
       await this.getFrecuencias();
+      await this.getTarifas();
       await this.getEspacios();
       this.actividadForm.controls['idTipoActividad'].setValue(this.actividad?.tipo.id);
     });
@@ -97,7 +99,6 @@ export class DetalleActividadComponent implements OnInit {
       });
 
       this.fechaCreacion = ("" + this.actividad.fechaCreacion).slice(0, 10);
-      this.tarifas = result.__tarifas__;;
       this.imgUrl = environment.appUrl + environment.apiVersionUri + "/" + this.actividad.imgUrl;
     });
   }
@@ -191,10 +192,16 @@ export class DetalleActividadComponent implements OnInit {
       (this.tarifasForm.controls[field].touched || this.tarifasForm.controls[field].dirty);
   }
 
+  isValidHorario(field: string): boolean {
+    return this.horariosForm.controls[field].errors !== null &&
+      (this.horariosForm.controls[field].touched || this.horariosForm.controls[field].dirty);
+  }
+
   openModalTarifas() {
     this.modal = new Modal(document.getElementById("modalTarifas") || "", {
       keyboard: false
     });
+    this.tarifasForm.reset();
     this.modal.show();
   }
 
@@ -209,6 +216,7 @@ export class DetalleActividadComponent implements OnInit {
     this.modal = new Modal(document.getElementById("modalHorarios") || "", {
       keyboard: false
     });
+    this.horariosForm.reset();
     this.modal.show();
   }
 

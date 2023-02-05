@@ -152,6 +152,7 @@
               id="dni"
               placeholder="DNI"
               formControlName="dni"
+              onKeyPress="if(this.value.length==10) return false;"
             />
             <p *ngIf="isValid('dni')" class="form-error">
               Por favor complete el campo DNI correctamente

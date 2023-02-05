@@ -13,6 +13,8 @@ export class ReporteBarraComponent implements OnInit{
   @Input('value') value = '';
   @Input('data') data = {};
   @Input() chartType!: GoogleChartType;
+  width: number = window.innerWidth * 0.7;
+  height: number = window.innerHeight * 0.8;
 
   constructor(private auth: AuthService) {}
 
@@ -27,6 +29,11 @@ export class ReporteBarraComponent implements OnInit{
       })
       this.chart.chartType = this.chartType
       this.chart.options.title = this.title
+      this.chart.component?.draw()
+    }
+
+    ngOnChanges() {
+      this.ngOnInit()
   }
 
   public chart: GoogleChartInterface = {
@@ -34,12 +41,15 @@ export class ReporteBarraComponent implements OnInit{
     dataTable: [
       [this.key, this.value],
     ],
+    refreshInterval: 10,
     //firstRowIsData: true,
     options: {
       'title': this.title,
-      width: 1000,
-      height: 1000,
-      chartArea: {left: 50, top: 50, right: 0, bottom: 0},
+      width: this.width,
+      height: this.height,
+      is3D: true,
+      chartArea: {width: '80%', height: '80%'},
+      legend: {position: 'bottom'}
   },
   };
 }

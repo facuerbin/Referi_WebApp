@@ -48,7 +48,7 @@ import { RegistrarAsistenciaResponse } from 'src/app/interfaces/registrar.asiste
 import { PlanillaAsistencia } from 'src/app/interfaces/planilla.asistencia.dto';
 import { SendNotificationDto } from 'src/app/interfaces/send.notification.dto';
 import { SendNotificationResponse } from 'src/app/interfaces/send.notification.response.dto';
-import * as moment from 'moment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -502,18 +502,22 @@ export class AuthService {
     return (await axios.get<any>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 
-  async reporteInscriptosMes() {
+  async reporteInscriptosMes(fromYear: number, fromMonth: number, toYear: number, toMonth: number) {
     const orgId = await this.getOrgId();
     const token = this.getToken();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/reporte/inscriptos-mes/';
-    const today = moment();
+    const today = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth()
+    };
     const dto = {
-      idOrg: orgId,
-      toYear: today.year(),
-      fromMonth: today.month(),
-      toMonth: today.month(),
-      fromYear: today.subtract(1, 'year').year(),
+      idOrganizacion: orgId,
+      toYear: toYear ? 2000 + toYear : today.year,
+      toMonth: toMonth ? toMonth : today.month,
+      fromYear: fromYear ? 2000 + fromYear : today.year - 1,
+      fromMonth: fromMonth ? fromMonth : today.month,
     }
+
     return (await axios.post<any>(url, dto, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 }

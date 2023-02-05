@@ -16,18 +16,6 @@ div.position-relative {
   width: 20vw;
 }
 
-.table-wrapper {
-  max-height: 70vh;
-  overflow: auto;
-  display:inline-block;
-}
-
-thead {
-  background-color: #ff9900;
-  position:sticky;
-  top: -1px;
-}
-
 .action-icon {
   font-size: 1rem;
   margin-left: 8px;
@@ -109,18 +97,6 @@ div.position-relative {
 
 .btn {
   width: 20vw;
-}
-
-.table-wrapper {
-  max-height: 70vh;
-  overflow: auto;
-  display:inline-block;
-}
-
-thead {
-  background-color: #ff9900;
-  position:sticky;
-  top: -1px;
 }
 
 .action-icon {
