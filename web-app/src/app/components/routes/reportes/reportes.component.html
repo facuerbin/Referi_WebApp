@@ -1,15 +1,50 @@
-<div class="container mt-3 main-container">
+<div class="container-fluid mt-3 main-container">
   <div class="row">
     <h2>Reportes:</h2>
   </div>
   <div class="row">
-    <div class="col-12">
-      <h2>Socios</h2>
-    </div>
-    <div class="col-10 d-flex justify-content-start align-items-center">
+    <ul class="nav">
+      <li class="nav-item">
+        <h2
+          class="nav-link"
+          [ngClass]="{ active: selectedTab == 'Socios' }"
+          (click)="select('Socios')"
+        >
+          Socios
+        </h2>
+      </li>
+      <li class="nav-item">
+        <h2
+          class="nav-link"
+          [ngClass]="{ active: selectedTab == 'Actividades' }"
+          (click)="select('Actividades')"
+        >
+          Actividades
+        </h2>
+      </li>
+      <li class="nav-item">
+        <h2
+          class="nav-link"
+          [ngClass]="{ active: selectedTab == 'Ingresos' }"
+          (click)="select('Ingresos')"
+        >
+          Ingresos
+        </h2>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <section
+      class="col-10 d-flex justify-content-start align-items-center"
+      *ngIf="selectedTab == 'Socios'"
+    >
       <a [routerLink]="['/', 'reportes', 'cant-inscriptos-mes']">
         <div class="card card-reportes">
-          <img src="/assets/img/chart.png" class="card-img-top" alt="Gráfico de lineas" />
+          <img
+            src="/assets/img/chart.png"
+            class="card-img-top"
+            alt="Gráfico de lineas"
+          />
           <div class="card-body">
             <h3 class="card-title text-center">
               Cantidad de Inscriptos por Mes
@@ -20,7 +55,11 @@
 
       <a [routerLink]="['/', 'reportes', 'rango-etario-socios']">
         <div class="card card-reportes">
-          <img src="/assets/img/pie.png" class="card-img-top" alt="Gráfico de torta" />
+          <img
+            src="/assets/img/pie.png"
+            class="card-img-top"
+            alt="Gráfico de torta"
+          />
           <div class="card-body">
             <h3 class="card-title text-center">
               Distribución de Rango Etario de Socios
@@ -31,7 +70,11 @@
 
       <a [routerLink]="['/', 'reportes', 'socios-por-estado']">
         <div class="card card-reportes">
-          <img src="/assets/img/pie.png" class="card-img-top" alt="Gráfico de torta" />
+          <img
+            src="/assets/img/pie.png"
+            class="card-img-top"
+            alt="Gráfico de torta"
+          />
           <div class="card-body">
             <h3 class="card-title text-center">
               Distribución de socios por estado
@@ -39,15 +82,19 @@
           </div>
         </div>
       </a>
-    </div>
+    </section>
 
-    <div class="col-12">
-      <h2>Actividades</h2>
-    </div>
-    <div class="col-10 d-flex justify-content-start align-items-center">
-      <a [routerLink]="['/', 'reportes', 'socios-por-estado']">
+    <section
+      class="col-10 d-flex justify-content-start align-items-center"
+      *ngIf="selectedTab == 'Actividades'"
+    >
+      <a [routerLink]="['/', 'reportes', 'cant-inscriptos-actividad-mes']">
         <div class="card card-reportes">
-          <img src="/assets/img/chart.png" class="card-img-top" alt="Gráfico de lineas" />
+          <img
+            src="/assets/img/chart.png"
+            class="card-img-top"
+            alt="Gráfico de lineas"
+          />
           <div class="card-body">
             <h3 class="card-title text-center">
               Cantidad de inscriptos por Actividad por mes
@@ -56,42 +103,60 @@
         </div>
       </a>
 
-      <div class="card card-reportes">
-        <img src="/assets/img/pie.png" class="card-img-top" alt="Gráfico de torta" />
-        <div class="card-body">
-          <h3 class="card-title text-center">
-            Distribución de rango etario de socios por Actividad
-          </h3>
+      <a [routerLink]="['/', 'reportes', 'rango-etario-actividad']">
+        <div class="card card-reportes">
+          <img
+            src="/assets/img/pie.png"
+            class="card-img-top"
+            alt="Gráfico de torta"
+          />
+          <div class="card-body">
+            <h3 class="card-title text-center">
+              Distribución de rango etario de socios por Actividad
+            </h3>
+          </div>
         </div>
-      </div>
-    </div>
+      </a>
+    </section>
 
-    <div class="col-12">
-      <h2>Ingresos</h2>
-    </div>
-    <div class="col-10 d-flex justify-content-start align-items-center">
+    <section
+      class="col-10 d-flex justify-content-start align-items-center"
+      *ngIf="selectedTab == 'Ingresos'"
+    >
       <div class="card card-reportes">
-        <img src="/assets/img/chart.png" class="card-img-top" alt="Gráfico de lineas" />
+        <img
+          src="/assets/img/chart.png"
+          class="card-img-top"
+          alt="Gráfico de lineas"
+        />
         <div class="card-body">
           <h3 class="card-title text-center">Ingresos por actividad</h3>
         </div>
       </div>
 
       <div class="card card-reportes">
-        <img src="/assets/img/chart.png" class="card-img-top" alt="Gráfico de lineas" />
+        <img
+          src="/assets/img/chart.png"
+          class="card-img-top"
+          alt="Gráfico de lineas"
+        />
         <div class="card-body">
           <h3 class="card-title text-center">Deuda por actividad</h3>
         </div>
       </div>
 
       <div class="card card-reportes">
-        <img src="/assets/img/pie.png" class="card-img-top" alt="Gráfico de torta" />
+        <img
+          src="/assets/img/pie.png"
+          class="card-img-top"
+          alt="Gráfico de torta"
+        />
         <div class="card-body">
           <h3 class="card-title text-center">
             Socios deudores por rango de fecha
           </h3>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 </div>

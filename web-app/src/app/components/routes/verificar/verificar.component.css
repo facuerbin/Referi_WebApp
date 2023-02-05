@@ -46,6 +46,10 @@ input {
   margin: 0px 8px;
 }
 
+.w-50 {
+  margin: 1rem auto;
+}
+
 .btn:disabled {
   background-color: #D9D9D9;
   color: black;
@@ -102,4 +106,16 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+a, a.nostyle:link {
+  text-decoration: inherit;
+  color: blue !important;
+  cursor: pointer !important;
+}
+
+a.nostyle:visited {
+  text-decoration: inherit;
+  color: blue;
+  cursor: pointer;
 }

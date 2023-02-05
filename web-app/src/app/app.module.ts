@@ -35,6 +35,7 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { GraficaReporteComponent } from './components/routes/grafica-reporte/grafica-reporte.component';
 import { AsistenciaQRComponent } from './components/routes/asistencia-qr/asistencia.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { IvyCarouselModule } from 'carousel-angular';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     ReactiveFormsModule,
     HttpClientModule,
     QRCodeModule,
+    IvyCarouselModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

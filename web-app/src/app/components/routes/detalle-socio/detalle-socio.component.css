@@ -32,7 +32,7 @@ p {
 }
 
 .actividad-container {
-  width: 25vw;
+  width: 20vw;
   height: 35%;
 }
 
@@ -58,4 +58,18 @@ a:hover {
   color: green;
   font-size: 0.8rem;
   display: inline;
+}
+
+.carousel {
+  height: 10vh;
+  width: 80vw;
+}
+
+.carousel-cell {
+  background-color: aqua;
+  height: 10%;
+}
+
+.carousel-section {
+  width: 20vw;
 }

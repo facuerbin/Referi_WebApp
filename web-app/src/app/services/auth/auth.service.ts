@@ -495,6 +495,12 @@ export class AuthService {
     return (await axios.get<any>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 
+  async reporteRangoEtarioSociosActividad(idActividad: string) {
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/reporte/rango-etario-actividad/' + idActividad;
+    return (await axios.get<any>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
+
   async reporteSociosPorEstado() {
     const orgId = await this.getOrgId();
     const token = this.getToken();
@@ -512,6 +518,25 @@ export class AuthService {
     };
     const dto = {
       idOrganizacion: orgId,
+      toYear: toYear ? 2000 + toYear : today.year,
+      toMonth: toMonth ? toMonth : today.month,
+      fromYear: fromYear ? 2000 + fromYear : today.year - 1,
+      fromMonth: fromMonth ? fromMonth : today.month,
+    }
+
+    return (await axios.post<any>(url, dto, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
+
+  async reporteInscriptosActividadMes(idActividad: string, fromYear: number, fromMonth: number, toYear: number, toMonth: number) {
+    const orgId = await this.getOrgId();
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/reporte/actividad-inscriptos-mes/';
+    const today = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth()
+    };
+    const dto = {
+      idActividad: idActividad,
       toYear: toYear ? 2000 + toYear : today.year,
       toMonth: toMonth ? toMonth : today.month,
       fromYear: fromYear ? 2000 + fromYear : today.year - 1,

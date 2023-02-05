@@ -16,7 +16,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class VerificarComponent implements OnInit {
   verificationForm: FormGroup = this.formBuilder.group({
     email: ["", [Validators.required, Validators.email, Validators.maxLength(200)]],
-    codigo: ["", [Validators.required, Validators.minLength(4)]],
+    codigo: ["", [Validators.required, Validators.pattern(/^[0-9]*$/)]],
   });
 
   user: GetUserResponseDto | null = null;

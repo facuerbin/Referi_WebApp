@@ -13,9 +13,31 @@
 }
 
 .card-reportes {
-  height: 200px;
-  margin-right: 2rem;
-  margin-left: 1rem;
-  margin-bottom: 2rem;
-  width: 16rem;
+  height: 250px;
+  width: 250px;
+  margin: 2rem;
+  padding-top: 1rem;
+}
+
+.nav {
+  height: 50%;
+  font-size: 1rem;
+  background-color: #F5F5F5;
+}
+
+h2.nav-link {
+  color: #000;
+  cursor: pointer;
+  height: 100%;
+  margin: auto;
+}
+
+h2.nav-link:hover {
+  background-color: white;
+  color: #4FC3F7;
+}
+
+h2.nav-link.active {
+  color: white;
+  background-color: #4FC3F7;
 }

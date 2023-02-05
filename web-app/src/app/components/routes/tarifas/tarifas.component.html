@@ -48,13 +48,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let tarifa of tarifasFiltered; let i = index">
-            <td>{{ tarifa.actividad }}</td>
-            <td>{{ tarifa.nombre }}</td>
-            <td>{{ tarifa.monto }}</td>
-            <td>{{ tarifa.frecuencia }}</td>
-            <td>{{ tarifa.opcional }}</td>
-            <td>{{ helper.parseDate(tarifa.fechaActualizacion) }}</td>
+          <tr
+            *ngFor="let tarifa of tarifasFiltered; let i = index"
+          >
+            <td (click)="editarTarifaModal(tarifa.id)">{{ tarifa.actividad }}</td>
+            <td (click)="editarTarifaModal(tarifa.id)">{{ tarifa.nombre }}</td>
+            <td (click)="editarTarifaModal(tarifa.id)">{{ tarifa.monto }}</td>
+            <td (click)="editarTarifaModal(tarifa.id)">{{ tarifa.frecuencia }}</td>
+            <td (click)="editarTarifaModal(tarifa.id)">{{ tarifa.opcional }}</td>
+            <td (click)="editarTarifaModal(tarifa.id)">{{ helper.parseDate(tarifa.fechaActualizacion) }}</td>
             <td class="d-flex justify-content-around">
               <button
                 class="action-button"
@@ -93,7 +95,7 @@
   aria-labelledby="modalAgregarTarifa"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLabel">Crear nueva Tarifa</h3>
@@ -204,7 +206,7 @@
   aria-labelledby="modalBorrarTarifa"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLabel">Eliminar Tarifa</h3>
@@ -247,7 +249,7 @@
   aria-labelledby="modalEditarTarifa"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLabel">Editar Tarifa</h3>
