@@ -188,8 +188,16 @@
       </div>
 
       <div class="col-12 col-sm d-flex justify-content-end">
-        <a class="btn btn-info" routerLink="espacios" >AGREGAR ESPACIOS</a>
-        <a class="btn btn-info" routerLink="personal" >AGREGAR PERSONAL</a>
+        <a routerLink="espacios">
+          <button class="btn btn-info">
+            AGREGAR ESPACIOS
+          </button>
+        </a>
+        <a routerLink="personal" >
+          <button class="btn btn-info">
+            AGREGAR PERSONAL
+          </button>
+        </a>
         <button class="btn btn-primary" (click)="saveUpdate()">GUARDAR CAMBIOS</button>
       </div>
     </div>
