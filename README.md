@@ -41,11 +41,11 @@ npm run build      # build de producción → dist/web-app/
 npm test           # unit tests (Karma)
 ```
 
-Para desplegar en la API:
+Para desplegar en la API (asumiendo ambos repositorios clonados lado a lado):
 
 ```bash
 npm run build
-cp -r dist/web-app/* ../../referi_api/web/
+cp -r dist/web-app/* ../referi_api/web/
 ```
 
 ---
