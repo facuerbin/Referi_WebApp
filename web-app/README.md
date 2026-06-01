@@ -1,27 +1,57 @@
-# WebApp
+# Referí — Web App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1.
+Aplicación web para el sistema de gestión de clubes y socios Referí. Desarrollada como proyecto final de la carrera Ingeniería en Sistemas de Información.
 
-## Development server
+Orientada al personal de la organización (no a los socios). Consume la API REST de Referí.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+## Funcionalidades
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Socios** — Alta, baja, importación/exportación CSV y reportes.
+- **Actividades** — ABM de actividades, turnos y horarios. Inscripción de socios.
+- **Tarifas** — Definición de tarifas por actividad y frecuencia de cobro.
+- **Pagos** — Registro y consulta de pagos y cuotas.
+- **Asistencias** — Planillas diarias. Registro por DNI o código QR.
+- **Notificaciones** — Envío de notificaciones a socios, deudores o inscriptos.
+- **Organización** — Gestión de espacios, personal y roles.
+- **Reportes** — Gráficas de inscriptos, distribución por estado e ingresos.
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Requisitos
 
-## Running unit tests
+- Node.js 20+
+- La API de Referí corriendo en `http://localhost:3000`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## Configuración
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+La URL de la API se configura en `src/environments/environment.ts` (desarrollo) y `src/environments/environment.prod.ts` (producción).
 
-## Further help
+---
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Instalación y ejecución
+
+```bash
+npm install
+npm start          # servidor de desarrollo en localhost:4200
+npm run build      # build de producción → dist/web-app/
+npm test           # unit tests (Karma)
+```
+
+Para desplegar en la API:
+
+```bash
+npm run build
+cp -r dist/web-app/* ../../referi_api/web/
+```
+
+---
+
+## Tecnologías
+
+- **Angular 16**
+- **Angular Material** + **Bootstrap 5**
+- **TypeScript 4.9**
