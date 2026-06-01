@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import axios from 'axios';
 import { of } from 'rxjs';
 import { GetUserResponseDto } from 'src/app/interfaces/get.user.response.dto';
 import { User } from 'src/app/interfaces/user';

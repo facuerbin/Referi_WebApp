@@ -19,7 +19,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CookieService } from 'ngx-cookie-service';
 import { RegisterComponent } from './components/routes/register/register.component';
 import { AsistenciaComponent } from './components/routes/asistencia/asistencia.component';
-import { MaintenanceComponent } from './components/routes/maintenance/maintenance.component';
 import { IngresosComponent } from './components/routes/ingresos/ingresos.component';
 import { DetalleSocioComponent } from './components/routes/detalle-socio/detalle-socio.component';
 import { DetalleActividadComponent } from './components/routes/detalle-actividad/detalle-actividad.component';
@@ -52,7 +51,6 @@ import { IvyCarouselModule } from 'carousel-angular';
     RegisterComponent,
     AsistenciaComponent,
     AsistenciaQRComponent,
-    MaintenanceComponent,
     IngresosComponent,
     DetalleSocioComponent,
     DetalleActividadComponent,
