@@ -54,4 +54,4 @@ cp -r dist/web-app/* ../referi_api/web/
 
 - **Angular 16**
 - **Angular Material** + **Bootstrap 5**
-- **TypeScript 4.9**
+- **TypeScript 5.1**

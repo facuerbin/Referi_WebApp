@@ -254,7 +254,7 @@ export class AuthService {
 
   logout() {
     this.cookieService.delete('token');
-    this.cookieService.delete('uuid');
+    this.cookieService.delete('uid');
     this.cookieService.delete('org');
     return this.router.navigate(["/login"]);
   }
