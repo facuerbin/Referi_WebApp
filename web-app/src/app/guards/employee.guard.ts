@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth/auth.service';
@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeGuard implements CanActivate {
+export class EmployeeGuard  {
   constructor(private router: Router, private cookieService: CookieService, private auth: AuthService) {}
   canActivate(
     route: ActivatedRouteSnapshot,
