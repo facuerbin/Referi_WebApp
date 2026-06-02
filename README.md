@@ -8,14 +8,15 @@ Orientada al personal de la organización (no a los socios). Consume la API REST
 
 ## Funcionalidades
 
-- **Socios** — Alta, baja, importación/exportación CSV y reportes.
+- **Socios** — Alta, baja, importación/exportación CSV y reportes. Exportación deshabilitada cuando no hay datos.
 - **Actividades** — ABM de actividades, turnos y horarios. Inscripción de socios.
 - **Tarifas** — Definición de tarifas por actividad y frecuencia de cobro.
 - **Pagos** — Registro y consulta de pagos y cuotas.
-- **Asistencias** — Planillas diarias. Registro por DNI o código QR.
+- **Asistencias** — Planillas diarias. Registro por DNI o código QR. Impresión de QR.
 - **Notificaciones** — Envío de notificaciones a socios, deudores o inscriptos.
 - **Organización** — Gestión de espacios, personal y roles.
 - **Reportes** — Gráficas de inscriptos, distribución por estado e ingresos.
+- **Perfil** — Datos del usuario, foto de perfil y organizaciones asociadas.
 
 ---
 
@@ -52,6 +53,14 @@ cp -r dist/web-app/* ../referi_api/web/
 
 ---
 
+## Arquitectura
+
+- **Componentes compartidos** — `src/app/components/shared/` contiene componentes reutilizables: `SearchBarComponent`, `ModalComponent`, `PasswordInputComponent`, `SpinnerButtonComponent`, `FormFeedbackComponent` y `QrCodeComponent`.
+- **Guards** — cada módulo tiene su propio guard que verifica el permiso correspondiente antes de permitir el acceso a la ruta.
+- **AuthService** — servicio central que maneja autenticación, sesión y todas las llamadas a la API.
+
+---
+
 ## Tecnologías
 
 - **Angular 20**
@@ -59,3 +68,4 @@ cp -r dist/web-app/* ../referi_api/web/
 - **TypeScript 5.8**
 - **RxJS 7.8**
 - **ngx-bootstrap 20**
+- **qrcode** para generación de códigos QR
