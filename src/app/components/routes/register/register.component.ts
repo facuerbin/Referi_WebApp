@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { isValidDate } from 'src/app/helpers/date.validator';
 import { CreateOrganizationDto } from 'src/app/interfaces/create.organization.dto';
 import { CreateUserDto } from 'src/app/interfaces/create.user.dto';
@@ -42,10 +41,6 @@ export class RegisterComponent implements OnInit {
     fechaNac: ["", [Validators.required, isValidDate]]
   }, {validators: this.checkPasswords});
 
-  eye = faEye;
-  eyeSlash = faEyeSlash;
-  passwordIsVisible = false;
-  repeatPasswordIsVisible = false;
   tipos: string[] = [
     "Gimnasio",
     "Club",
@@ -55,7 +50,6 @@ export class RegisterComponent implements OnInit {
   section = 1;
 
   constructor(private formBuilder: FormBuilder,private changeDetector: ChangeDetectorRef,  private router: Router, private auth: AuthService, private http: HttpClient) {
-    this.registerForm.controls['tipo'].setValue("default", {onlySelf: true})
   }
 
 
@@ -116,12 +110,26 @@ export class RegisterComponent implements OnInit {
     } else return false
   }
 
-  return () {
-    if (this.section > 1)this.section --;
+  private readonly stepFields: Record<number, string[]> = {
+    1: ['nombre', 'tipo', 'descripcion'],
+    2: ['calle', 'numero', 'ciudad', 'provincia', 'telefono'],
+    3: ['fname', 'lname', 'dni', 'fechaNac'],
+    4: ['email', 'password', 'repeatPassword'],
+  };
+
+  isStepValid(step: number): boolean {
+    const fields = this.stepFields[step] ?? [];
+    const fieldsValid = fields.every(f => !this.registerForm.controls[f].errors);
+    if (step === 4) return fieldsValid && !this.registerForm.errors?.['notSame'];
+    return fieldsValid;
   }
 
-  next () {
-    if (this.section < 4)this.section ++;
+  return () {
+    if (this.section > 1) this.section--;
+  }
+
+  next() {
+    if (this.isStepValid(this.section) && this.section < 4) this.section++;
   }
 
 
@@ -135,12 +143,4 @@ export class RegisterComponent implements OnInit {
     (this.registerForm.controls['repeatPassword'].touched || this.registerForm.controls['repeatPassword'].dirty);
   }
 
-  togglePassword(event: MouseEvent, field: number) {
-    event.preventDefault();
-    if (field === 1) {
-      return this.passwordIsVisible = !this.passwordIsVisible;
-    } else {
-      return this.repeatPasswordIsVisible = !this.repeatPasswordIsVisible;
-    }
-  }
 }

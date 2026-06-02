@@ -7,6 +7,13 @@ h3 {
   font-size: 2rem;
 }
 
+.card {
+  height: auto;
+  min-height: 70vh;
+  overflow: visible;
+  margin-bottom: 2rem;
+}
+
 input {
   height: 2rem;
   padding: auto;
@@ -88,9 +95,8 @@ form {
 }
 
 .buttons-section {
-  position: absolute;
-  bottom: 20px;
   width: 100%;
+  padding: 1rem 0;
 }
 
 /* Chrome, Safari, Edge, Opera */

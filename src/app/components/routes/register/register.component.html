@@ -36,7 +36,7 @@
           <div class="form-group col-10">
             <label for="tipo">Tipo de institución</label>
             <select class="form-control" id="tipo" formControlName="tipo">
-              <option value="default">Selecciona un tipo</option>
+              <option value="" disabled>Selecciona un tipo</option>
               <option value="Gimnasio">Gimnasio</option>
               <option value="Club">Club</option>
               <option value="Instituto de Danza">Instituto de Danza</option>
@@ -169,9 +169,20 @@
               onfocus="(this.type='date')"
               min='1920-01-01' max='2022-01-01'
             />
-            <p *ngIf="isValid('fechaNac')" class="form-error">
-              Por favor complete el campo fecha de nacimiento correctamente
-            </p>
+            <ng-container *ngIf="registerForm.controls['fechaNac'].touched || registerForm.controls['fechaNac'].dirty">
+              <p *ngIf="registerForm.controls['fechaNac'].errors?.['dateInvalid']?.reason === 'tooRecent'" class="form-error">
+                La fecha ingresada es demasiado reciente. El usuario debe tener al menos 10 años.
+              </p>
+              <p *ngIf="registerForm.controls['fechaNac'].errors?.['dateInvalid']?.reason === 'tooOld'" class="form-error">
+                La fecha ingresada es demasiado antigua. Se aceptan fechas de hasta 100 años atrás.
+              </p>
+              <p *ngIf="registerForm.controls['fechaNac'].errors?.['dateInvalid']?.reason === 'format'" class="form-error">
+                Ingrese una fecha válida.
+              </p>
+              <p *ngIf="registerForm.controls['fechaNac'].errors?.['required']" class="form-error">
+                La fecha de nacimiento es requerida.
+              </p>
+            </ng-container>
           </div>
         </div>
       </section>
@@ -192,65 +203,21 @@
             </p>
           </div>
 
-          <div class="form-group col-10 row position-relative">
-            <input
-              type="{{ !passwordIsVisible ? 'password' : 'text' }}"
-              class="form-control"
-              placeholder="Contraseña"
-              formControlName="password"
-            />
+          <div class="form-group col-10 row">
+            <app-password-input placeholder="Contraseña" formControlName="password"></app-password-input>
             <p *ngIf="isValid('password')" class="form-error">
               La contraseña debe tener al menos 8 caracteres
             </p>
-
-            <button
-              class="form-icon-right"
-              (click)="togglePassword($event, 1)"
-              type="button"
-            >
-              <fa-icon
-                *ngIf="!passwordIsVisible"
-                [icon]="eye"
-                aria-hidden="true"
-              ></fa-icon>
-              <fa-icon
-                *ngIf="passwordIsVisible"
-                [icon]="eyeSlash"
-                aria-hidden="true"
-              ></fa-icon>
-            </button>
           </div>
 
-          <div class="form-group col-10 row position-relative">
-            <input
-              type="{{ !repeatPasswordIsVisible ? 'password' : 'text' }}"
-              class="form-control"
-              placeholder="Repetir contraseña"
-              formControlName="repeatPassword"
-            />
+          <div class="form-group col-10 row">
+            <app-password-input placeholder="Repetir contraseña" formControlName="repeatPassword"></app-password-input>
             <p *ngIf="isValid('repeatPassword')" class="form-error">
               La contraseña debe tener al menos 8 caracteres
             </p>
             <p *ngIf="isValidRepeatPassword()" class="form-error">
               La contraseña ingresada no es igual a la anterior
             </p>
-
-            <button
-              class="form-icon-right"
-              (click)="togglePassword($event, 2)"
-              type="button"
-            >
-              <fa-icon
-                *ngIf="!repeatPasswordIsVisible"
-                [icon]="eye"
-                aria-hidden="true"
-              ></fa-icon>
-              <fa-icon
-                *ngIf="repeatPasswordIsVisible"
-                [icon]="eyeSlash"
-                aria-hidden="true"
-              ></fa-icon>
-            </button>
           </div>
         </div>
       </section>
@@ -261,7 +228,7 @@
           (click)="next()"
           type="button"
           class="btn btn-primary"
-          [disabled]="section > 4"
+          [disabled]="!isStepValid(section)"
         >
           SIGUIENTE
         </button>
