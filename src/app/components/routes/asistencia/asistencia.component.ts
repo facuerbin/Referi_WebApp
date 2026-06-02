@@ -49,7 +49,8 @@ export class AsistenciaComponent implements OnInit {
       })
     }
 
-    filterSearch() {
+    filterSearch(query: string = '') {
+      this.search = query;
       if (! this.planillaAsistencia?.asistentes) return null;
       const result = this.planillaAsistencia?.asistentes.filter(asistente => {
         return asistente.nombre.toLowerCase().search(this.search.toLowerCase()) !== -1
