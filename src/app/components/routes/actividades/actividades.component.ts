@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faAddressCard, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Modal } from 'bootstrap';
 import { ActividadTableElement } from 'src/app/interfaces/actividad.table';
 import { CreateActividadDto } from 'src/app/interfaces/create.actividad.dto';
 import { TipoActividad } from 'src/app/interfaces/get.tipo.actividad.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { HelperService } from 'src/app/services/helper.service';
+import { ModalComponent } from '../../shared/modal/modal.component';
 
 @Component({
   standalone: false,
@@ -15,9 +15,9 @@ import { HelperService } from 'src/app/services/helper.service';
   styleUrls: ['./actividades.component.css']
 })
 export class ActividadesComponent implements OnInit {
+  @ViewChild('actividadModal') actividadModal!: ModalComponent;
   searchIcon = faSearch;
   detailIcon = faAddressCard;
-  modal: bootstrap.Modal | undefined;
   modalError = false;
   tipoActividad: TipoActividad[] = [];
   load = false;
@@ -65,7 +65,8 @@ export class ActividadesComponent implements OnInit {
     })
   }
 
-  filterSearch() {
+  filterSearch(query: string = '') {
+    this.search = query;
     const result = this.actividades.filter(actividad => {
       return actividad.nombre.toLowerCase().search(this.search.toLowerCase()) !== -1
           || actividad.tipo.toLowerCase().search(this.search.toLowerCase()) !== -1
@@ -79,15 +80,12 @@ export class ActividadesComponent implements OnInit {
   }
 
   openModal() {
-    this.modal = new Modal(document.getElementById("modalForm") || "", {
-      keyboard: false
-    });
-    this.actividadForm.reset();
-    this.modal.show();
+    this.actividadForm.reset({ nombre: '', idTipoActividad: '', descripcion: '', cupo: '' });
+    this.actividadModal.open();
   }
 
   closeModal() {
-    this.modal?.hide();
+    this.actividadModal.close();
   }
 
 
@@ -119,7 +117,7 @@ export class ActividadesComponent implements OnInit {
       then( result => {
         this.spinner = false;
         this.getActividadOrganizacion();
-        this.actividadForm.reset();
+        this.actividadForm.reset({ nombre: '', idTipoActividad: '', descripcion: '', cupo: '' });
         this.closeModal();
       })
       .catch(e => {

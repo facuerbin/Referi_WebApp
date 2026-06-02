@@ -107,9 +107,10 @@
               GUARDAR CAMBIOS
             </button>
           </div>
-          <p class="success text-center" *ngIf="updateSuccess">
-            Los cambios se guardaron correctamente...
-          </p>
+          <app-form-feedback
+            [success]="updateSuccess"
+            successMessage="Los cambios se guardaron correctamente..."
+          ></app-form-feedback>
         </div>
       </div>
     </form>

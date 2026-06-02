@@ -129,12 +129,12 @@
           ENVIAR NOTIFICACIÓN
         </button>
       </div>
-      <p class="form-success text-center" *ngIf="notificationSuccess">
-        ¡La notificación fue enviada correctamente!
-      </p>
-      <p class="form-error text-center" *ngIf="notificationError">
-        Algo salió mal, prueba enviando la notificación más tarde.
-      </p>
+      <app-form-feedback
+        [success]="notificationSuccess"
+        successMessage="¡La notificación fue enviada correctamente!"
+        [error]="notificationError"
+        errorMessage="Algo salió mal, prueba enviando la notificación más tarde."
+      ></app-form-feedback>
     </form>
   </div>
 

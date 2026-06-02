@@ -1,13 +1,13 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faAddressCard, faPencilAlt, faSearch, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
-import { Modal } from 'bootstrap';
 import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { Turno } from 'src/app/interfaces/get.detail.actividad.dto';
 import { Inscripto } from 'src/app/interfaces/get.inscriptos.organizacion.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Personal, Rol } from 'src/app/interfaces/listPersonalOrganizacion.dto';
 import { isValidDate } from 'src/app/helpers/date.validator';
+import { ModalComponent } from '../../shared/modal/modal.component';
 
 @Component({
   standalone: false,
@@ -17,6 +17,8 @@ import { isValidDate } from 'src/app/helpers/date.validator';
 })
 
 export class PersonalComponent implements OnInit {
+  @ViewChild('agregarPersonalModal') agregarPersonalModal!: ModalComponent;
+  @ViewChild('modificarPersonalModal') modificarPersonalModal!: ModalComponent;
   searchIcon = faSearch;
   detailIcon = faAddressCard;
   trashIcon = faTrash;
@@ -27,7 +29,6 @@ export class PersonalComponent implements OnInit {
   personal: Personal[] = [];
   personalFiltered: Personal[] = [];
 
-  modal: bootstrap.Modal | undefined;
   modalError = false;
   errorTurnos = false;
   search: string = "";
@@ -85,7 +86,8 @@ export class PersonalComponent implements OnInit {
     })
   }
 
-  filterSearch() {
+  filterSearch(query: string = '') {
+    this.search = query;
     const result = this.personal.filter(personal => {
       return personal.personal?.nombre.toLowerCase().search(this.search.toLowerCase()) !== -1
         || personal.personal.apellido.toLowerCase().search(this.search.toLowerCase()) !== -1
@@ -112,17 +114,19 @@ export class PersonalComponent implements OnInit {
     });
   }
 
+  private getModalRef(id: string): ModalComponent {
+    if (id === 'modalAgregarUsuario') return this.agregarPersonalModal;
+    return this.modificarPersonalModal;
+  }
+
   openModal(id: string, personalId?: string) {
-    this.modal = new Modal(document.getElementById(id) || "", {
-      keyboard: false
-    });
-    this.empleadoForm.reset();
-    this.modal.show();
+    this.empleadoForm.reset({ email: '', nombre: '', apellido: '', dni: '', fechaNac: '', telefono: '', calle: '', numero: '', ciudad: '', provincia: '', rol: '' });
+    this.getModalRef(id).open();
     this.editPersonalId = '' + personalId;
   }
 
   closeModal(id: string) {
-    this.modal?.hide();
+    this.getModalRef(id).close();
   }
 
   async handleForm() {

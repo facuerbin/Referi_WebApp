@@ -64,7 +64,8 @@ export class IngresosComponent implements OnInit {
     });
   }
 
-  filterSearch() {
+  filterSearch(query: string = '') {
+    this.search = query;
     const result = this.ingresos.filter(pago => {
       return pago.socio.toLowerCase().search(this.search.toLowerCase()) !== -1
           || pago.email.toLowerCase().search(this.search.toLowerCase()) !== -1

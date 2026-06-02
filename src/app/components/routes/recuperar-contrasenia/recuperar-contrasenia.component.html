@@ -43,20 +43,12 @@
             </form>
           </div>
           <div class="modal-footer justify-content-center">
-            <button
-              type="button"
-              class="btn btn-primary"
-              (click)="handleForm()"
+            <app-spinner-button
+              [loading]="spinner"
               [disabled]="recoverForm.invalid"
-              >
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-                *ngIf="spinner"
-              ></span>
-              RECUPERAR CONTRASEÑA
-            </button>
+              label="RECUPERAR CONTRASEÑA"
+              (clicked)="handleForm()"
+            ></app-spinner-button>
           </div>
         </div>
       </div>

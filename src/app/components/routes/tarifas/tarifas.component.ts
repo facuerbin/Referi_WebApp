@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faPencilAlt, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Modal } from 'bootstrap';
 import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { Frecuencia } from 'src/app/interfaces/get.tarifa.frecuencia.res.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { HelperService } from 'src/app/services/helper.service';
+import { ModalComponent } from '../../shared/modal/modal.component';
 
 @Component({
   standalone: false,
@@ -14,6 +14,9 @@ import { HelperService } from 'src/app/services/helper.service';
   styleUrls: ['./tarifas.component.css']
 })
 export class TarifasComponent implements OnInit {
+  @ViewChild('agregarTarifaModalRef') agregarTarifaRef!: ModalComponent;
+  @ViewChild('eliminarTarifaModalRef') eliminarTarifaRef!: ModalComponent;
+  @ViewChild('editarTarifaModalRef') editarTarifaRef!: ModalComponent;
   searchIcon = faSearch;
   pencil = faPencilAlt;
   trashIcon = faTrash;
@@ -23,7 +26,6 @@ export class TarifasComponent implements OnInit {
   actividades: Actividad[] = [];
   frecuencias: Frecuencia[] = [];
 
-  modal: bootstrap.Modal | undefined;
   tarifaAEliminar: Tarifa | null = null;
   tarifaAEditar: Tarifa | null = null;
   search: string = "";
@@ -66,7 +68,8 @@ export class TarifasComponent implements OnInit {
     });
   }
 
-  filterSearch() {
+  filterSearch(query: string = '') {
+    this.search = query;
     const result = this.tarifas.filter(tarifa => {
       return tarifa.nombre.toLowerCase().search(this.search.toLowerCase()) !== -1
           || tarifa.frecuencia.toLowerCase().search(this.search.toLowerCase()) !== -1
@@ -81,16 +84,19 @@ export class TarifasComponent implements OnInit {
     return "";
   }
 
+  private getModalRef(id: string): ModalComponent {
+    if (id === 'modalAgregarTarifa') return this.agregarTarifaRef;
+    if (id === 'modalEliminarTarifa') return this.eliminarTarifaRef;
+    return this.editarTarifaRef;
+  }
+
   openModal(id: string) {
-    this.modal = new Modal(document.getElementById(id) || "", {
-      keyboard: false
-    });
-    this.tarifasForm.reset();
-    this.modal.show();
+    this.tarifasForm.reset({ nombre: '', monto: '', idActividad: '', esOpcional: '', frecuencia: '' });
+    this.getModalRef(id).open();
   }
 
   closeModal(id: string) {
-    this.modal?.hide();
+    this.getModalRef(id).close();
   }
 
   isValid(field: string): boolean {
@@ -110,7 +116,7 @@ export class TarifasComponent implements OnInit {
       idOrganizacion : orgId,
     }
 
-    this.tarifasForm.reset();
+    this.tarifasForm.reset({ nombre: '', monto: '', idActividad: '', esOpcional: '', frecuencia: '' });
     const newTarifa = await this.auth.createTarifa(body);
     this.getTarifas();
     this.closeModal("modalAgregarTarifa")
@@ -152,7 +158,7 @@ export class TarifasComponent implements OnInit {
 
     if (this.tarifaAEditar) await this.auth.editTarifa(body, this.tarifaAEditar.id);
     this.getTarifas();
-    this.tarifasForm.reset();
+    this.tarifasForm.reset({ nombre: '', monto: '', idActividad: '', esOpcional: '', frecuencia: '' });
     this.closeModal('modalEditarTarifa');
     return null;
   }

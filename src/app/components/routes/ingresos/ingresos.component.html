@@ -4,26 +4,7 @@
       <h2>Ingresos:</h2>
     </div>
     <div class="col-8">
-      <form action="#">
-        <div class="position-relative">
-          <input
-          id="searchInput"
-          name="search"
-          placeholder="Buscar pagos"
-          type="text"
-          class="form-control form-control-search"
-          [(ngModel)]="search"
-          (ngModelChange)="filterSearch()"
-          />
-          <button
-          class="form-icon-right"
-          (click)="filterSearch()"
-          type="button"
-          >
-          <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
-        </button>
-      </div>
-    </form>
+      <app-search-bar [placeholder]="'Buscar pagos'" (searched)="filterSearch($event)"></app-search-bar>
   </div>
 
   <div class="col-4">

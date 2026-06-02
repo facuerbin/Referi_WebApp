@@ -1,10 +1,10 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faAddressCard, faSearch, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
-import { Modal } from 'bootstrap';
 import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Espacio } from 'src/app/interfaces/get.espacios.response.dto';
+import { ModalComponent } from '../../shared/modal/modal.component';
 
 @Component({
   standalone: false,
@@ -13,6 +13,8 @@ import { Espacio } from 'src/app/interfaces/get.espacios.response.dto';
   styleUrls: ['./espacios.component.css']
 })
 export class EspaciosComponent implements OnInit {
+    @ViewChild('agregarEspacioModal') agregarEspacioModal!: ModalComponent;
+    @ViewChild('editarEspacioModal') editarEspacioModal!: ModalComponent;
     searchIcon = faSearch;
     detailIcon = faAddressCard;
     trashIcon = faTrash;
@@ -23,7 +25,6 @@ export class EspaciosComponent implements OnInit {
     espacios: Espacio[] = [];
     espaciosFiltered: Espacio[] = [];
 
-    modal: bootstrap.Modal | undefined;
     modalError = false;
     errorTurnos = false;
     search: string = "";
@@ -65,7 +66,8 @@ export class EspaciosComponent implements OnInit {
       })
     }
 
-    filterSearch() {
+    filterSearch(query: string = '') {
+      this.search = query;
       const result = this.espacios.filter(espacio => {
         return espacio.nombre.toLowerCase().search(this.search.toLowerCase()) !== -1
           || (espacio.capacidad+ "").search(this.search.toLowerCase()) !== -1;
@@ -84,20 +86,22 @@ export class EspaciosComponent implements OnInit {
       return `${dia}/${mes}/${anio}`;
     }
 
+    private getModalRef(id: string): ModalComponent {
+      if (id === 'modalAgregarUsuario') return this.agregarEspacioModal;
+      return this.editarEspacioModal;
+    }
+
     openModal(id: string, espacio?: Espacio) {
       if (espacio) {
         this.espacioForm.value['nombre'] = espacio.nombre;
         this.espacioForm.value['capacidad'] = espacio.capacidad;
         this.espacioForm.value['id'] = espacio.id;
       }
-      this.modal = new Modal(document.getElementById(id) || "", {
-        keyboard: false
-      });
-      this.modal.show();
+      this.getModalRef(id).open();
     }
 
     closeModal(id: string) {
-      this.modal?.hide();
+      this.getModalRef(id).close();
     }
 
     async handleForm() {

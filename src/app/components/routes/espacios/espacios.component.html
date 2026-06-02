@@ -4,26 +4,7 @@
       <h2>Espacios:</h2>
     </div>
     <div class="col-8">
-      <form action="#">
-        <div class="position-relative">
-          <input
-            id="searchInput"
-            name="search"
-            placeholder="Buscar personal"
-            type="text"
-            class="form-control form-control-search"
-            [(ngModel)]="search"
-            (ngModelChange)="filterSearch()"
-          />
-          <button
-            class="form-icon-right"
-            (click)="filterSearch()"
-            type="button"
-          >
-            <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
-          </button>
-        </div>
-      </form>
+      <app-search-bar [placeholder]="'Buscar espacios'" (searched)="filterSearch($event)"></app-search-bar>
     </div>
 
     <div class="col-4">
@@ -67,135 +48,91 @@
 </div>
 
 <!-- Modal Agregar Espacio -->
-<div
-  class="modal fade"
-  #modal
-  id="modalAgregarUsuario"
-  tabindex="-1"
-  aria-labelledby="modalAgregarUsuario"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">AGREGAR ESPACIO:</h3>
-        <button
-          type="button"
-          class="btn-close"
-          aria-label="Close"
-          (click)="closeModal('modalAgregarUsuario')"
-        ></button>
-      </div>
-      <div class="modal-body container" [formGroup]="espacioForm">
-        <div class="row justify-content-around">
-          <h3>Datos del nuevo espacio:</h3>
-          <div class="col-12">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                id="nombre"
-                placeholder="Nombre del espacio"
-                formControlName="nombre"
-              />
-              <p *ngIf="isValid('nombre')" class="form-error">
-                Ingrese el nombre del nuevo espacio
-              </p>
-            </div>
-          </div>
-
-          <div class="col-12">
-            <div class="form-group">
-              <input
-                type="number"
-                class="form-control"
-                id="capacidad"
-                placeholder="Capacidad"
-                formControlName="capacidad"
-              />
-              <p *ngIf="isValid('capacidad')" class="form-error">
-                Ingrese el capacidad del nuevo inscripto
-              </p>
-            </div>
-          </div>
+<app-modal #agregarEspacioModal id="modalAgregarUsuario" title="AGREGAR ESPACIO:">
+  <div modal-body class="container" [formGroup]="espacioForm">
+    <div class="row justify-content-around">
+      <h3>Datos del nuevo espacio:</h3>
+      <div class="col-12">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="nombre"
+            placeholder="Nombre del espacio"
+            formControlName="nombre"
+          />
+          <p *ngIf="isValid('nombre')" class="form-error">
+            Ingrese el nombre del nuevo espacio
+          </p>
         </div>
       </div>
 
-      <div class="modal-footer d-flex justify-content-center">
-        <button type="button" class="btn btn-primary" (click)="handleForm()">
-          CREAR ESPACIO
-        </button>
+      <div class="col-12">
+        <div class="form-group">
+          <input
+            type="number"
+            class="form-control"
+            id="capacidad"
+            placeholder="Capacidad"
+            formControlName="capacidad"
+          />
+          <p *ngIf="isValid('capacidad')" class="form-error">
+            Ingrese el capacidad del nuevo inscripto
+          </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <div modal-footer>
+    <app-spinner-button
+      label="CREAR ESPACIO"
+      (clicked)="handleForm()"
+    ></app-spinner-button>
+  </div>
+</app-modal>
 
 <!-- Modal Editar Espacio -->
-<div
-  class="modal fade"
-  #modal
-  id="modalEditarEspacio"
-  tabindex="-1"
-  aria-labelledby="modalEditarEspacio"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="modalTitle">EDITAR ESPACIO:</h3>
-        <button
-          type="button"
-          class="btn-close"
-          aria-label="Close"
-          (click)="closeModal('modalEditarEspacio')"
-        ></button>
-      </div>
-      <div class="modal-body container" [formGroup]="espacioForm">
-        <div class="row justify-content-around">
-          <h3>Datos del espacio:</h3>
-          <div class="col-12">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                id="nombreEdit"
-                placeholder="Nombre del espacio"
-                formControlName="nombre"
-                value="{{ espacioForm.value['nombre'] }}"
-              />
-              <p *ngIf="isValid('nombre')" class="form-error">
-                Ingrese el nombre del nuevo espacio
-              </p>
-            </div>
-          </div>
-
-          <div class="col-12">
-            <div class="form-group">
-              <input
-                type="number"
-                class="form-control"
-                id="capacidadEdit"
-                placeholder="Capacidad"
-                formControlName="capacidad"
-                value="{{ espacioForm.value['capacidad'] }}"
-              />
-              <p *ngIf="isValid('capacidad')" class="form-error">
-                Ingrese el capacidad del nuevo inscripto
-              </p>
-            </div>
-          </div>
+<app-modal #editarEspacioModal id="modalEditarEspacio" title="EDITAR ESPACIO:">
+  <div modal-body class="container" [formGroup]="espacioForm">
+    <div class="row justify-content-around">
+      <h3>Datos del espacio:</h3>
+      <div class="col-12">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="nombreEdit"
+            placeholder="Nombre del espacio"
+            formControlName="nombre"
+            value="{{ espacioForm.value['nombre'] }}"
+          />
+          <p *ngIf="isValid('nombre')" class="form-error">
+            Ingrese el nombre del nuevo espacio
+          </p>
         </div>
       </div>
 
-      <div class="modal-footer d-flex justify-content-center">
-        <button
-          type="button"
-          class="btn btn-primary"
-          (click)="handleFormEdit()"
-        >
-          GUARDAR CAMBIOS
-        </button>
+      <div class="col-12">
+        <div class="form-group">
+          <input
+            type="number"
+            class="form-control"
+            id="capacidadEdit"
+            placeholder="Capacidad"
+            formControlName="capacidad"
+            value="{{ espacioForm.value['capacidad'] }}"
+          />
+          <p *ngIf="isValid('capacidad')" class="form-error">
+            Ingrese el capacidad del nuevo inscripto
+          </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <div modal-footer>
+    <app-spinner-button
+      label="GUARDAR CAMBIOS"
+      (clicked)="handleFormEdit()"
+    ></app-spinner-button>
+  </div>
+</app-modal>
