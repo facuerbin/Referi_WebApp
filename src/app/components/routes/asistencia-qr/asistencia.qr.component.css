@@ -2,3 +2,26 @@
   width: 20vw;
   margin: auto 1rem;
 }
+
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.row {
+  justify-content: center;
+  width: 100%;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

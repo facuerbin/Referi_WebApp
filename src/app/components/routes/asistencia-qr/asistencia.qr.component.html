@@ -5,17 +5,18 @@
       <p>Escanea el QR para registrar tu asistencia en este establecimiento.</p>
     </div>
     <div class="col-12" *ngIf="!!url">
-      <qrcode [qrdata]="url" [width]="400" [errorCorrectionLevel]="'M'"></qrcode>
+      <app-qr-code [data]="url" [width]="400" [errorCorrectionLevel]="'M'"></app-qr-code>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row mt-3 no-print">
     <div class="col-4">
       <a routerLink="/asistencia">
-        <button class="btn btn-secondary mt-3">
-          REGRESAR
-        </button>
+        <button class="btn btn-secondary">REGRESAR</button>
       </a>
+    </div>
+    <div class="col-4">
+      <button class="btn btn-primary" (click)="print()">IMPRIMIR QR</button>
     </div>
   </div>
 </div>

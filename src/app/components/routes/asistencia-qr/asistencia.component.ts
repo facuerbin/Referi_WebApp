@@ -18,4 +18,8 @@ export class AsistenciaQRComponent implements OnInit {
       this.url = this.auth.getAsistenciaUrl() + org.id;
       this.orgName = org.nombre;
     }
+
+    print() {
+      window.print();
+    }
 }
