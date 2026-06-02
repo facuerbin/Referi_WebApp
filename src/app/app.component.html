@@ -5,9 +5,10 @@
 <div *ngIf="!logged">
   <app-logged-header (sidebarToggle)="toggleSidebar($event)"></app-logged-header>
   <div class="d-flex container-fluid">
-    <section class="nav flex-column">
+    <section class="nav flex-column" [class.nav-open]="toggle">
       <app-sidenav [sidenavToggle]="toggle"></app-sidenav>
     </section>
+    <div class="mobile-backdrop" [class.active]="toggle" (click)="toggleSidebar($event)"></div>
 
     <section class="container-fluid overflow-auto">
       <router-outlet></router-outlet>

@@ -2,3 +2,35 @@
   width: 80vw;
   overflow-y: visible;
 }
+
+.mobile-backdrop {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  section.nav {
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    height: calc(100% - 4rem);
+    z-index: 200;
+    margin-right: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  section.nav.nav-open {
+    transform: translateX(0);
+  }
+
+  .mobile-backdrop.active {
+    display: block;
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 4rem);
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 199;
+  }
+}

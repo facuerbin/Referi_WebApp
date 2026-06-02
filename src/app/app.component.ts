@@ -12,7 +12,7 @@ import { faChartPie } from '@fortawesome/free-solid-svg-icons';
 export class AppComponent {
   title = 'Referi';
   logged = false;
-  toggle = true;
+  toggle = false;
 
   constructor (private router: Router, library: FaIconLibrary) {
     this.logged = router.url.includes("dashboard");
