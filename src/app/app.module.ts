@@ -34,7 +34,6 @@ import { ReporteBarraComponent } from './components/routes/reporte-barra/reporte
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { GraficaReporteComponent } from './components/routes/grafica-reporte/grafica-reporte.component';
 import { AsistenciaQRComponent } from './components/routes/asistencia-qr/asistencia.component';
-import { IvyCarouselModule } from 'carousel-angular';
 
 @NgModule({
   declarations: [
@@ -75,7 +74,6 @@ import { IvyCarouselModule } from 'carousel-angular';
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
-    IvyCarouselModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
