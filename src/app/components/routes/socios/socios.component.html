@@ -4,26 +4,7 @@
       <h2>Administrar Socios:</h2>
     </div>
     <div class="col-8">
-      <form action="#">
-        <div class="position-relative">
-          <input
-            id="searchInput"
-            name="search"
-            placeholder="Buscar socios"
-            type="text"
-            class="form-control form-control-search"
-            [(ngModel)]="search"
-            (ngModelChange)="filterSearch()"
-          />
-          <button
-            class="form-icon-right"
-            (click)="filterSearch()"
-            type="button"
-          >
-            <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
-          </button>
-        </div>
-      </form>
+      <app-search-bar [placeholder]="'Buscar socios'" (searched)="filterSearch($event)"></app-search-bar>
     </div>
 
     <div class="col-4">
@@ -102,9 +83,11 @@
     </div>
 
     <div class="col-11 d-flex justify-content-end m-4" *ngIf="canImport">
-      <button class="btn btn-success" (click)="exportarSocios()">
-        EXPORTAR SOCIOS
-      </button>
+      <span [title]="socios.length === 0 ? 'No hay socios para exportar' : ''">
+        <button class="btn btn-success" (click)="exportarSocios()" [disabled]="socios.length === 0">
+          EXPORTAR SOCIOS
+        </button>
+      </span>
       <button class="btn btn-info">
         <label for="fileImportInput"> IMPORTAR SOCIOS </label>
         <input

@@ -73,7 +73,8 @@ export class SociosComponent implements OnInit {
     })
   }
 
-  filterSearch() {
+  filterSearch(query: string = '') {
+    this.search = query;
     const result = this.socios.filter(socio => {
       return socio.usuario.nombre.toLowerCase().search(this.search.toLowerCase()) !== -1
           || socio.usuario.apellido.toLowerCase().search(this.search.toLowerCase()) !== -1
@@ -143,7 +144,7 @@ export class SociosComponent implements OnInit {
     this.modal = new Modal(document.getElementById(id) || "", {
       keyboard: false
     });
-    this.sociosForm.reset();
+    this.sociosForm.reset({ email: '', nombre: '', apellido: '', dni: '', fechaNac: '', telefono: '', calle: '', numero: '', ciudad: '', provincia: '', idActividad: '', idTurnoActividad: '' });
     this.modal.show();
   }
 
