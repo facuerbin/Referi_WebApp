@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-recuperar-contrasenia',
   templateUrl: './recuperar-contrasenia.component.html',
   styleUrls: ['./recuperar-contrasenia.component.css']

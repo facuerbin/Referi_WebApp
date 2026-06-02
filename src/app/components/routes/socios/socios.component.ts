@@ -10,6 +10,7 @@ import { HelperService } from 'src/app/services/helper.service';
 import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
 import { isValidDate } from 'src/app/helpers/date.validator';
 @Component({
+  standalone: false,
   selector: 'app-socios',
   templateUrl: './socios.component.html',
   styleUrls: ['./socios.component.css'],

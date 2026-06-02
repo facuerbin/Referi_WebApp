@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-download',
   templateUrl: './download.component.html',
   styleUrls: ['./download.component.css']

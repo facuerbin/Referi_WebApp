@@ -15,6 +15,7 @@ import { UploadService } from 'src/app/services/upload/upload.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
+  standalone: false,
   selector: 'app-detalle-actividad',
   templateUrl: './detalle-actividad.component.html',
   styleUrls: ['./detalle-actividad.component.css']

@@ -8,6 +8,7 @@ import { VerifyEmailDto } from 'src/app/interfaces/verify.email.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-verificar',
   templateUrl: './verificar.component.html',
   styleUrls: ['./verificar.component.css']

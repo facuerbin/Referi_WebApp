@@ -10,6 +10,7 @@ import { HelperService } from 'src/app/services/helper.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
+  standalone: false,
   selector: 'app-detalle-socio',
   templateUrl: './detalle-socio.component.html',
   styleUrls: ['./detalle-socio.component.css']

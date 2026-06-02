@@ -21,7 +21,7 @@ Orientada al personal de la organización (no a los socios). Consume la API REST
 
 ## Requisitos
 
-- Node.js 20+
+- Node.js 22+
 - La API de Referí corriendo en `http://localhost:3000`
 
 ---
@@ -52,6 +52,8 @@ cp -r dist/web-app/* ../referi_api/web/
 
 ## Tecnologías
 
-- **Angular 16**
-- **Angular Material** + **Bootstrap 5**
-- **TypeScript 5.1**
+- **Angular 20**
+- **Angular Material 20** + **Bootstrap 5**
+- **TypeScript 5.8**
+- **RxJS 7.8**
+- **ngx-bootstrap 20**

@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
+  standalone: false,
   selector: 'app-logged-header',
   templateUrl: './logged-header.component.html',
   styleUrls: ['./logged-header.component.css']

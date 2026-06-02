@@ -9,6 +9,7 @@ import { UploadService } from 'src/app/services/upload/upload.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
+  standalone: false,
   selector: 'app-organizacion',
   templateUrl: './organizacion.component.html',
   styleUrls: ['./organizacion.component.css']

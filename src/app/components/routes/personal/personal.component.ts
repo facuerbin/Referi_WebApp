@@ -10,6 +10,7 @@ import { Personal, Rol } from 'src/app/interfaces/listPersonalOrganizacion.dto';
 import { isValidDate } from 'src/app/helpers/date.validator';
 
 @Component({
+  standalone: false,
   selector: 'app-personal',
   templateUrl: './personal.component.html',
   styleUrls: ['./personal.component.css']

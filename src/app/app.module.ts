@@ -33,7 +33,7 @@ import { ReporteBarraComponent } from './components/routes/reporte-barra/reporte
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { GraficaReporteComponent } from './components/routes/grafica-reporte/grafica-reporte.component';
 import { AsistenciaQRComponent } from './components/routes/asistencia-qr/asistencia.component';
-import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 import { IvyCarouselModule } from 'carousel-angular';
 
 @NgModule({
@@ -74,7 +74,7 @@ import { IvyCarouselModule } from 'carousel-angular';
     Ng2GoogleChartsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    QRCodeModule,
+    QRCodeComponent,
     IvyCarouselModule,
   ],
   providers: [CookieService],

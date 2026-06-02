@@ -6,6 +6,7 @@ import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-grafica-reporte',
   templateUrl: './grafica-reporte.component.html',
   styleUrls: ['./grafica-reporte.component.css']

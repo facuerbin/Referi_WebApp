@@ -6,6 +6,7 @@ import { PlanillaAsistencia } from 'src/app/interfaces/planilla.asistencia.dto';
 import { RegistrarAsistencia } from 'src/app/interfaces/registrar.asistencia.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
+  standalone: false,
   selector: 'app-asistencia',
   templateUrl: './asistencia.component.html',
   styleUrls: ['./asistencia.component.css']

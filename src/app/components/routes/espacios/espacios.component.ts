@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { Espacio } from 'src/app/interfaces/get.espacios.response.dto';
 
 @Component({
+  standalone: false,
   selector: 'app-espacios',
   templateUrl: './espacios.component.html',
   styleUrls: ['./espacios.component.css']

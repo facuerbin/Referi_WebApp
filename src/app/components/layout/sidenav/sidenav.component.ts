@@ -3,6 +3,7 @@ import { faCalendarDay, faChartPie, faEnvelope, faFileInvoiceDollar, faHandHoldi
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css']

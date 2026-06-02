@@ -3,6 +3,7 @@ import { GoogleChartInterface, GoogleChartType } from 'ng2-google-charts';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-reporte-barra',
   templateUrl: './reporte-barra.component.html',
   styleUrls: ['./reporte-barra.component.css']

@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
+  standalone: false,
   selector: 'app-tarifas',
   templateUrl: './tarifas.component.html',
   styleUrls: ['./tarifas.component.css']

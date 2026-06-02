@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
+  standalone: false,
   selector: 'app-asistencia-qr',
   templateUrl: './asistencia.qr.component.html',
   styleUrls: ['./asistencia.qr.component.css']

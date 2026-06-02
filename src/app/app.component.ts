@@ -4,6 +4,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faChartPie } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
+  standalone: false,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
