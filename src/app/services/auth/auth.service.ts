@@ -256,7 +256,7 @@ export class AuthService {
     this.cookieService.delete('token');
     this.cookieService.delete('uid');
     this.cookieService.delete('org');
-    return this.router.navigate(["/login"]);
+    window.location.href = '/login';
   }
 
   async verifyEmail(dto: VerifyEmailDto) {
