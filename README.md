@@ -63,9 +63,9 @@ cp -r dist/web-app/* ../referi_api/web/
 
 ## Tecnologías
 
-- **Angular 20**
+- **Angular 21.2.15**
 - **Angular Material 20** + **Bootstrap 5**
-- **TypeScript 5.8**
-- **RxJS 7.8**
+- **TypeScript 5.9.3**
+- **RxJS 7.8.0**
 - **ngx-bootstrap 20**
 - **qrcode** para generación de códigos QR
