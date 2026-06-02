@@ -1,0 +1,7 @@
+<div class="position-relative">
+  <input name="search" [placeholder]="placeholder" type="text" class="form-control form-control-search"
+    [(ngModel)]="value" (ngModelChange)="onSearch()" />
+  <button class="form-icon-right" (click)="onSearch()" type="button">
+    <fa-icon [icon]="searchIcon" aria-hidden="true"></fa-icon>
+  </button>
+</div>

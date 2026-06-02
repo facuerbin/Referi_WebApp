@@ -1,0 +1,4 @@
+<button [class]="btnClass" type="button" [disabled]="loading || disabled" (click)="clicked.emit()">
+  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+  {{ label }}
+</button>

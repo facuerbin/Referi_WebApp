@@ -25,6 +25,7 @@ import { DetalleActividadComponent } from './components/routes/detalle-actividad
 import { VerificarComponent } from './components/routes/verificar/verificar.component';
 import { PerfilUsuarioComponent } from './components/routes/perfil-usuario/perfil-usuario.component';
 import { TablaComponent } from './components/shared/tabla/tabla.component';
+import { SharedModule } from './components/shared/shared.module';
 import { RecuperarContraseniaComponent } from './components/routes/recuperar-contrasenia/recuperar-contrasenia.component';
 import { PersonalComponent } from './components/routes/personal/personal.component';
 import { EspaciosComponent } from './components/routes/espacios/espacios.component';
@@ -33,7 +34,6 @@ import { ReporteBarraComponent } from './components/routes/reporte-barra/reporte
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { GraficaReporteComponent } from './components/routes/grafica-reporte/grafica-reporte.component';
 import { AsistenciaQRComponent } from './components/routes/asistencia-qr/asistencia.component';
-import { QRCodeComponent } from 'angularx-qrcode';
 import { IvyCarouselModule } from 'carousel-angular';
 
 @NgModule({
@@ -73,8 +73,8 @@ import { IvyCarouselModule } from 'carousel-angular';
     FontAwesomeModule,
     Ng2GoogleChartsModule,
     ReactiveFormsModule,
+    SharedModule,
     HttpClientModule,
-    QRCodeComponent,
     IvyCarouselModule,
   ],
   providers: [CookieService],
