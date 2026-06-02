@@ -24,6 +24,8 @@ Orientada al personal de la organización (no a los socios). Consume la API REST
 - Node.js 22+
 - La API de Referí corriendo en `http://localhost:3000`
 
+La API debe estar iniciada y con la base de datos seeded antes de usar la web app. Ver instrucciones en `referi_api/`.
+
 ---
 
 ## Configuración

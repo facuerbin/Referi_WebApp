@@ -54,7 +54,7 @@ export class SociosComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
-    this.canImport = !! (await this.auth.promiseEmployeePermissions()).data.find(role => ['PROPIETARIO', 'ADMINISTRATIVO'].includes(role.rol.nombre));
+    this.canImport = !! (await this.auth.promiseEmployeePermissions()).data.find(role => ['PROPIETARIO', 'ADMINISTRATIVO'].includes(role.rol?.nombre ?? ''));
     this.getSocios();
     this.getActividadOrganizacion();
   }

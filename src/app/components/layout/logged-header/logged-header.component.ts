@@ -49,8 +49,8 @@ export class LoggedHeaderComponent implements OnInit {
       this.user = result.data;
     });
 
-    const rol = (await this.auth.listEmployeeOrganizations()).subscribe(result => {
-      this.rol = result.data[0].rol.nombre;
+    (await this.auth.listEmployeeOrganizations()).subscribe(result => {
+      this.rol = result.data[0]?.rol?.nombre ?? '';
     });
 
   }

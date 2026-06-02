@@ -294,7 +294,7 @@ export class AuthService {
       if (! decodedToken) throw new Error("No token found.");
       const uid = decodedToken.sub;
       const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
-      orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion.id;
+      orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion?.id ?? '';
       this.cookieService.set('org', orgId)
     }
 
@@ -311,7 +311,7 @@ export class AuthService {
       const uid = decodedToken.sub;
       const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
       try {
-        orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion.id;
+        orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion?.id ?? '';
         this.cookieService.set('org', orgId)
       } catch (e) {
         throw new Error("Login failed");
@@ -332,7 +332,7 @@ export class AuthService {
       if (! decodedToken) throw new Error("No token found.");
       const uid = decodedToken.sub;
       const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
-      orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion.id;
+      orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion?.id ?? '';
       this.cookieService.set('org', orgId)
     }
     const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId;

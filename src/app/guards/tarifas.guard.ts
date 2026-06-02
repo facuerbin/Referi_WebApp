@@ -14,7 +14,7 @@ export class TarifasGuard  {
       return this.auth.promiseEmployeePermissions()
       .then(result => {
 
-        const permisos = result.data[0].rol.permisos;
+        const permisos = result.data[0].rol?.permisos ?? [];
         const encontrado = permisos.find(permiso => {
           return permiso.modulo == 'TARIFAS';
         });

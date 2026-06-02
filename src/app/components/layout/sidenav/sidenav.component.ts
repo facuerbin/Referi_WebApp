@@ -37,7 +37,7 @@ export class SidenavComponent implements OnInit {
     (await this.auth.listEmployeeOrganizations()).subscribe(result => {
       try {
         (Object.keys(this.permisos) as (keyof typeof this.permisos)[]).forEach((clave, i) => {
-          const permiso = result.data[0].rol.permisos.forEach(permiso => {
+          const permiso = (result.data[0].rol?.permisos ?? []).forEach(permiso => {
             if (permiso.modulo === clave.toUpperCase()) {
               this.permisos[clave] = true;
             }

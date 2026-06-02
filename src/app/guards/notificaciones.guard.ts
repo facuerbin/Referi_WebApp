@@ -13,7 +13,7 @@ export class NotificacionesGuard  {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return this.auth.promiseEmployeePermissions()
       .then(result => {
-        const permisos = result.data[0].rol.permisos;
+        const permisos = result.data[0].rol?.permisos ?? [];
         const encontrado = permisos.find(permiso => {
           return permiso.modulo == 'NOTIFICACIONES';
         });

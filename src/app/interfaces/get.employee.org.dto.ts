@@ -7,8 +7,8 @@ export interface PersonalOrganizacion {
   fechaCreacion:      Date;
   fechaActualizacion: Date;
   fechaBaja:          Date | null;
-  organizacion:       Organizacion;
-  rol:                Rol;
+  organizacion:       Organizacion | null;
+  rol:                Rol | null;
 }
 
 export interface Organizacion {
