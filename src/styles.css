@@ -1,17 +1,17 @@
 html, body {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .background {
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   z-index: -5;
@@ -49,6 +49,28 @@ body {
 
 .form-control-search {
   width: 20vw !important;
+}
+
+@media print {
+  app-logged-header,
+  section.nav,
+  .mobile-backdrop {
+    display: none !important;
+  }
+
+  section.container-fluid.overflow-auto {
+    height: auto !important;
+    overflow: visible !important;
+  }
+}
+
+/* Select placeholder styling — gray when empty value is selected */
+select.form-control option[value=""][disabled] {
+  color: #6c757d;
+}
+
+select.form-control:has(option[value=""]:checked) {
+  color: #6c757d;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -156,5 +178,82 @@ a:visited {
 @media (min-width: 1200px) {
   .card {
     width: 30vw;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Only the module content area scrolls vertically */
+  section.container-fluid.overflow-auto {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: calc(100vh - 4rem);
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Table wrapper: self-contained horizontal scroll, fills vertical space */
+  .table-wrapper {
+    display: block !important;
+    max-height: none !important;
+    min-height: 45vh;
+    overflow-x: auto !important;
+  }
+
+  .container-fluid {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  .main-container {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .form-control-search {
+    width: 100% !important;
+  }
+
+  .img-container {
+    width: 60vw !important;
+    height: 60vw !important;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 500px;
+  }
+
+  /* Stack all Bootstrap columns full-width */
+  .row > [class*="col-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+
+  /* Full-width centered buttons with spacing */
+  .btn:not(.btn-profile):not(.btn-close):not(.action-button) {
+    width: 100% !important;
+    white-space: normal !important;
+    margin-top: 0.5rem;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Stack flex button rows vertically */
+  .d-flex.justify-content-end,
+  .d-flex.justify-content-around,
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    align-items: stretch;
   }
 }
