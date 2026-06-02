@@ -19,17 +19,11 @@
 
     <div class="col-3 position-relative">
       <div
-        class="d-flex justify-content-end algin-items-center"
-        (mouseenter)="toggleProfile('dropdownMenuButton')"
+        class="d-flex justify-content-end algin-items-center position-relative"
+        (mouseenter)="openMenu()"
+        (mouseleave)="closeMenu()"
       >
-        <button
-          class="btn btn-profile dropdown"
-          type="button"
-          id="dropdownMenuButton"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
+        <button class="btn btn-profile" type="button" (click)="toggleMenu()">
           <div class="container">
             <div class="row d-flex align-items-center justify-content-center">
               <div class="col-8">
@@ -44,8 +38,7 @@
         </button>
         <div
           class="dropdown-menu dropdown-menu-right"
-          aria-labelledby="dropdownMenuButton"
-          (mouseleave)="toggleProfile('dropdownMenuButton')"
+          [class.show]="menuOpen"
         >
           <a class="dropdown-item" routerLink="/perfil">Perfil</a>
           <button
@@ -175,12 +168,12 @@
           CAMBIAR CONTRASEÑA
         </button>
       </div>
-      <p class="form-succes" *ngIf="changePasswordSucces">
-        Se actualizó la contraseña correctamente
-      </p>
-      <p class="form-error" *ngIf="changePasswordFail">
-        Verifique los datos ingresados e intente nuevamente
-      </p>
+      <app-form-feedback
+        [success]="changePasswordSucces"
+        successMessage="Se actualizó la contraseña correctamente"
+        [error]="changePasswordFail"
+        errorMessage="Verifique los datos ingresados e intente nuevamente"
+      ></app-form-feedback>
     </div>
   </div>
 </div>

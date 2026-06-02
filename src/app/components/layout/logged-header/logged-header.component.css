@@ -1,7 +1,12 @@
 header {
   width: 100%;
+  max-width: 100vw;
   background-color: #FF9900;
   padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 300;
+  user-select: none;
 }
 
 mat-sidenav-container {
@@ -31,7 +36,6 @@ mat-sidenav-container {
   width: 100%;
   border-radius: 50%;
   object-fit: cover;
-  margin: 0px 0.5rem
 }
 
 .profile-img-container {
@@ -47,8 +51,10 @@ mat-sidenav-container {
   border: none;
 }
 
-.dropdown-menu-right {
-  right: 0px;
+.dropdown-menu {
+  top: 100%;
+  right: 0;
+  left: auto;
 }
 
 .dropdown {
@@ -100,6 +106,50 @@ span {
 p {
   color: white;
   font-size: 0.7rem;
+}
+
+@media (max-width: 767px) {
+  /* Restore header padding overridden by the global container-fluid rule */
+  header {
+    padding: 0.5rem 1rem !important;
+  }
+
+  /* Neutralise Bootstrap row negative margins so header doesn't bleed horizontally */
+  header > .row {
+    flex-wrap: nowrap !important;
+    align-items: center;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  header > .row > div {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+
+  header > .row > div:nth-child(2) {
+    flex: 1 1 auto !important;
+  }
+
+  /* Profile button internals */
+  .btn-profile .col-8 {
+    display: none;
+  }
+
+  .btn-profile .container,
+  .btn-profile .row {
+    padding: 0;
+    margin: 0;
+  }
+
+  .profile-img-container {
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+    max-width: 2.5rem !important;
+    flex: 0 0 2.5rem !important;
+    padding: 0;
+  }
 }
 
 

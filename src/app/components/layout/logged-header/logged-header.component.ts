@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faBars, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { Dropdown, Modal } from 'bootstrap';
+import { Modal } from 'bootstrap';
 import { from } from 'rxjs';
 import { GetUserResponseDto } from 'src/app/interfaces/get.user.response.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -24,8 +24,7 @@ export class LoggedHeaderComponent implements OnInit {
     new: false,
     confirm: false
   }
-  profileButton = false;
-  dropDown: Dropdown | undefined;
+  menuOpen = false;
   profileImg = environment.appUrl + environment.apiVersionUri + "/uploads/profile.jpeg";
   user: GetUserResponseDto | null = null;
   rol: string = "";
@@ -59,15 +58,10 @@ export class LoggedHeaderComponent implements OnInit {
     this.sidebarToggle.emit('');
   }
 
-  toggleProfile(id: string) {
-    this.dropDown = new Dropdown(document.getElementById(id) || "");
-    this.profileButton = !this.profileButton;
-    if (this.profileButton) {
-      this.dropDown?.show();
-    } else {
-      this.dropDown?.hide();
-    }
-  }
+  openMenu() { if (!this.isMobile()) this.menuOpen = true; }
+  closeMenu() { if (!this.isMobile()) this.menuOpen = false; }
+  toggleMenu() { this.menuOpen = !this.menuOpen; }
+  private isMobile() { return window.innerWidth <= 767; }
 
   logout() {
     this.auth.logout();
