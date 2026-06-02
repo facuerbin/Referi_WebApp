@@ -7,6 +7,13 @@ h3 {
   font-size: 2rem;
 }
 
+.card {
+  height: auto;
+  min-height: 70vh;
+  overflow: visible;
+  margin-bottom: 2rem;
+}
+
 input {
   height: 3rem;
   padding: auto;

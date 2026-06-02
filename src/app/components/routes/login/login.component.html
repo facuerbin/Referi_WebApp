@@ -17,33 +17,14 @@
           Por favor ingrese un correo electrónico válido
         </p>
       </div>
-      <div class="form-group position-relative">
-        <input
-          type="{{ !passwordIsVisible ? 'password' : 'text' }}"
-          class="form-control"
-          placeholder="Contraseña"
-          formControlName="password"
-        />
+      <div class="form-group">
+        <app-password-input placeholder="Contraseña" formControlName="password"></app-password-input>
         <p *ngIf="isValid('password')" class="form-error">
           La contraseña debe tener al menos 8 caracteres
         </p>
-
         <p *ngIf="loginFailed" class="form-error">
           Por favor verifique los datos ingresados
         </p>
-
-        <button class="form-icon-right" (click)="togglePassword($event)" type="button">
-          <fa-icon
-            *ngIf="!passwordIsVisible"
-            [icon]="eye"
-            aria-hidden="true"
-          ></fa-icon>
-          <fa-icon
-            *ngIf="passwordIsVisible"
-            [icon]="eyeSlash"
-            aria-hidden="true"
-          ></fa-icon>
-        </button>
       </div>
       <p>
         <a (click)="openModal('modalContrasenia')">¿Olvidaste tu contraseña?</a>

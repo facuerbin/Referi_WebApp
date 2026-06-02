@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -16,9 +15,6 @@ export class LoginComponent implements OnInit {
     password: ["", [Validators.required, Validators.minLength(8)]],
   });
 
-  eye = faEye;
-  eyeSlash = faEyeSlash;
-  passwordIsVisible = false;
   loginFailed = false;
   modal: Modal | undefined;
   load = false;
@@ -50,11 +46,6 @@ export class LoginComponent implements OnInit {
   isValid(field: string): boolean {
     return this.loginForm.controls[field].errors !== null &&
     (this.loginForm.controls[field].touched || this.loginForm.controls[field].dirty);
-  }
-
-  togglePassword(event: MouseEvent) {
-    event.preventDefault();
-    return this.passwordIsVisible = !this.passwordIsVisible;
   }
 
   openModal(id: string) {
