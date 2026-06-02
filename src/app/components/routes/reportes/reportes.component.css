@@ -12,11 +12,24 @@
   cursor: pointer;
 }
 
+section > a {
+  margin: 2rem;
+  display: inline-block;
+}
+
+section > .card-reportes {
+  margin: 2rem;
+}
+
 .card-reportes {
   height: 250px;
-  width: 250px;
-  margin: 2rem;
+  width: 200px;
+  margin: 0;
   padding-top: 1rem;
+}
+
+.card-reportes .card-title {
+  font-size: 1rem;
 }
 
 .nav {
@@ -40,4 +53,35 @@ h2.nav-link:hover {
 h2.nav-link.active {
   color: white;
   background-color: #4FC3F7;
+}
+
+@media (max-width: 767px) {
+  section.col-10 {
+    flex-direction: column !important;
+    align-items: center;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+  }
+
+  section > a,
+  section > .card-reportes {
+    margin: 0.75rem 0;
+    display: block;
+    width: 90%;
+  }
+
+  .card-reportes {
+    width: 100%;
+    height: auto;
+    padding-bottom: 1rem;
+    text-align: center;
+  }
+
+  .card-img-top {
+    display: block;
+    width: 35%;
+    height: auto;
+    margin: 0.75rem auto;
+  }
 }
