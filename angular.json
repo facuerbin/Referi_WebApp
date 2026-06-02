@@ -28,7 +28,8 @@
               "src/styles.css"
             ],
             "allowedCommonJsDependencies": [
-              "form-data"
+              "form-data",
+              "qrcode"
             ],
             "scripts": []
           },
