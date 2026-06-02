@@ -40,3 +40,22 @@ a:hover {
   font: inherit;
   color: inherit;
 }
+
+@media (max-width: 767px) {
+  .img-container {
+    margin: 0 auto;
+  }
+
+  .row {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .actividad-container {
+    width: 90vw;
+  }
+
+  .img-actividad {
+    height: 60px;
+  }
+}
