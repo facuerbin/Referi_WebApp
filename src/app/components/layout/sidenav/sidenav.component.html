@@ -1,228 +1,61 @@
 <ul class="nav-list"
-(mouseover)="openSidenav()"
-(mouseout)="closeSidenav()"
+  [class.expand]="sidenavToggle"
+  (mouseover)="openSidenav()"
+  (mouseout)="closeSidenav()"
 >
-  <li
-  class="nav-item"
-  *ngIf="permisos.reportes"
-  routerLinkActive="active"
-  [routerLinkActiveOptions]="{ exact: true }"
-  >
-  <a
-    routerLink="/reportes"
-    [ngClass]="{ expand: sidenavToggle }"
-    class="link-regular"
-  >
-  <div class="container">
-    <div class="row">
-        <div class="col-4">
-          <fa-icon
-          [icon]="report"
-            class="form-icon"
-            aria-hidden="true"
-            ></fa-icon>
-          </div>
-          <div class="col-8">
-          <span [ngClass]="{ expand: sidenavToggle }">Reportes</span>
-        </div>
-      </div>
-    </div>
-  </a>
-</li>
+  <li class="nav-item" *ngIf="permisos.reportes" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a routerLink="/reportes" class="nav-link">
+      <fa-icon [icon]="report" class="nav-icon" aria-hidden="true"></fa-icon>
+      <span class="nav-label">Reportes</span>
+    </a>
+  </li>
 
-<li
-class="nav-item"
-*ngIf="permisos.socios"
-routerLinkActive="active"
-[routerLinkActiveOptions]="{ exact: true }"
->
-<a
-routerLink="/socios"
-    [ngClass]="{ expand: sidenavToggle }"
-    class="link-regular"
-  >
-    <div class="container">
-      <div class="row">
-        <div class="col-4">
-          <fa-icon
-            [icon]="users"
-            class="form-icon"
-            aria-hidden="true"
-            ></fa-icon>
-        </div>
-        <div class="col-8">
-          <span [ngClass]="{expand: sidenavToggle}">Socios</span>
-        </div>
-      </div>
-    </div>
-  </a>
-</li>
+  <li class="nav-item" *ngIf="permisos.socios" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a routerLink="/socios" class="nav-link">
+      <fa-icon [icon]="users" class="nav-icon" aria-hidden="true"></fa-icon>
+      <span class="nav-label">Socios</span>
+    </a>
+  </li>
 
-<li
-class="nav-item"
-*ngIf="permisos.actividades"
-routerLinkActive="active"
-[routerLinkActiveOptions]="{ exact: true }"
->
-  <a
-  routerLink="/actividades"
-  [ngClass]="{ expand: sidenavToggle }"
-  class="link-regular"
-  >
-  <div class="container">
-    <div class="row">
-      <div class="col-4">
-        <fa-icon
-        class="form-icon"
-        aria-hidden="true"
-        [icon]="activities"
-        ></fa-icon>
-      </div>
-      <div class="col-8">
-        <span [ngClass]="{expand: sidenavToggle}">Actividades</span>
-        </div>
-      </div>
-    </div>
-  </a>
-</li>
+  <li class="nav-item" *ngIf="permisos.actividades" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a routerLink="/actividades" class="nav-link">
+      <fa-icon [icon]="activities" class="nav-icon" aria-hidden="true"></fa-icon>
+      <span class="nav-label">Actividades</span>
+    </a>
+  </li>
 
-<li
-class="nav-item"
-*ngIf="permisos.asistencia"
-  routerLinkActive="active"
-  [routerLinkActiveOptions]="{ exact: true }"
-  >
-  <a
-  routerLink="/asistencia"
-  [ngClass]="{ expand: sidenavToggle }"
-  class="link-regular"
-  >
-    <div class="container">
-      <div class="row">
-        <div class="col-4">
-          <fa-icon
-          class="form-icon"
-            aria-hidden="true"
-            [icon]="attendance"
-            ></fa-icon>
-          </div>
-        <div class="col-8">
-          <span [ngClass]="{expand: sidenavToggle}">Asistencia</span>
-        </div>
-      </div>
-    </div>
-  </a>
-</li>
+  <li class="nav-item" *ngIf="permisos.asistencia" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a routerLink="/asistencia" class="nav-link">
+      <fa-icon [icon]="attendance" class="nav-icon" aria-hidden="true"></fa-icon>
+      <span class="nav-label">Asistencia</span>
+    </a>
+  </li>
 
-<li
-class="nav-item"
-*ngIf="permisos.tarifas"
-routerLinkActive="active"
-  [routerLinkActiveOptions]="{ exact: true }"
-  >
-  <a
-  routerLink="/tarifas"
-  [ngClass]="{ expand: sidenavToggle }"
-    class="link-regular"
-    >
-    <div class="container">
-      <div class="row">
-        <div class="col-4">
-          <fa-icon
-          class="form-icon"
-          [icon]="tarifas"
-          aria-hidden="true"
-          ></fa-icon>
-        </div>
-        <div class="col-8">
-          <span [ngClass]="{expand: sidenavToggle}">Tarifas</span>
-        </div>
-      </div>
-    </div>
-  </a>
-</li>
+  <li class="nav-item" *ngIf="permisos.tarifas" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a routerLink="/tarifas" class="nav-link">
+      <fa-icon [icon]="tarifas" class="nav-icon" aria-hidden="true"></fa-icon>
+      <span class="nav-label">Tarifas</span>
+    </a>
+  </li>
 
-<li
-class="nav-item"
-*ngIf="permisos.notificaciones"
-routerLinkActive="active"
-[routerLinkActiveOptions]="{ exact: true }"
->
-  <a
-  routerLink="/notificaciones"
-  [ngClass]="{ expand: sidenavToggle }"
-  class="link-regular"
-  >
-  <div class="container">
-      <div class="row">
-        <div class="col-4">
-          <fa-icon
-          class="form-icon"
-          aria-hidden="true"
-          [icon]="notifications"
-          ></fa-icon>
-        </div>
-        <div class="col-8">
-          <span [ngClass]="{expand: sidenavToggle}">Notificaciones</span>
-        </div>
-      </div>
-    </div>
-  </a>
-</li>
+  <li class="nav-item" *ngIf="permisos.notificaciones" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a routerLink="/notificaciones" class="nav-link">
+      <fa-icon [icon]="notifications" class="nav-icon" aria-hidden="true"></fa-icon>
+      <span class="nav-label">Notificaciones</span>
+    </a>
+  </li>
 
-<li
-class="nav-item"
-*ngIf="permisos.pagos"
-routerLinkActive="active"
-[routerLinkActiveOptions]="{ exact: true }"
->
-  <a
-    routerLink="/pagos"
-    [ngClass]="{ expand: sidenavToggle }"
-    class="link-regular"
-    >
-    <div class="container">
-      <div class="row">
-        <div class="col-4">
-          <fa-icon
-          [icon]="pagos"
-          class="form-icon"
-            aria-hidden="true"
-            ></fa-icon>
-          </div>
-          <div class="col-8">
-          <span [ngClass]="{expand: sidenavToggle}">Contabilidad</span>
-        </div>
-      </div>
-    </div>
-  </a>
-</li>
+  <li class="nav-item" *ngIf="permisos.pagos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a routerLink="/pagos" class="nav-link">
+      <fa-icon [icon]="pagos" class="nav-icon" aria-hidden="true"></fa-icon>
+      <span class="nav-label">Contabilidad</span>
+    </a>
+  </li>
 
-<li
-class="nav-item"
-*ngIf="permisos.organizacion"
-routerLinkActive="active"
-  [routerLinkActiveOptions]="{ exact: true }"
-  >
-  <a
-  routerLink="/organizacion"
-    [ngClass]="{ expand: sidenavToggle }"
-    class="link-regular"
-    >
-    <div class="container">
-      <div class="row">
-        <div class="col-4">
-          <fa-icon
-            class="form-icon"
-            aria-hidden="true"
-            [icon]="organization"
-          ></fa-icon>
-        </div>
-        <div class="col-8">
-          <span [ngClass]="{expand: sidenavToggle}">Mi Club</span>
-        </div>
-      </div>
-    </div>
-  </a>
-</li>
+  <li class="nav-item" *ngIf="permisos.organizacion" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a routerLink="/organizacion" class="nav-link">
+      <fa-icon [icon]="organization" class="nav-icon" aria-hidden="true"></fa-icon>
+      <span class="nav-label">Mi Club</span>
+    </a>
+  </li>
 </ul>
