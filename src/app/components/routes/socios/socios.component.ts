@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { HelperService } from 'src/app/services/helper.service';
 import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
 import { isValidDate } from 'src/app/helpers/date.validator';
+import { environment } from 'src/environments/environment';
 @Component({
   standalone: false,
   selector: 'app-socios',
@@ -55,6 +56,7 @@ export class SociosComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.canImport = !! (await this.auth.promiseEmployeePermissions()).data.find(role => ['PROPIETARIO', 'ADMINISTRATIVO'].includes(role.rol?.nombre ?? ''));
+    this.cdr.detectChanges();
     this.getSocios();
     this.getActividadOrganizacion();
   }
@@ -63,12 +65,14 @@ export class SociosComponent implements OnInit {
     return this.auth.getSociosByOrg().subscribe(result => {
       this.socios = result.data;
       this.sociosFiltered = this.socios;
+      this.cdr.detectChanges();
     })
   }
 
   getActividadOrganizacion() {
     return this.auth.getActividadesOrganizacion().subscribe(result => {
       this.actividades = result.data;
+      this.cdr.detectChanges();
     })
   }
 
@@ -132,7 +136,7 @@ export class SociosComponent implements OnInit {
     const link = document.createElement('a');
     link.setAttribute('target', '_blank');
     const orgId = await this.auth.getOrgId();
-    link.setAttribute('href', '/v1/socios/organizacion/'+ orgId + '/backup');
+    link.setAttribute('href', environment.appUrl + environment.apiVersionUri + '/socios/organizacion/'+ orgId + '/backup');
     link.setAttribute('download', `socios.csv`);
     document.body.appendChild(link);
     link.click();
