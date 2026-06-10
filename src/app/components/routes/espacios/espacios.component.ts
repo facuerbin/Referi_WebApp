@@ -121,7 +121,7 @@ export class EspaciosComponent implements OnInit {
           capacidad: this.espacioForm.value['capacidad']
         }
 
-      // await this.auth.createEspacio(this.orgId, dto);
+      await this.auth.createEspacio(this.orgId, dto);
       this.getEspacios()
       this.closeModal('modalAgregarUsuario');
     }
