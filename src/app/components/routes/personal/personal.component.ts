@@ -19,6 +19,7 @@ import { ModalComponent } from '../../shared/modal/modal.component';
 export class PersonalComponent implements OnInit {
   @ViewChild('agregarPersonalModal') agregarPersonalModal!: ModalComponent;
   @ViewChild('modificarPersonalModal') modificarPersonalModal!: ModalComponent;
+  @ViewChild('eliminarPersonalModal') eliminarPersonalModal!: ModalComponent;
   searchIcon = faSearch;
   detailIcon = faAddressCard;
   trashIcon = faTrash;
@@ -40,6 +41,8 @@ export class PersonalComponent implements OnInit {
   roles: Rol[] = [];
   turnos: Turno[] = [];
   editPersonalId:string = "";
+  personalIdToDelete: string = "";
+  personalToDelete: Personal | null = null;
 
   empleadoForm: FormGroup = this.formBuilder.group({
     email: ["", [Validators.required, Validators.email, Validators.maxLength(200)]],
@@ -103,8 +106,15 @@ export class PersonalComponent implements OnInit {
     return "";
   }
 
-  async deletePersonal(idPersonal: string) {
-    await this.auth.bajaPersonal(idPersonal);
+  deletePersonalModal(idPersonal: string) {
+    this.personalIdToDelete = idPersonal;
+    this.personalToDelete = this.personal.find(p => p.id === idPersonal) || null;
+    this.eliminarPersonalModal.open();
+  }
+
+  async deletePersonal() {
+    await this.auth.bajaPersonal(this.personalIdToDelete);
+    this.eliminarPersonalModal.close();
     this.getPersonal();
   }
 
