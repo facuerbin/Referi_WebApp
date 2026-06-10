@@ -1,3 +1,18 @@
+.action-button {
+  border: none;
+  background-color: transparent;
+  color: #377BFF;
+}
+
+.action-button:hover {
+  color: #8BF6FF;
+}
+
+.action-icon {
+  font-size: 1rem;
+  margin-left: 8px;
+}
+
 .form-icon-right {
   position: absolute;
   top: 7px;
@@ -14,32 +29,11 @@ div.position-relative {
 
 .btn {
   width: 20vw;
+  margin: auto 1rem;
 }
 
-.action-icon {
-  font-size: 1rem;
-  margin-left: 8px;
-}
-
-.action-button {
-  border: none;
-  color: #377BFF;
-}
-
-.action-button:hover {
-  color: #8BF6FF;
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+.btn-close:hover {
+  background-color: #f2f2f2;
 }
 
 .form-group {
@@ -72,57 +66,28 @@ input[type=number] {
   display: inline;
 }
 
-.btn {
-  width: 20vw;
-  margin: auto 1rem;
-}
-
-.btn-close:hover {
-  background-color: #f2f2f2;
-}
-
-.form-icon-right {
-  position: absolute;
-  top: 7px;
-  right: 7px;
-  border: none;
-  background-color: transparent;
-  font-size: 24px;
-  color: #323232;
-}
-
-div.position-relative {
-  width: fit-content;
-}
-
-.btn {
-  width: 20vw;
-}
-
-.action-icon {
-  font-size: 1rem;
-  margin-left: 8px;
-}
-
 thead {
-  position:sticky;
+  position: sticky;
   top: -1px;
-}
-
-.table-link {
-    color: inherit; /* blue colors for links too */
-    text-decoration: inherit; /* no underline */
 }
 
 tr:hover {
   cursor: pointer;
 }
 
-.action-button {
-  border: none;
-  color: #377BFF;
+.table-link {
+  color: inherit;
+  text-decoration: inherit;
 }
 
-.action-button:hover {
-  color: #8BF6FF;
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
