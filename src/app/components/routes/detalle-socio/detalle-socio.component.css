@@ -33,7 +33,6 @@ p {
 
 .actividad-container {
   width: 20vw;
-  height: 35%;
 }
 
 a:hover {
@@ -72,4 +71,12 @@ a:hover {
 
 .carousel-section {
   width: 20vw;
+}
+
+.card {
+  height: auto;
+}
+
+.row.g-0 {
+  min-height: auto;
 }
