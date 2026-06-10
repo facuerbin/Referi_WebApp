@@ -55,11 +55,21 @@ export class NotificacionesComponent implements OnInit {
   async handleForm() {
     this.spinner = true;
     const orgId = await this.auth.getOrgId();
+    const tipoDestinatario = this.notificacionForm.controls['tipoDestinatario'].value;
+
+    let idDestinatario = '';
+    if (tipoDestinatario === 'Inscriptos a Actividad') {
+      idDestinatario = this.notificacionForm.controls['actividad'].value;
+    } else if (tipoDestinatario === 'Inscriptos a un Turno') {
+      idDestinatario = this.notificacionForm.controls['turno'].value;
+    } else if (tipoDestinatario === 'Socio') {
+      idDestinatario = this.notificacionForm.controls['socio'].value;
+    }
 
     const dto = {
       idRemitente: orgId,
-      tipoDestinatario: this.notificacionForm.controls['tipoDestinatario'].value,
-      idDestinatario: this.notificacionForm.controls['turno'].value || this.notificacionForm.controls['socio'].value,
+      tipoDestinatario: tipoDestinatario,
+      idDestinatario: idDestinatario,
       titulo: this.notificacionForm.controls['asunto'].value,
       cuerpo: this.notificacionForm.controls['mensaje'].value,
       tipoRemitente: 'Organizacion'
@@ -124,21 +134,33 @@ export class NotificacionesComponent implements OnInit {
     this.turnoSelect = false;
     this.socioSelect = false;
 
-    if (deviceValue.value && deviceValue.value.includes('Actividad')) {
+    // Reset conditionally required fields
+    this.notificacionForm.controls['actividad'].clearAsyncValidators();
+    this.notificacionForm.controls['turno'].clearAsyncValidators();
+    this.notificacionForm.controls['socio'].clearAsyncValidators();
+    this.notificacionForm.controls['actividad'].reset();
+    this.notificacionForm.controls['turno'].reset();
+    this.notificacionForm.controls['socio'].reset();
+
+    if (deviceValue.value === 'Inscriptos a Actividad') {
       this.getActividades();
       this.actividadSelect = true;
-    }
-
-    if (deviceValue.value && deviceValue.value.includes('Turno')) {
+      this.notificacionForm.controls['actividad'].setValidators([Validators.required]);
+    } else if (deviceValue.value === 'Inscriptos a un Turno') {
       this.getActividades();
       this.actividadSelect = true;
       this.turnoSelect = true;
-    }
-
-    if (deviceValue.value && deviceValue.value == 'Socio') {
+      this.notificacionForm.controls['actividad'].setValidators([Validators.required]);
+      this.notificacionForm.controls['turno'].setValidators([Validators.required]);
+    } else if (deviceValue.value === 'Socio') {
       this.getSocios();
       this.socioSelect = true;
+      this.notificacionForm.controls['socio'].setValidators([Validators.required]);
     }
+
+    this.notificacionForm.controls['actividad'].updateValueAndValidity();
+    this.notificacionForm.controls['turno'].updateValueAndValidity();
+    this.notificacionForm.controls['socio'].updateValueAndValidity();
   }
 
   async onChangeActividad(select: any) {
