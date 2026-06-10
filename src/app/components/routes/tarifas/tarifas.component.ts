@@ -42,29 +42,41 @@ export class TarifasComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTarifas();
-    this.auth.getActividadesOrganizacion().subscribe(result => {
-      this.actividades = result.data;
+    this.auth.getActividadesOrganizacion().subscribe({
+      next: (result) => {
+        this.actividades = result.data;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error fetching actividades:', err)
     });
 
-    this.auth.getTarifaFrecuencias().subscribe(result => {
-      this.frecuencias = result.data;
+    this.auth.getTarifaFrecuencias().subscribe({
+      next: (result) => {
+        this.frecuencias = result.data;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error fetching frecuencias:', err)
     });
   }
 
   getTarifas() {
-    this.auth.getTarifasByOrg().subscribe(result => {
-      this.tarifas = result.data.map(tarifa => {
-        return {
-          id: tarifa.id,
-          actividad: tarifa.actividad.nombre,
-          nombre: tarifa.nombre,
-          monto: tarifa.monto,
-          opcional: tarifa.esOpcional? 'Sí': 'No',
-          fechaActualizacion: String(tarifa.fechaActualizacion).slice(0,10),
-          frecuencia: tarifa.frecuencia.nombre
-        }
-      })
-      this.tarifasFiltered = this.tarifas;
+    this.auth.getTarifasByOrg().subscribe({
+      next: (result) => {
+        this.tarifas = result.data.map(tarifa => {
+          return {
+            id: tarifa.id,
+            actividad: tarifa.actividad.nombre,
+            nombre: tarifa.nombre,
+            monto: tarifa.monto,
+            opcional: tarifa.esOpcional? 'Sí': 'No',
+            fechaActualizacion: String(tarifa.fechaActualizacion).slice(0,10),
+            frecuencia: tarifa.frecuencia.nombre
+          }
+        })
+        this.tarifasFiltered = this.tarifas;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error fetching tarifas:', err)
     });
   }
 
