@@ -65,12 +65,12 @@ export class TarifasComponent implements OnInit {
         this.tarifas = result.data.map(tarifa => {
           return {
             id: tarifa.id,
-            actividad: tarifa.actividad.nombre,
+            actividad: tarifa.actividad?.nombre ?? 'N/A',
             nombre: tarifa.nombre,
             monto: tarifa.monto,
             opcional: tarifa.esOpcional? 'Sí': 'No',
             fechaActualizacion: String(tarifa.fechaActualizacion).slice(0,10),
-            frecuencia: tarifa.frecuencia.nombre
+            frecuencia: tarifa.frecuencia?.nombre ?? 'N/A'
           }
         })
         this.tarifasFiltered = this.tarifas;
