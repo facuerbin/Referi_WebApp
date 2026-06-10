@@ -44,7 +44,7 @@
               <button class="action-button" (click)="openModal('modalModificarUsuario', personal.id, personal.rol?.nombre)" *ngIf="personal.rol?.nombre != 'PROPIETARIO'">
                 <fa-icon class="action-icon"[icon]="pencil" aria-hidden="true"></fa-icon>
               </button>
-              <button class="action-button" (click)="deletePersonal(personal.id)" *ngIf="personal.rol?.nombre != 'PROPIETARIO'">
+              <button class="action-button" (click)="deletePersonalModal(personal.id)" *ngIf="personal.rol?.nombre != 'PROPIETARIO'">
                 <fa-icon class="action-icon"[icon]="trashIcon" aria-hidden="true"></fa-icon>
               </button>
             </td>
@@ -272,6 +272,26 @@
       label="DAR DE ALTA"
       [disabled]="!empleadoForm.controls['rol'].value"
       (clicked)="handleForm()"
+    ></app-spinner-button>
+  </div>
+</app-modal>
+
+<!-- Modal Eliminar Personal -->
+<app-modal #eliminarPersonalModal id="modalEliminarPersonal" title="Eliminar Personal">
+  <div modal-body>
+    <h3>¿Desea eliminar el siguiente empleado?</h3>
+    <div class="">
+      <p>Email: {{ personalToDelete?.personal?.email }}</p>
+      <p>Nombre: {{ personalToDelete?.personal?.nombre }} {{ personalToDelete?.personal?.apellido }}</p>
+      <p>DNI: {{ personalToDelete?.personal?.dni }}</p>
+      <p>Rol: {{ personalToDelete?.rol?.nombre }}</p>
+    </div>
+  </div>
+  <div modal-footer>
+    <app-spinner-button
+      label="ELIMINAR EMPLEADO"
+      btnClass="btn btn-danger"
+      (clicked)="deletePersonal()"
     ></app-spinner-button>
   </div>
 </app-modal>
