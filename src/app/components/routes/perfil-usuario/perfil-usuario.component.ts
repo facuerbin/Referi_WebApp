@@ -39,6 +39,7 @@ export class PerfilUsuarioComponent implements OnInit {
       this.organizaciones = res.data;
       this.logoUrl = this.organizaciones.map(res => environment.appUrl + environment.apiVersionUri + "/" + (res.organizacion?.logo ?? ''));
       this.fechaInicio = this.organizaciones.map(res => ("" + res.fechaCreacion).slice(0,10));
+      this.cdr.detectChanges();
     })
   }
 
