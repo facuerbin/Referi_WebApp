@@ -52,7 +52,7 @@
     </a>
   </li>
 
-  <li class="nav-item" *ngIf="permisos.organizacion" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <li class="nav-item" *ngIf="permisos.organizacion" routerLinkActive="active">
     <a routerLink="/organizacion" class="nav-link">
       <fa-icon [icon]="organization" class="nav-icon" aria-hidden="true"></fa-icon>
       <span class="nav-label">Mi Club</span>
