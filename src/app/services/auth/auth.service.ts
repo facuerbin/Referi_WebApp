@@ -325,21 +325,41 @@ export class AuthService {
     return (await axios.get<GetOrganizationResponseDto>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
 
-  async suscribeOrgDetails() {
-    let orgId = this.cookieService.get('org');
+  suscribeOrgDetails(): Observable<OrganizationDetailDto> {
     const token = this.getToken();
+    let cachedOrgId = this.cookieService.get('org');
 
-    if (! orgId) {
-      const decodedToken = this.getDecodedAccessToken();
-      if (! decodedToken) throw new Error("No token found.");
-      const uid = decodedToken.sub;
-      const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
-      orgId = (await axios.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }})).data.data[0].organizacion?.id ?? '';
-      this.cookieService.set('org', orgId)
-    }
-    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId;
+    const getOrgIdObservable = cachedOrgId
+      ? new Observable<string>(observer => {
+          observer.next(cachedOrgId);
+          observer.complete();
+        })
+      : this.getOrgIdFromApi(token);
 
-    return (await this.http.get<OrganizationDetailDto>(url, { headers: { Authorization: `Bearer ${token}` }}));
+    return getOrgIdObservable.pipe(
+      switchMap(orgId => {
+        const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId;
+        return this.http.get<OrganizationDetailDto>(url, { headers: { Authorization: `Bearer ${token}` }});
+      })
+    );
+  }
+
+  private getOrgIdFromApi(token: string): Observable<string> {
+    const decodedToken = this.getDecodedAccessToken();
+    if (!decodedToken) throw new Error("No token found.");
+    const uid = decodedToken.sub;
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
+
+    return this.http.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }}).pipe(
+      switchMap(response => {
+        const orgId = response.data[0].organizacion?.id ?? '';
+        this.cookieService.set('org', orgId);
+        return new Observable<string>(observer => {
+          observer.next(orgId);
+          observer.complete();
+        });
+      })
+    );
   }
 
   async listEmployeeOrganizations () {

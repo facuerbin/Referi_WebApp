@@ -54,8 +54,8 @@ export class OrganizacionComponent implements OnInit {
   }
 
 
-  async getOrganizacion() {
-    return (await this.auth.suscribeOrgDetails()).subscribe(res => {
+  getOrganizacion() {
+    return this.auth.suscribeOrgDetails().subscribe(res => {
       this.organizacion = res;
       if (this.organizacion.logo) this.imgUrl = environment.appUrl + environment.apiVersionUri + "/" + this.organizacion.logo;
       this.fechaCreacion = this.organizacion.fechaCreacion.toString().slice(0, 10);
