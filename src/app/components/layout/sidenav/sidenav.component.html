@@ -10,42 +10,42 @@
     </a>
   </li>
 
-  <li class="nav-item" *ngIf="permisos.socios" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <li class="nav-item" *ngIf="permisos.socios" routerLinkActive="active" >
     <a routerLink="/socios" class="nav-link">
       <fa-icon [icon]="users" class="nav-icon" aria-hidden="true"></fa-icon>
       <span class="nav-label">Socios</span>
     </a>
   </li>
 
-  <li class="nav-item" *ngIf="permisos.actividades" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <li class="nav-item" *ngIf="permisos.actividades" routerLinkActive="active" >
     <a routerLink="/actividades" class="nav-link">
       <fa-icon [icon]="activities" class="nav-icon" aria-hidden="true"></fa-icon>
       <span class="nav-label">Actividades</span>
     </a>
   </li>
 
-  <li class="nav-item" *ngIf="permisos.asistencia" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <li class="nav-item" *ngIf="permisos.asistencia" routerLinkActive="active" >
     <a routerLink="/asistencia" class="nav-link">
       <fa-icon [icon]="attendance" class="nav-icon" aria-hidden="true"></fa-icon>
       <span class="nav-label">Asistencia</span>
     </a>
   </li>
 
-  <li class="nav-item" *ngIf="permisos.tarifas" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <li class="nav-item" *ngIf="permisos.tarifas" routerLinkActive="active" >
     <a routerLink="/tarifas" class="nav-link">
       <fa-icon [icon]="tarifas" class="nav-icon" aria-hidden="true"></fa-icon>
       <span class="nav-label">Tarifas</span>
     </a>
   </li>
 
-  <li class="nav-item" *ngIf="permisos.notificaciones" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <li class="nav-item" *ngIf="permisos.notificaciones" routerLinkActive="active" >
     <a routerLink="/notificaciones" class="nav-link">
       <fa-icon [icon]="notifications" class="nav-icon" aria-hidden="true"></fa-icon>
       <span class="nav-label">Notificaciones</span>
     </a>
   </li>
 
-  <li class="nav-item" *ngIf="permisos.pagos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <li class="nav-item" *ngIf="permisos.pagos" routerLinkActive="active" >
     <a routerLink="/pagos" class="nav-link">
       <fa-icon [icon]="pagos" class="nav-icon" aria-hidden="true"></fa-icon>
       <span class="nav-label">Contabilidad</span>
