@@ -3,7 +3,7 @@
   (mouseover)="openSidenav()"
   (mouseout)="closeSidenav()"
 >
-  <li class="nav-item" *ngIf="permisos.reportes" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <li class="nav-item" *ngIf="permisos.reportes" routerLinkActive="active">
     <a routerLink="/reportes" class="nav-link">
       <fa-icon [icon]="report" class="nav-icon" aria-hidden="true"></fa-icon>
       <span class="nav-label">Reportes</span>
