@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Modal } from 'bootstrap';
 import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { HorarioElement, Turno } from 'src/app/interfaces/get.detail.actividad.dto';
 import { Inscripto } from 'src/app/interfaces/get.inscriptos.organizacion.dto';
@@ -25,7 +26,8 @@ export class NotificacionesComponent implements OnInit {
   turnos: Turno[] = [];
   socios: Inscripto[] = [];
 
-
+  @ViewChild('confirmationModal') confirmationModal: any;
+  modal: bootstrap.Modal | undefined;
 
   actividadSelect: boolean = false;
   selectedActividadId: string = "";
@@ -33,6 +35,7 @@ export class NotificacionesComponent implements OnInit {
   socioSelect: boolean = false;
   notificationSuccess: boolean = false;
   notificationError: boolean = false;
+  spinner: boolean = false;
 
 
 
@@ -50,6 +53,7 @@ export class NotificacionesComponent implements OnInit {
   }
 
   async handleForm() {
+    this.spinner = true;
     const orgId = await this.auth.getOrgId();
 
     const dto = {
@@ -63,12 +67,22 @@ export class NotificacionesComponent implements OnInit {
 
     const response = await this.auth.sendNotification(dto);
 
-    if (response) this.notificationSuccess = true;
-    else this.notificationError = true;
+    this.spinner = false;
+    if (response) {
+      this.openModal();
+    }
+  }
 
-    setTimeout(() => {
-      return window.location.reload();
-    }, 2000);
+  openModal() {
+    this.modal = new Modal(document.getElementById("confirmationModal") || "", {
+      keyboard: false
+    });
+    this.modal.show();
+  }
+
+  closeModal() {
+    this.modal?.hide();
+    window.location.reload();
   }
 
   async getActividades() {

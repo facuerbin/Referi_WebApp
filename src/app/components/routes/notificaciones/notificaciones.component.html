@@ -124,17 +124,17 @@
           type="button"
           class="btn btn-primary mt-3"
           (click)="handleForm()"
-          [disabled]="notificacionForm.invalid"
+          [disabled]="notificacionForm.invalid || spinner"
         >
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+            *ngIf="spinner"
+          ></span>
           ENVIAR NOTIFICACIÓN
         </button>
       </div>
-      <app-form-feedback
-        [success]="notificationSuccess"
-        successMessage="¡La notificación fue enviada correctamente!"
-        [error]="notificationError"
-        errorMessage="Algo salió mal, prueba enviando la notificación más tarde."
-      ></app-form-feedback>
     </form>
   </div>
 
@@ -143,5 +143,35 @@
   </div>
   <div class="row">
     <div class="col-12"></div>
+  </div>
+</div>
+
+<!-- Modal Confirmación -->
+<div class="modal fade" tabindex="-1" id="confirmationModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">¡Notificación enviada!</h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>La notificación fue enviada correctamente a los destinatarios seleccionados.</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="closeModal()"
+        >
+          ACEPTAR
+        </button>
+      </div>
+    </div>
   </div>
 </div>
