@@ -87,6 +87,7 @@ tr:hover {
 .action-button {
   border: none;
   color: #377BFF;
+  background-color: transparent;
 }
 
 .action-button:hover {

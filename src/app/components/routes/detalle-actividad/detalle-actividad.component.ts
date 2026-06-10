@@ -206,7 +206,12 @@ export class DetalleActividadComponent implements OnInit {
     this.modal = new Modal(document.getElementById("modalTarifas") || "", {
       keyboard: false
     });
-    this.tarifasForm.reset();
+    this.tarifasForm.reset({
+      nombreTarifa: '',
+      frecuencia: '',
+      monto: '',
+      tarifaOpcional: ''
+    });
     this.modal.show();
   }
 
@@ -221,7 +226,13 @@ export class DetalleActividadComponent implements OnInit {
     this.modal = new Modal(document.getElementById("modalHorarios") || "", {
       keyboard: false
     });
-    this.horariosForm.reset();
+    this.horariosForm.reset({
+      dia: '',
+      horaInicio: '',
+      minutosInicio: '',
+      duracion: '',
+      espacio: ''
+    });
     this.modal.show();
   }
 
