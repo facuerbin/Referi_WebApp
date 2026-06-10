@@ -43,7 +43,6 @@ export class ReporteBarraComponent implements OnInit{
       [this.key, this.value],
     ],
     refreshInterval: 10,
-    //firstRowIsData: true,
     options: {
       'title': this.title,
       width: this.width,

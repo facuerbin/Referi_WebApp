@@ -42,7 +42,6 @@ export class IngresosComponent implements OnInit {
     PASARELADEPAGO: 'MercadoPago'
   }
 
-  // @ViewChild('modal') modal : ElementRef;
   constructor(private auth: AuthService, private formBuilder: FormBuilder, public helper: HelperService) { }
 
   async ngOnInit(): Promise<void> {
@@ -149,7 +148,6 @@ interface Pago {
   fecha: string,
   email: string,
   socio: string,
-  // actividad: string,
   monto: number,
   medioDePago: string
 }
