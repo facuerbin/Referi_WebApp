@@ -134,13 +134,13 @@ export class NotificacionesComponent implements OnInit {
     this.turnoSelect = false;
     this.socioSelect = false;
 
-    // Reset conditionally required fields
+    // Reset conditionally required fields with empty string to show placeholders
     this.notificacionForm.controls['actividad'].clearAsyncValidators();
     this.notificacionForm.controls['turno'].clearAsyncValidators();
     this.notificacionForm.controls['socio'].clearAsyncValidators();
-    this.notificacionForm.controls['actividad'].reset();
-    this.notificacionForm.controls['turno'].reset();
-    this.notificacionForm.controls['socio'].reset();
+    this.notificacionForm.controls['actividad'].reset({ value: '', disabled: false });
+    this.notificacionForm.controls['turno'].reset({ value: '', disabled: false });
+    this.notificacionForm.controls['socio'].reset({ value: '', disabled: false });
 
     if (deviceValue.value === 'Inscriptos a Actividad') {
       this.getActividades();
