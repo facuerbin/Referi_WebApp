@@ -48,8 +48,8 @@ export class IngresosComponent implements OnInit {
     this.getPagos();
   }
 
-  async getPagos() {
-    (await this.auth.getPagosByOrg()).subscribe(result => {
+  getPagos() {
+    this.auth.getPagosByOrg().subscribe(result => {
       this.ingresos = result.data.map(pago => {
         return {
           fecha: pago.fechaPago.slice(0,10),
@@ -111,9 +111,9 @@ export class IngresosComponent implements OnInit {
 
   }
 
-  async searchEmail() {
+  searchEmail() {
     const email = this.pagoForm.controls['email'].value;
-    (await this.auth.getSociosByOrg()).subscribe(async result => {
+    this.auth.getSociosByOrg().subscribe(result => {
       this.socios = result.data;
       const user = this.socios.find(socio => socio.usuario.email === email);
       if (!user) {
@@ -122,7 +122,7 @@ export class IngresosComponent implements OnInit {
       else this.userNotFound = false;
       this.load = true;
       this.nombre = user?.usuario.nombre + " " + user?.usuario.apellido;
-      if (user?.id) (await this.auth.getCuotasByUsr(user?.id)).subscribe(result => {
+      if (user?.id) this.auth.getCuotasByUsr(user?.id).subscribe(result => {
         this.cuotas = result.data.filter(cuota => ! cuota.pago);
       })
       return true;
@@ -138,8 +138,8 @@ export class IngresosComponent implements OnInit {
     }
   }
 
-  async getSocios () {
-    return (await this.auth.getSociosByOrg()).subscribe(result => {
+  getSocios() {
+    return this.auth.getSociosByOrg().subscribe(result => {
       this.socios = result.data;
     })
   }

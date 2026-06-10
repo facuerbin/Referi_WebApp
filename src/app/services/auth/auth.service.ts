@@ -398,18 +398,24 @@ export class AuthService {
     return this.http.get<GetEspacioResponse>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
-  async getActividadesOrganizacion () {
-    const orgId = await this.getOrgId();
-    const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/organizacion/' + orgId;
+  getActividadesOrganizacion(): Observable<GetActividadesOrganizacion> {
     const token = this.getToken();
-    return this.http.get<GetActividadesOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+    return from(this.getOrgId()).pipe(
+      switchMap(orgId => {
+        const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/organizacion/' + orgId;
+        return this.http.get<GetActividadesOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+      })
+    );
   }
 
-  async getPersonalOrganizacion () {
-    const orgId = await this.getOrgId();
-    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId + '/personal';
+  getPersonalOrganizacion(): Observable<ListPersonalOrganizacion> {
     const token = this.getToken();
-    return this.http.get<ListPersonalOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+    return from(this.getOrgId()).pipe(
+      switchMap(orgId => {
+        const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/' + orgId + '/personal';
+        return this.http.get<ListPersonalOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+      })
+    );
   }
 
   getRoles(): Observable<ListRoles> {
@@ -425,18 +431,24 @@ export class AuthService {
     return this.http.get<GetActividadDetail>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
-  async getSociosByOrg () {
-    const orgId = await this.getOrgId();
-    const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/organizacion/' + orgId;
+  getSociosByOrg(): Observable<GetInscriptosByOrganizacion> {
     const token = this.getToken();
-    return this.http.get<GetInscriptosByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+    return from(this.getOrgId()).pipe(
+      switchMap(orgId => {
+        const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/organizacion/' + orgId;
+        return this.http.get<GetInscriptosByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+      })
+    );
   }
 
-  async getPagosByOrg() {
-    const orgId = await this.getOrgId();
-    const url = '' + environment.appUrl + environment.apiVersionUri + '/pagos/organizacion/' + orgId;
+  getPagosByOrg(): Observable<GetPagosByOrganizacion> {
     const token = this.getToken();
-    return this.http.get<GetPagosByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+    return from(this.getOrgId()).pipe(
+      switchMap(orgId => {
+        const url = '' + environment.appUrl + environment.apiVersionUri + '/pagos/organizacion/' + orgId;
+        return this.http.get<GetPagosByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+      })
+    );
   }
 
   getCuotasByUsr(idInscripto: string): Observable<GetCuotasInscripto> {
@@ -445,11 +457,14 @@ export class AuthService {
     return this.http.get<GetCuotasInscripto>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
-  async getTarifasByOrg() {
-    const orgId = await this.getOrgId();
-    const url = '' + environment.appUrl + environment.apiVersionUri + '/tarifas/organizacion/' + orgId;
+  getTarifasByOrg(): Observable<GetTarifasByOrganizacion> {
     const token = this.getToken();
-    return this.http.get<GetTarifasByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+    return from(this.getOrgId()).pipe(
+      switchMap(orgId => {
+        const url = '' + environment.appUrl + environment.apiVersionUri + '/tarifas/organizacion/' + orgId;
+        return this.http.get<GetTarifasByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
+      })
+    );
   }
 
   getUserById(userId: string): Observable<GetUserResponseDto> {

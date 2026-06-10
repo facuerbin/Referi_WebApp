@@ -40,21 +40,21 @@ export class TarifasComponent implements OnInit {
 
   constructor(private auth: AuthService, private formBuilder: FormBuilder, public helper: HelperService, private cdr: ChangeDetectorRef) { }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.getTarifas();
-    (await this.auth.getActividadesOrganizacion()).subscribe(result => {
+    this.auth.getActividadesOrganizacion().subscribe(result => {
       this.actividades = result.data;
       this.cdr.detectChanges();
     });
 
-    (await this.auth.getTarifaFrecuencias()).subscribe(result => {
+    this.auth.getTarifaFrecuencias().subscribe(result => {
       this.frecuencias = result.data;
       this.cdr.detectChanges();
     });
   }
 
-  async getTarifas() {
-    (await this.auth.getTarifasByOrg()).subscribe(result => {
+  getTarifas() {
+    this.auth.getTarifasByOrg().subscribe(result => {
       this.tarifas = result.data.map(tarifa => {
         return {
           id: tarifa.id,

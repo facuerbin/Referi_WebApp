@@ -36,8 +36,8 @@ export class ActividadesComponent implements OnInit {
 
   }
 
-  async getTipoActividad () {
-    return (await this.auth.getTipoActividad()).subscribe(res => {
+  getTipoActividad() {
+    return this.auth.getTipoActividad().subscribe(res => {
       res.data.forEach(element => {
         this.tipoActividad.push(element);
       })
@@ -46,9 +46,8 @@ export class ActividadesComponent implements OnInit {
     })
   }
 
-  async getActividadOrganizacion () {
-    const actividades = this.auth.getActividadesOrganizacion();
-    (await actividades).subscribe(result => {
+  getActividadOrganizacion() {
+    this.auth.getActividadesOrganizacion().subscribe(result => {
       this.actividades = result.data.map(actividad => {
         return {
           codigo: actividad.id,
