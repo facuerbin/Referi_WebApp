@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
@@ -72,7 +72,7 @@ export class DetalleActividadComponent implements OnInit {
     "DOMINGO"
   ];
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private auth: AuthService, private upload: UploadService, public helper: HelperService) { }
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private auth: AuthService, private upload: UploadService, public helper: HelperService, private cdr: ChangeDetectorRef) { }
 
   async ngOnInit() {
     this.updateSuccess = false;
@@ -98,9 +98,9 @@ export class DetalleActividadComponent implements OnInit {
           return (`${horario.horario.diaSemana}: de ${horario.horario.horaInicio}:${minIni} a ${Math.floor(horario.horario.horaInicio + horario.horario.duracion / 60)}:${minFin}`);
         });
       });
-
       this.fechaCreacion = ("" + this.actividad.fechaCreacion).slice(0, 10);
       this.imgUrl = environment.appUrl + environment.apiVersionUri + "/" + this.actividad.imgUrl;
+      this.cdr.detectChanges();
     });
   }
 
@@ -110,6 +110,7 @@ export class DetalleActividadComponent implements OnInit {
         this.tipoActividad.push(element);
       })
       this.load = true;
+      this.cdr.detectChanges();
     })
   }
 
@@ -119,6 +120,7 @@ export class DetalleActividadComponent implements OnInit {
         this.frecuencias.push(element);
       })
       this.load = true;
+      this.cdr.detectChanges();
     })
   }
 
@@ -129,6 +131,7 @@ export class DetalleActividadComponent implements OnInit {
         this.tarifas.push(element);
       })
       this.load = true;
+      this.cdr.detectChanges();
     })
   }
 
@@ -138,6 +141,7 @@ export class DetalleActividadComponent implements OnInit {
         this.espacios.push(element);
       })
       this.load = true;
+      this.cdr.detectChanges();
     })
   }
 

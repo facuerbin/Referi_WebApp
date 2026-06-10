@@ -2,7 +2,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faAddressCard, faSearch, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Espacio } from 'src/app/interfaces/get.espacios.response.dto';
 import { ModalComponent } from '../../shared/modal/modal.component';
 
@@ -39,7 +39,7 @@ export class EspaciosComponent implements OnInit {
     })
 
 
-    constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
+    constructor(private formBuilder: FormBuilder, private auth: AuthService, private cdr: ChangeDetectorRef) { }
 
 
     async ngOnInit(): Promise<void> {
@@ -55,6 +55,7 @@ export class EspaciosComponent implements OnInit {
         })
         this.espaciosFiltered = this.espacios;
         this.load = true;
+        this.cdr.detectChanges();
       })
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Modal } from 'bootstrap';
@@ -34,7 +34,7 @@ export class DetalleSocioComponent implements OnInit {
 
 
 
-  constructor(private route: ActivatedRoute, private auth: AuthService, private formBuilder: FormBuilder, public helper: HelperService) { }
+  constructor(private route: ActivatedRoute, private auth: AuthService, private formBuilder: FormBuilder, public helper: HelperService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(async params => {
@@ -45,12 +45,14 @@ export class DetalleSocioComponent implements OnInit {
         this.profileImg = environment.appUrl + environment.apiVersionUri + "/" + this.user.fotoPerfil;
         const birthday = new Date(this.user.fechaNacimiento);
         this.birthDate = birthday.getDate() + "/" + birthday.getMonth() + "/" + birthday.getFullYear();
+        this.cdr.detectChanges();
       });
       const orgId = await this.auth.getOrgId();
       (await this.auth.getInscripcionesByUserId(this.userId)).subscribe(result => {
         this.inscripciones = result.data.filter(inscripcion => {
           return inscripcion.organizacion.id = orgId;
         });
+        this.cdr.detectChanges();
       })
       this.load = true;
     });

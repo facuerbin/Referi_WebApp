@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faAddressCard, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
@@ -27,7 +27,7 @@ export class AsistenciaComponent implements OnInit {
     planillaAsistenciaFiltered: PlanillaAsistencia | null = null;
 
 
-    constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
+    constructor(private formBuilder: FormBuilder, private auth: AuthService, private cdr: ChangeDetectorRef) { }
 
 
     ngOnInit(): void {
@@ -44,8 +44,9 @@ export class AsistenciaComponent implements OnInit {
           if (asistenteA.hora < asistenteB.hora) return 1;
           return 0
         });
-        this.planillaAsistenciaFiltered = this.planillaAsistencia
+        this.planillaAsistenciaFiltered = this.planillaAsistencia;
         this.load = true;
+        this.cdr.detectChanges();
       })
     }
 

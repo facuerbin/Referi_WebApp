@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GoogleChartType } from 'ng2-google-charts';
@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./grafica-reporte.component.css']
 })
 export class GraficaReporteComponent implements OnInit {
-  constructor(private router: Router, private auth: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private auth: AuthService, private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
 
   key= "";
   value = "";
@@ -130,6 +130,7 @@ export class GraficaReporteComponent implements OnInit {
     } else {
       this.noData = true;
     }
+    this.cdr.detectChanges();
   }
 
 
@@ -164,6 +165,7 @@ export class GraficaReporteComponent implements OnInit {
   async getActividades() {
     (await this.auth.getActividadesOrganizacion()).subscribe(result => {
       this.activities = result.data;
+      this.cdr.detectChanges();
     });
   }
 

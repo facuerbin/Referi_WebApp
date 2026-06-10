@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faAddressCard, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { ActividadTableElement } from 'src/app/interfaces/actividad.table';
@@ -27,7 +27,7 @@ export class ActividadesComponent implements OnInit {
   actividadesFiltered: ActividadTableElement[] = [];
   actividades: ActividadTableElement[] = []
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService, public helper: HelperService) { }
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, public helper: HelperService, private cdr: ChangeDetectorRef) { }
 
 
   async ngOnInit(): Promise<void> {
@@ -42,13 +42,14 @@ export class ActividadesComponent implements OnInit {
         this.tipoActividad.push(element);
       })
       this.load = true;
+      this.cdr.detectChanges();
     })
   }
 
   async getActividadOrganizacion () {
     const actividades = this.auth.getActividadesOrganizacion();
-    (await actividades).subscribe( result =>{
-      this.actividades = result.data.map( actividad => {
+    (await actividades).subscribe(result => {
+      this.actividades = result.data.map(actividad => {
         return {
           codigo: actividad.id,
           nombre: actividad.nombre,
@@ -56,12 +57,12 @@ export class ActividadesComponent implements OnInit {
           cupo: actividad.cupo,
           turnos: actividad.turnos.length,
           fechaInicio: (actividad.fechaCreacion + "").slice(0,10),
-          espacio: "" + actividad.turnos.map( turno => turno.espacio?.nombre || " "),
+          espacio: "" + actividad.turnos.map(turno => turno.espacio?.nombre || " "),
           estado: !actividad.fechaBaja ? "Activo" : "Baja",
         };
       });
       this.actividadesFiltered = this.actividades;
-
+      this.cdr.detectChanges();
     })
   }
 

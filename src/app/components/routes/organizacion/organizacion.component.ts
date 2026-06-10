@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
@@ -46,7 +46,7 @@ export class OrganizacionComponent implements OnInit {
     "DOMINGO"
   ];
 
-  constructor(private formBuilder: FormBuilder, public helper: HelperService, private auth: AuthService, private upload: UploadService) { }
+  constructor(private formBuilder: FormBuilder, public helper: HelperService, private auth: AuthService, private upload: UploadService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.getOrganizacion();
@@ -60,8 +60,8 @@ export class OrganizacionComponent implements OnInit {
       if (this.organizacion.logo) this.imgUrl = environment.appUrl + environment.apiVersionUri + "/" + this.organizacion.logo;
       this.fechaCreacion = this.organizacion.fechaCreacion.toString().slice(0, 10);
       this.fechaActualizacion = this.organizacion.fechaActualizacion.toString().slice(0, 10);
-
       this.load = true;
+      this.cdr.detectChanges();
     })
   }
 
@@ -71,6 +71,7 @@ export class OrganizacionComponent implements OnInit {
         this.tipoOrganizacion.push(element);
       })
       this.load = true;
+      this.cdr.detectChanges();
     })
   }
 

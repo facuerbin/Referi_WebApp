@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faPencilAlt, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
@@ -38,21 +38,23 @@ export class TarifasComponent implements OnInit {
     frecuencia: ["", [Validators.required]],
   });
 
-  constructor(private auth: AuthService, private formBuilder: FormBuilder, public helper: HelperService) { }
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, public helper: HelperService, private cdr: ChangeDetectorRef) { }
 
   async ngOnInit(): Promise<void> {
     this.getTarifas();
-    (await this.auth.getActividadesOrganizacion()).subscribe( result =>{
+    (await this.auth.getActividadesOrganizacion()).subscribe(result => {
       this.actividades = result.data;
+      this.cdr.detectChanges();
     });
 
-    (await this.auth.getTarifaFrecuencias()).subscribe( result =>{
+    (await this.auth.getTarifaFrecuencias()).subscribe(result => {
       this.frecuencias = result.data;
+      this.cdr.detectChanges();
     });
   }
 
   async getTarifas() {
-    (await this.auth.getTarifasByOrg()).subscribe( result => {
+    (await this.auth.getTarifasByOrg()).subscribe(result => {
       this.tarifas = result.data.map(tarifa => {
         return {
           id: tarifa.id,
@@ -65,6 +67,7 @@ export class TarifasComponent implements OnInit {
         }
       })
       this.tarifasFiltered = this.tarifas;
+      this.cdr.detectChanges();
     });
   }
 

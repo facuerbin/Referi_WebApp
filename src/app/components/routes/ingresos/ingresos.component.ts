@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faFileInvoiceDollar, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
@@ -42,24 +42,25 @@ export class IngresosComponent implements OnInit {
     PASARELADEPAGO: 'MercadoPago'
   }
 
-  constructor(private auth: AuthService, private formBuilder: FormBuilder, public helper: HelperService) { }
+  constructor(private auth: AuthService, private formBuilder: FormBuilder, public helper: HelperService, private cdr: ChangeDetectorRef) { }
 
   async ngOnInit(): Promise<void> {
     this.getPagos();
   }
 
   async getPagos() {
-    (await this.auth.getPagosByOrg()).subscribe( result => {
-      this.ingresos = result.data.map( pago => {
+    (await this.auth.getPagosByOrg()).subscribe(result => {
+      this.ingresos = result.data.map(pago => {
         return {
           fecha: pago.fechaPago.slice(0,10),
           email: pago.usuario.email,
           socio: pago.usuario.nombre + " " + pago.usuario.apellido,
-          monto: pago.cuotas.reduce( (montoTotal, cuota) => montoTotal + cuota.monto, 0 ),
+          monto: pago.cuotas.reduce((montoTotal, cuota) => montoTotal + cuota.monto, 0),
           medioDePago: pago.medioDePago
         }
       });
       this.ingresosFiltered = this.ingresos;
+      this.cdr.detectChanges();
     });
   }
 

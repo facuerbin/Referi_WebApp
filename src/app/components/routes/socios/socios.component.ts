@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faAddressCard, faSearch, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'bootstrap';
@@ -50,7 +50,7 @@ export class SociosComponent implements OnInit {
   });
 
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService, public helper: HelperService, private csvParser: NgxCsvParser) { }
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, public helper: HelperService, private csvParser: NgxCsvParser, private cdr: ChangeDetectorRef) { }
 
 
   async ngOnInit(): Promise<void> {
@@ -63,13 +63,15 @@ export class SociosComponent implements OnInit {
     return (await this.auth.getSociosByOrg()).subscribe(result => {
       this.socios = result.data;
       this.sociosFiltered = this.socios;
+      this.cdr.detectChanges();
     })
   }
 
   async getActividadOrganizacion () {
     const actividades = this.auth.getActividadesOrganizacion();
-    (await actividades).subscribe( result =>{
+    (await actividades).subscribe(result => {
       this.actividades = result.data;
+      this.cdr.detectChanges();
     })
   }
 
