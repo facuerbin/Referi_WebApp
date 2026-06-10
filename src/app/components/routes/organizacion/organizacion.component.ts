@@ -60,6 +60,16 @@ export class OrganizacionComponent implements OnInit {
       if (this.organizacion.logo) this.imgUrl = environment.appUrl + environment.apiVersionUri + "/" + this.organizacion.logo;
       this.fechaCreacion = this.organizacion.fechaCreacion.toString().slice(0, 10);
       this.fechaActualizacion = this.organizacion.fechaActualizacion.toString().slice(0, 10);
+      this.organizacionForm.patchValue({
+        nombre: this.organizacion.nombre,
+        descripcion: this.organizacion.descripcion,
+        telefono: this.organizacion.telefono,
+        calle: this.organizacion.direccion.calle,
+        numero: this.organizacion.direccion.numero,
+        ciudad: this.organizacion.direccion.ciudad,
+        provincia: this.organizacion.direccion.provincia,
+        tipo: this.organizacion.tipo.id
+      });
       this.load = true;
       this.cdr.detectChanges();
     })

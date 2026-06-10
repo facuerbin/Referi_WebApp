@@ -37,7 +37,6 @@
           id="nombre"
           placeholder="Nombre"
           formControlName="nombre"
-          value="{{organizacion?.nombre}}"
           />
           <p *ngIf="isValid('nombre')" class="form-error">
             Por favor asignele un nombre a su organización
@@ -52,7 +51,6 @@
           id="descripcion"
           placeholder="Descripción"
           formControlName="descripcion"
-          value="{{organizacion?.descripcion}}"
           />
           <p *ngIf="isValid('descripcion')" class="form-error">
             Por favor asignele una descripción a su organización
@@ -67,7 +65,6 @@
           id="telefono"
           placeholder="Teléfono"
           formControlName="telefono"
-          value="{{organizacion?.telefono}}"
           />
           <p *ngIf="isValid('telefono')" class="form-error">
             Por favor asignele un teléfono a su organización
@@ -80,7 +77,6 @@
             class="form-control"
             id="tipo"
             formControlName="tipo"
-            value="{{organizacion?.tipo?.id}}"
           >
             <option
               *ngFor="let tipo of tipoOrganizacion"
@@ -105,7 +101,6 @@
           id="calle"
           placeholder="Calle"
           formControlName="calle"
-          value="{{organizacion?.direccion?.calle}}"
           />
           <p *ngIf="isValid('calle')" class="form-error">
             Por favor asignele una calle a su organización
@@ -120,7 +115,6 @@
           id="numero"
           placeholder="Número"
           formControlName="numero"
-          value="{{organizacion?.direccion?.numero}}"
           />
           <p *ngIf="isValid('numero')" class="form-error">
             Por favor asignele una dirección válida a su organización
@@ -135,7 +129,6 @@
           id="ciudad"
           placeholder="Ciudad"
           formControlName="ciudad"
-          value="{{organizacion?.direccion?.ciudad}}"
           />
           <p *ngIf="isValid('ciudad')" class="form-error">
             Por favor asignele una ciudad a su organización
@@ -150,7 +143,6 @@
           id="provincia"
           placeholder="Provincia"
           formControlName="provincia"
-          value="{{organizacion?.direccion?.provincia}}"
           />
           <p *ngIf="isValid('provincia')" class="form-error">
             Por favor asignele una provincia a su organización
