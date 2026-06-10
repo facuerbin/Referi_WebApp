@@ -87,8 +87,8 @@ export class DetalleActividadComponent implements OnInit {
     });
   }
 
-  async getTurnosActividad() {
-    (await this.auth.getActividadById(this.actividadId)).subscribe(result => {
+  getTurnosActividad() {
+    this.auth.getActividadById(this.actividadId).subscribe(result => {
       this.actividad = { ...result };
       this.turnosArray = this.actividad.turnos;
       this.turnosStrings = this.turnosArray.map(turno => {
@@ -104,8 +104,8 @@ export class DetalleActividadComponent implements OnInit {
     });
   }
 
-  async getTipoActividad() {
-    return (await this.auth.getTipoActividad()).subscribe(res => {
+  getTipoActividad() {
+    return this.auth.getTipoActividad().subscribe(res => {
       res.data.forEach(element => {
         this.tipoActividad.push(element);
       })
@@ -114,8 +114,8 @@ export class DetalleActividadComponent implements OnInit {
     })
   }
 
-  async getFrecuencias() {
-    return (await this.auth.getTarifaFrecuencias()).subscribe(res => {
+  getFrecuencias() {
+    return this.auth.getTarifaFrecuencias().subscribe(res => {
       res.data.forEach(element => {
         this.frecuencias.push(element);
       })
@@ -124,8 +124,8 @@ export class DetalleActividadComponent implements OnInit {
     })
   }
 
-  async getTarifas() {
-    return (await this.auth.getTarifasActividad(this.actividadId)).subscribe(res => {
+  getTarifas() {
+    return this.auth.getTarifasActividad(this.actividadId).subscribe(res => {
       this.tarifas = [];
       res.data.forEach(element => {
         this.tarifas.push(element);
@@ -135,8 +135,8 @@ export class DetalleActividadComponent implements OnInit {
     })
   }
 
-  async getEspacios() {
-    return (await this.auth.getEspaciosOrganizacion()).subscribe(res => {
+  getEspacios() {
+    return this.auth.getEspaciosOrganizacion().subscribe(res => {
       res.data.forEach(element => {
         this.espacios.push(element);
       })

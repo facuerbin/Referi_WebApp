@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, from } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { CreateOrganizationDto } from 'src/app/interfaces/create.organization.dto';
@@ -196,7 +198,7 @@ export class AuthService {
     return await axios.post<CreateActividadResponse>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
   }
 
-  async registrarAsistencia(dto: RegistrarAsistencia) {
+  registrarAsistencia(dto: RegistrarAsistencia): Observable<RegistrarAsistenciaResponse> {
     const token = this.getToken();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/asistencias/crear';
     return this.http.post<RegistrarAsistenciaResponse>(url, dto, { headers: { Authorization: `Bearer ${token}` }});
@@ -206,7 +208,7 @@ export class AuthService {
     return '' + environment.appUrl + environment.apiVersionUri + '/asistencias/';
   }
 
-  async getPlanillaAsistencia(idOrg: string, fecha: string) {
+  getPlanillaAsistencia(idOrg: string, fecha: string): Observable<PlanillaAsistencia> {
     const token = this.getToken();
     const url = '' + environment.appUrl + environment.apiVersionUri + '/asistencias/' + idOrg + '?fecha=' + fecha;
     return this.http.get<PlanillaAsistencia>(url, { headers: { Authorization: `Bearer ${token}` }});
@@ -365,31 +367,31 @@ export class AuthService {
     }
   }
 
-  async getTipoActividad() {
+  getTipoActividad(): Observable<GetTipoActividad> {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/tipo';
     const token = this.getToken();
     return this.http.get<GetTipoActividad>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
-  async getTipoOrganizacion() {
+  getTipoOrganizacion(): Observable<GetTipoActividad> {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/tipos';
     const token = this.getToken();
     return this.http.get<GetTipoActividad>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
-  async getTarifaFrecuencias() {
+  getTarifaFrecuencias(): Observable<GetFrecuencia> {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/tarifas/frecuencia';
     const token = this.getToken();
     return this.http.get<GetFrecuencia>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
-  async getTarifasActividad(idActividad: string) {
+  getTarifasActividad(idActividad: string): Observable<GetTarifasActividadDto> {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/tarifas/actividad/' + idActividad;
     const token = this.getToken();
     return this.http.get<GetTarifasActividadDto>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
-  async getEspaciosOrganizacion() {
+  getEspaciosOrganizacion(): Observable<GetEspacioResponse> {
     const orgId = this.cookieService.get('org');
     const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/espacios/' + orgId;
     const token = this.getToken();
@@ -410,14 +412,14 @@ export class AuthService {
     return this.http.get<ListPersonalOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
-  async getRoles () {
+  getRoles(): Observable<ListRoles> {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/roles';
     const token = this.getToken();
     return this.http.get<ListRoles>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
 
-  async getActividadById (actividadId: string) {
+  getActividadById(actividadId: string): Observable<GetActividadDetail> {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/' + actividadId;
     const token = this.getToken();
     return this.http.get<GetActividadDetail>(url, { headers: { Authorization: `Bearer ${token}` }});
@@ -437,10 +439,10 @@ export class AuthService {
     return this.http.get<GetPagosByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
-  async getCuotasByUsr(idInscripto: string) {
+  getCuotasByUsr(idInscripto: string): Observable<GetCuotasInscripto> {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/pagos/cuotas/inscripto/' + idInscripto;
     const token = this.getToken();
-    return await this.http.get<GetCuotasInscripto>(url, { headers: { Authorization: `Bearer ${token}` }});
+    return this.http.get<GetCuotasInscripto>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
   async getTarifasByOrg() {
@@ -450,13 +452,13 @@ export class AuthService {
     return this.http.get<GetTarifasByOrganizacion>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
-  async getUserById(userId: string) {
+  getUserById(userId: string): Observable<GetUserResponseDto> {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/usuarios/' + userId;
     const token = this.getToken();
     return this.http.get<GetUserResponseDto>(url, { headers: { Authorization: `Bearer ${token}` }});
   }
 
-  async getInscripcionesByUserId(userId: string) {
+  getInscripcionesByUserId(userId: string): Observable<GetUserInscripciones> {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/usuario/' + userId;
     const token = this.getToken();
     return this.http.get<GetUserInscripciones>(url, { headers: { Authorization: `Bearer ${token}` }});
