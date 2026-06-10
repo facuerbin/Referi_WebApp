@@ -42,7 +42,6 @@ export class ActividadesComponent implements OnInit {
         this.tipoActividad.push(element);
       })
       this.load = true;
-      this.cdr.detectChanges();
     })
   }
 
@@ -61,7 +60,6 @@ export class ActividadesComponent implements OnInit {
         };
       });
       this.actividadesFiltered = this.actividades;
-      this.cdr.detectChanges();
     })
   }
 

@@ -63,14 +63,12 @@ export class SociosComponent implements OnInit {
     return this.auth.getSociosByOrg().subscribe(result => {
       this.socios = result.data;
       this.sociosFiltered = this.socios;
-      this.cdr.detectChanges();
     })
   }
 
   getActividadOrganizacion() {
     return this.auth.getActividadesOrganizacion().subscribe(result => {
       this.actividades = result.data;
-      this.cdr.detectChanges();
     })
   }
 

@@ -60,7 +60,6 @@ export class IngresosComponent implements OnInit {
         }
       });
       this.ingresosFiltered = this.ingresos;
-      this.cdr.detectChanges();
     });
   }
 

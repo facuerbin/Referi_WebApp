@@ -44,12 +44,10 @@ export class TarifasComponent implements OnInit {
     this.getTarifas();
     this.auth.getActividadesOrganizacion().subscribe(result => {
       this.actividades = result.data;
-      this.cdr.detectChanges();
     });
 
     this.auth.getTarifaFrecuencias().subscribe(result => {
       this.frecuencias = result.data;
-      this.cdr.detectChanges();
     });
   }
 
@@ -67,7 +65,6 @@ export class TarifasComponent implements OnInit {
         }
       })
       this.tarifasFiltered = this.tarifas;
-      this.cdr.detectChanges();
     });
   }
 

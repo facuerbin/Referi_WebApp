@@ -51,7 +51,6 @@ export class LoggedHeaderComponent implements OnInit {
 
     this.auth.listEmployeeOrganizations().subscribe(result => {
       this.rol = result.data[0]?.rol?.nombre ?? '';
-      this.cdr.detectChanges();
     });
 
   }

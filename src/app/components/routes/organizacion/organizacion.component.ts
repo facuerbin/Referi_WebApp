@@ -61,17 +61,15 @@ export class OrganizacionComponent implements OnInit {
       this.fechaCreacion = this.organizacion.fechaCreacion.toString().slice(0, 10);
       this.fechaActualizacion = this.organizacion.fechaActualizacion.toString().slice(0, 10);
       this.load = true;
-      this.cdr.detectChanges();
     })
   }
 
-  async getTipoOrganizacion() {
-    return (await this.auth.getTipoOrganizacion()).subscribe(res => {
+  getTipoOrganizacion() {
+    return this.auth.getTipoOrganizacion().subscribe(res => {
       res.data.forEach(element => {
         this.tipoOrganizacion.push(element);
       })
       this.load = true;
-      this.cdr.detectChanges();
     })
   }
 
