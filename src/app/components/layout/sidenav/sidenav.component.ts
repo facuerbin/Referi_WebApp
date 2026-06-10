@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { faCalendarDay, faChartPie, faEnvelope, faFileInvoiceDollar, faHandHoldingUsd, faRunning, faSitemap, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -21,7 +21,7 @@ export class SidenavComponent implements OnInit {
     organizacion: false
   };
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private cdr: ChangeDetectorRef) {
   }
 
   report = faChartPie;
@@ -43,6 +43,7 @@ export class SidenavComponent implements OnInit {
             }
           });
         });
+        this.cdr.detectChanges();
       } catch (error) {
         console.log(error);
       }

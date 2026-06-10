@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faBars, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -38,7 +38,7 @@ export class LoggedHeaderComponent implements OnInit {
     confirmPassword: ["", [Validators.required, Validators.minLength(8)]],
   });
 
-  constructor(private router: Router, private auth: AuthService, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private auth: AuthService, private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) {
   }
 
   async ngOnInit() {
@@ -46,10 +46,12 @@ export class LoggedHeaderComponent implements OnInit {
     obs.subscribe(result => {
       if (result.data.data.fotoPerfil) this.profileImg = environment.appUrl + environment.apiVersionUri + '/' + result.data.data.fotoPerfil;
       this.user = result.data;
+      this.cdr.detectChanges();
     });
 
     (await this.auth.listEmployeeOrganizations()).subscribe(result => {
       this.rol = result.data[0]?.rol?.nombre ?? '';
+      this.cdr.detectChanges();
     });
 
   }
