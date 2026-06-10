@@ -23,10 +23,14 @@ p {
 
 .img-actividad {
   height: 100px;
+  margin: 8px 12px;
 }
 
 .actividad-container {
-  width: 30vw;
+  width: 100%;
+  max-width: 400px;
+  margin: 12px;
+  flex: 0 1 calc(50% - 24px);
 }
 
 a:hover {

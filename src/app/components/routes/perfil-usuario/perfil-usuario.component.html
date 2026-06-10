@@ -83,26 +83,28 @@
     </div>
   </div>
 
-  <div class="d-flex flex-row mt-3 justify-content-start ml-3"
-  *ngFor="let org of organizaciones; let i = index"
-  >
-    <div class="row justify-content-end">
-      <div class="actividad-container">
-        <a class="row actividad-link" routerLink="/organizacion">
-          <div class="col-4 align-self-center">
-            <img
-              src="{{logoUrl[i]}}"
-              alt="Logo de organización"
-              class="img-actividad"
-            />
-          </div>
-          <div class="col-8">
-            <h4>{{org.organizacion?.nombre}}</h4>
-            <h3 class="estado">{{org.rol?.nombre}}</h3>
-            <p>Inicio: {{fechaInicio[i]}}</p>
-          </div>
-        </a>
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="d-flex flex-wrap justify-content-start"
+      *ngFor="let org of organizaciones; let i = index"
+      >
+        <div class="actividad-container">
+          <a class="actividad-link" routerLink="/organizacion">
+            <div class="d-flex align-items-center h-100">
+              <img
+                src="{{logoUrl[i]}}"
+                alt="Logo de organización"
+                class="img-actividad"
+              />
+              <div>
+                <h4>{{org.organizacion?.nombre}}</h4>
+                <h3 class="estado">{{org.rol?.nombre}}</h3>
+                <p>Inicio: {{fechaInicio[i]}}</p>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
-
+    </div>
   </div>
 </div>
