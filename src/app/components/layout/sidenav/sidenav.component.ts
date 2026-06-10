@@ -43,6 +43,7 @@ export class SidenavComponent implements OnInit {
             }
           });
         });
+        this.cdr.detectChanges();
       } catch (error) {
         console.log(error);
       }
