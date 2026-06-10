@@ -4,7 +4,7 @@ import { Actividad } from 'src/app/interfaces/get.actividades.organizacion.dto';
 import { Turno } from 'src/app/interfaces/get.detail.actividad.dto';
 import { Inscripto } from 'src/app/interfaces/get.inscriptos.organizacion.dto';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Personal, Rol } from 'src/app/interfaces/listPersonalOrganizacion.dto';
 import { isValidDate } from 'src/app/helpers/date.validator';
 import { ModalComponent } from '../../shared/modal/modal.component';
@@ -56,7 +56,7 @@ export class PersonalComponent implements OnInit {
   });
 
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, private cdr: ChangeDetectorRef) { }
 
 
   async ngOnInit(): Promise<void> {
@@ -65,10 +65,11 @@ export class PersonalComponent implements OnInit {
   }
 
   async getPersonal() {
-    return await (await this.auth.getPersonalOrganizacion()).subscribe( result => {
+    return await (await this.auth.getPersonalOrganizacion()).subscribe(result => {
       this.personal = result.data;
       this.personalFiltered = this.personal;
-      this.orgId = result.data[0].organizacion.id;
+      this.orgId = result.data[0]?.organizacion?.id ?? '';
+      this.cdr.detectChanges();
     });
   }
 
