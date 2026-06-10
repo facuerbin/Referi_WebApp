@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { PersonalOrganizacion } from 'src/app/interfaces/get.employee.org.dto';
 import { User } from 'src/app/interfaces/get.user.response.dto';
@@ -24,7 +24,7 @@ export class PerfilUsuarioComponent implements OnInit {
   logoUrl = [environment.appUrl + environment.apiVersionUri + "/uploads/profile.jpeg"];
   organizaciones: PersonalOrganizacion[] = [];
 
-  constructor(private auth: AuthService, private upload: UploadService) { }
+  constructor(private auth: AuthService, private upload: UploadService, private cdr: ChangeDetectorRef) { }
 
   async ngOnInit(): Promise<void> {
     const user = this.auth.getUser();
@@ -32,12 +32,14 @@ export class PerfilUsuarioComponent implements OnInit {
       this.user = result.data.data;
       this.fechaString = (this.user.fechaNacimiento + "").slice(0,10);
       if (result.data.data.fotoPerfil) this.profileUrl =  environment.appUrl + environment.apiVersionUri + "/" + result.data.data.fotoPerfil;
+      this.cdr.detectChanges();
     });
 
     (await this.auth.listEmployeeOrganizations()).subscribe(res => {
       this.organizaciones = res.data;
       this.logoUrl = this.organizaciones.map(res => environment.appUrl + environment.apiVersionUri + "/" + (res.organizacion?.logo ?? ''));
-      this.fechaInicio = this.organizaciones.map( res => ("" + res.fechaCreacion).slice(0,10));
+      this.fechaInicio = this.organizaciones.map(res => ("" + res.fechaCreacion).slice(0,10));
+      this.cdr.detectChanges();
     })
   }
 
