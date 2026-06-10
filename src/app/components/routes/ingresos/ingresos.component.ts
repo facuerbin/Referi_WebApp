@@ -60,6 +60,7 @@ export class IngresosComponent implements OnInit {
         }
       });
       this.ingresosFiltered = this.ingresos;
+      this.cdr.detectChanges();
     });
   }
 
@@ -106,8 +107,8 @@ export class IngresosComponent implements OnInit {
     };
 
     const result = await this.auth.createPago(body);
-    this.getPagos()
-
+    this.getPagos();
+    this.closeModal();
   }
 
   searchEmail() {
