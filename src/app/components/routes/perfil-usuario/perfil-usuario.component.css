@@ -33,16 +33,20 @@ p {
   flex: 0 1 calc(50% - 24px);
 }
 
-a:hover {
-  background-color: #ddd9d5;
-}
-
 .actividad-link,
 .actividad-link:hover,
 .actividad-link:visited {
   text-decoration: none;
   font: inherit;
   color: inherit;
+  display: block;
+  padding: 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.actividad-link:hover {
+  background-color: #ddd9d5;
 }
 
 @media (max-width: 767px) {
