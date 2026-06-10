@@ -123,40 +123,46 @@
       class="col-10 d-flex justify-content-start align-items-center"
       *ngIf="selectedTab == 'Ingresos'"
     >
-      <div class="card card-reportes">
-        <img
-          src="/assets/img/chart.png"
-          class="card-img-top"
-          alt="Gráfico de lineas"
-        />
-        <div class="card-body">
-          <h3 class="card-title text-center">Ingresos por actividad</h3>
+      <a [routerLink]="['/', 'reportes', 'ingresos-por-actividad']">
+        <div class="card card-reportes">
+          <img
+            src="/assets/img/chart.png"
+            class="card-img-top"
+            alt="Gráfico de lineas"
+          />
+          <div class="card-body">
+            <h3 class="card-title text-center">Ingresos por actividad</h3>
+          </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card card-reportes">
-        <img
-          src="/assets/img/chart.png"
-          class="card-img-top"
-          alt="Gráfico de lineas"
-        />
-        <div class="card-body">
-          <h3 class="card-title text-center">Deuda por actividad</h3>
+      <a [routerLink]="['/', 'reportes', 'deuda-por-actividad']">
+        <div class="card card-reportes">
+          <img
+            src="/assets/img/chart.png"
+            class="card-img-top"
+            alt="Gráfico de lineas"
+          />
+          <div class="card-body">
+            <h3 class="card-title text-center">Deuda por actividad</h3>
+          </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card card-reportes">
-        <img
-          src="/assets/img/pie.png"
-          class="card-img-top"
-          alt="Gráfico de torta"
-        />
-        <div class="card-body">
-          <h3 class="card-title text-center">
-            Socios deudores por rango de fecha
-          </h3>
+      <a [routerLink]="['/', 'reportes', 'deudores-por-actividad']">
+        <div class="card card-reportes">
+          <img
+            src="/assets/img/pie.png"
+            class="card-img-top"
+            alt="Gráfico de torta"
+          />
+          <div class="card-body">
+            <h3 class="card-title text-center">
+              Socios deudores por actividad
+            </h3>
+          </div>
         </div>
-      </div>
+      </a>
     </section>
   </div>
 </div>

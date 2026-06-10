@@ -545,4 +545,25 @@ export class AuthService {
 
     return (await axios.post<any>(url, dto, { headers: { Authorization: `Bearer ${token}` }})).data;
   }
+
+  async reporteIngresosPorActividad() {
+    const orgId = await this.getOrgId();
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/reporte/ingresos-por-actividad/' + orgId;
+    return (await axios.get<any>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
+
+  async reporteDeudaPorActividad() {
+    const orgId = await this.getOrgId();
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/actividades/reporte/deuda-por-actividad/' + orgId;
+    return (await axios.get<any>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
+
+  async reporteDeudoresPorActividad() {
+    const orgId = await this.getOrgId();
+    const token = this.getToken();
+    const url = '' + environment.appUrl + environment.apiVersionUri + '/socios/reporte/deudores-por-actividad/' + orgId;
+    return (await axios.get<any>(url, { headers: { Authorization: `Bearer ${token}` }})).data;
+  }
 }

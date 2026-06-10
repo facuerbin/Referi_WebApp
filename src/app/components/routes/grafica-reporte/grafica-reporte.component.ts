@@ -101,7 +101,29 @@ export class GraficaReporteComponent implements OnInit {
     }
 
     // Reportes Ingresos
+    if (route.includes('ingresos-por-actividad')) {
+      this.key = "Actividad";
+      this.value = "Ingresos";
+      this.title = "Ingresos por Actividad";
+      this.chartType = GoogleChartType.BarChart;
+      this.data = await this.getDataIngresosPorActividad();
+    }
 
+    if (route.includes('deuda-por-actividad')) {
+      this.key = "Actividad";
+      this.value = "Deuda";
+      this.title = "Deuda por Actividad";
+      this.chartType = GoogleChartType.BarChart;
+      this.data = await this.getDataDeudaPorActividad();
+    }
+
+    if (route.includes('deudores-por-actividad')) {
+      this.key = "Actividad";
+      this.value = "Cantidad de Deudores";
+      this.title = "Socios Deudores por Actividad";
+      this.chartType = GoogleChartType.BarChart;
+      this.data = await this.getDataDeudoresPorActividad();
+    }
 
     if (Object.keys(this.data).length > 0) {
       this.render = true;
@@ -143,6 +165,18 @@ export class GraficaReporteComponent implements OnInit {
     (await this.auth.getActividadesOrganizacion()).subscribe(result => {
       this.activities = result.data;
     });
+  }
+
+  async getDataIngresosPorActividad() {
+    return await this.auth.reporteIngresosPorActividad();
+  }
+
+  async getDataDeudaPorActividad() {
+    return await this.auth.reporteDeudaPorActividad();
+  }
+
+  async getDataDeudoresPorActividad() {
+    return await this.auth.reporteDeudoresPorActividad();
   }
 
   filter() {
