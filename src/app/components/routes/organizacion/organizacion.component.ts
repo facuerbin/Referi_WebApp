@@ -84,6 +84,7 @@ export class OrganizacionComponent implements OnInit {
         this.tipoOrganizacion.push(element);
       })
       this.load = true;
+      this.cdr.detectChanges();
     })
   }
 
