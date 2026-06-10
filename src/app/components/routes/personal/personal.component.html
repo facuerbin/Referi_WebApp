@@ -32,9 +32,7 @@
         </thead>
         <tbody>
           <tr
-            class="clickable-row"
             *ngFor="let personal of personalFiltered; let i = index"
-            [routerLink]="['/personal/detalle', personal.id]"
           >
             <td>{{ personal.personal?.dni }}</td>
             <td>{{ personal.personal?.email }}</td>
@@ -43,7 +41,7 @@
             </td>
             <td>{{ personal.rol?.nombre }}</td>
             <td>
-              <button class="action-button" (click)=" openModal('modalModificarUsuario', personal.id)" *ngIf="personal.rol?.nombre != 'PROPIETARIO'">
+              <button class="action-button" (click)="openModal('modalModificarUsuario', personal.id, personal.rol?.nombre)" *ngIf="personal.rol?.nombre != 'PROPIETARIO'">
                 <fa-icon class="action-icon"[icon]="pencil" aria-hidden="true"></fa-icon>
               </button>
               <button class="action-button" (click)="deletePersonal(personal.id)" *ngIf="personal.rol?.nombre != 'PROPIETARIO'">

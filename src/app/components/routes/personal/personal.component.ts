@@ -119,8 +119,8 @@ export class PersonalComponent implements OnInit {
     return this.modificarPersonalModal;
   }
 
-  openModal(id: string, personalId?: string) {
-    this.empleadoForm.reset({ email: '', nombre: '', apellido: '', dni: '', fechaNac: '', telefono: '', calle: '', numero: '', ciudad: '', provincia: '', rol: '' });
+  openModal(id: string, personalId?: string, currentRol?: string) {
+    this.empleadoForm.reset({ email: '', nombre: '', apellido: '', dni: '', fechaNac: '', telefono: '', calle: '', numero: '', ciudad: '', provincia: '', rol: currentRol || '' });
     this.getModalRef(id).open();
     this.editPersonalId = '' + personalId;
   }
@@ -160,6 +160,7 @@ export class PersonalComponent implements OnInit {
     const rol = this.empleadoForm.value['rol'];
     await this.auth.editPersonal(this.editPersonalId, rol);
     this.getPersonal();
+    this.closeModal('modalModificarUsuario');
   }
 
   buscarSocio() {
