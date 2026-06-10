@@ -80,5 +80,5 @@ thead {
 }
 
 tr:hover {
-  cursor: pointer;
+  cursor: default;
 }
