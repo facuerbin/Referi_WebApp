@@ -38,7 +38,7 @@ export class DetalleActividadComponent implements OnInit {
   horariosForm: FormGroup = this.formBuilder.group({
     dia: ["", [Validators.required]],
     horaInicio: ["", [Validators.required, Validators.pattern(/^\d{1,2}$/), Validators.max(23), Validators.min(0)]],
-    minutosInicio: ["", [Validators.required, Validators.pattern(/^\d{1,2}$/), Validators.max(59), Validators.min(1)]],
+    minutosInicio: ["", [Validators.required, Validators.pattern(/^\d{1,2}$/), Validators.max(59), Validators.min(0)]],
     duracion: ["", [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.min(15)]],
     espacio: ["", [Validators.required]],
   })
