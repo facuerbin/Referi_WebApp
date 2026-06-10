@@ -57,48 +57,46 @@
     </div>
   </div>
 
-  <!-- <div class="row">
-    <carousel class="carousel">
-      <article
-      class="carousel-cell"
-      *ngFor="let inscripcion of inscripciones"
-      >
-      <a
-        class="actividad-link d-flex"
-        routerLink="/actividades/detalle/{{
-          inscripcion.turnoActividad.actividad.id
-        }}"
-      >
-          <div class="img-container carousel-section">
-            <img
-              src="{{
-                getImageUrl(inscripcion.turnoActividad.actividad.imgUrl)
-              }}"
-              alt="Portada de actividad"
-              class="img-actividad"
-            />
+  <div class="row">
+    <div class="col-12">
+      <div *ngFor="let inscripcion of inscripciones" class="mb-3">
+        <div class="card">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img
+                src="{{
+                  getImageUrl(inscripcion.turnoActividad.actividad.imgUrl)
+                }}"
+                alt="Portada de actividad"
+                class="img-fluid rounded-start"
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h3 class="card-title">
+                  {{ inscripcion.turnoActividad.actividad.nombre }}
+                </h3>
+                <p class="card-text">
+                  <span *ngFor="let horario of inscripcion.turnoActividad.horarios">
+                    {{ formatHorarios(horario) }}
+                    <br />
+                  </span>
+                </p>
+                <span class="badge bg-success">Activo</span>
+              </div>
+            </div>
           </div>
-          <div class="carousel-section">
-            <h3>{{ inscripcion.turnoActividad.actividad.nombre }}</h3>
-            <p>
-              <span *ngFor="let horario of inscripcion.turnoActividad.horarios">
-                {{ formatHorarios(horario) }}
-                <br />
-              </span>
-            </p>
-            <span class="estado">Activo</span>
-          </div>
-        </a>
-      </article>
-    </carousel>
-    <button
-      type="button"
-      (click)="openModal()"
-      class="btn btn-outline-danger align-self-center"
-    >
-      DAR DE BAJA
-    </button>
-  </div> -->
+        </div>
+        <button
+          type="button"
+          (click)="openModal()"
+          class="btn btn-outline-danger mt-2"
+        >
+          DAR DE BAJA
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Modale Crear Turno -->
