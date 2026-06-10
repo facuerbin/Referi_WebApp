@@ -27,6 +27,7 @@ export class OrganizacionComponent implements OnInit {
   })
 
   organizacion: OrganizationDetailDto | null = null;
+  originalFormValues: any = null;
   load = false;
   spinner = false;
   tipoOrganizacion: any[] = [];
@@ -60,7 +61,7 @@ export class OrganizacionComponent implements OnInit {
       if (this.organizacion.logo) this.imgUrl = environment.appUrl + environment.apiVersionUri + "/" + this.organizacion.logo;
       this.fechaCreacion = this.organizacion.fechaCreacion.toString().slice(0, 10);
       this.fechaActualizacion = this.organizacion.fechaActualizacion.toString().slice(0, 10);
-      this.organizacionForm.patchValue({
+      const formValues = {
         nombre: this.organizacion.nombre,
         descripcion: this.organizacion.descripcion,
         telefono: this.organizacion.telefono,
@@ -69,7 +70,9 @@ export class OrganizacionComponent implements OnInit {
         ciudad: this.organizacion.direccion.ciudad,
         provincia: this.organizacion.direccion.provincia,
         tipo: this.organizacion.tipo.id
-      });
+      };
+      this.organizacionForm.patchValue(formValues);
+      this.originalFormValues = { ...formValues };
       this.load = true;
       this.cdr.detectChanges();
     })
@@ -87,6 +90,12 @@ export class OrganizacionComponent implements OnInit {
   isValid(field: string): boolean {
     return this.organizacionForm.controls[field].errors !== null &&
       (this.organizacionForm.controls[field].touched || this.organizacionForm.controls[field].dirty);
+  }
+
+  hasChanges(): boolean {
+    if (!this.originalFormValues) return false;
+    const currentValues = this.organizacionForm.value;
+    return JSON.stringify(currentValues) !== JSON.stringify(this.originalFormValues);
   }
 
   openModalTarifas() {

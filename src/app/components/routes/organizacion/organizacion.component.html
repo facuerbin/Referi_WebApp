@@ -190,7 +190,7 @@
             AGREGAR PERSONAL
           </button>
         </a>
-        <button class="btn btn-primary" (click)="saveUpdate()">GUARDAR CAMBIOS</button>
+        <button class="btn btn-primary" (click)="saveUpdate()" [disabled]="!hasChanges() || organizacionForm.invalid">GUARDAR CAMBIOS</button>
       </div>
     </div>
 
