@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup = this.formBuilder.group({
     calle: ["", [Validators.required, Validators.maxLength(120)]],
-    numero: ["", [Validators.required, Validators.pattern('^[0-9]*$')]],
+    numero: ["", [Validators.required, Validators.pattern('^[0-9]+$')]],
     ciudad: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u), Validators.minLength(2), Validators.maxLength(80)]],
     provincia: ["", [Validators.required, Validators.pattern(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u), Validators.minLength(2), Validators.maxLength(80)]],
     telefono: ["", [Validators.required, Validators.maxLength(12)]],
