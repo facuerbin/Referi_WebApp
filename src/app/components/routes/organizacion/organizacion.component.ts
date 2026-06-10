@@ -61,6 +61,7 @@ export class OrganizacionComponent implements OnInit {
       this.fechaCreacion = this.organizacion.fechaCreacion.toString().slice(0, 10);
       this.fechaActualizacion = this.organizacion.fechaActualizacion.toString().slice(0, 10);
       this.load = true;
+      this.cdr.detectChanges();
     })
   }
 
