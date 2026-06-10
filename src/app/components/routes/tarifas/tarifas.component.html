@@ -151,6 +151,7 @@
     <app-spinner-button
       label="AGREGAR TARIFA"
       (clicked)="handleTarifasForm()"
+      [disabled]="tarifasForm.invalid"
     ></app-spinner-button>
   </div>
 </app-modal>
