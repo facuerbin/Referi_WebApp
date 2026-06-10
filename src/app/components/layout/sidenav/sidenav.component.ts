@@ -33,8 +33,8 @@ export class SidenavComponent implements OnInit {
   pagos = faFileInvoiceDollar;
   organization = faSitemap;
 
-  async ngOnInit(): Promise<void> {
-    (await this.auth.listEmployeeOrganizations()).subscribe(result => {
+  ngOnInit(): void {
+    this.auth.listEmployeeOrganizations().subscribe(result => {
       try {
         (Object.keys(this.permisos) as (keyof typeof this.permisos)[]).forEach((clave, i) => {
           const permiso = (result.data[0].rol?.permisos ?? []).forEach(permiso => {

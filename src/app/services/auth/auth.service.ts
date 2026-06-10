@@ -362,12 +362,15 @@ export class AuthService {
     );
   }
 
-  async listEmployeeOrganizations () {
+  listEmployeeOrganizations(): Observable<GetEmployeeOrganization> {
     const token = this.getToken();
-    const uid = (await this.getUser()).data.data.id;
-
-    const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
-    return this.http.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }});
+    return from(this.getUser()).pipe(
+      switchMap(userResponse => {
+        const uid = userResponse.data.data.id;
+        const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones/personal/' + uid;
+        return this.http.get<GetEmployeeOrganization>(url, { headers: { Authorization: `Bearer ${token}` }});
+      })
+    );
   }
 
   async promiseEmployeePermissions () {

@@ -41,7 +41,7 @@ export class LoggedHeaderComponent implements OnInit {
   constructor(private router: Router, private auth: AuthService, private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) {
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     const obs = from(this.auth.getUser());
     obs.subscribe(result => {
       if (result.data.data.fotoPerfil) this.profileImg = environment.appUrl + environment.apiVersionUri + '/' + result.data.data.fotoPerfil;
@@ -49,7 +49,7 @@ export class LoggedHeaderComponent implements OnInit {
       this.cdr.detectChanges();
     });
 
-    (await this.auth.listEmployeeOrganizations()).subscribe(result => {
+    this.auth.listEmployeeOrganizations().subscribe(result => {
       this.rol = result.data[0]?.rol?.nombre ?? '';
       this.cdr.detectChanges();
     });

@@ -26,7 +26,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
   constructor(private auth: AuthService, private upload: UploadService, private cdr: ChangeDetectorRef) { }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     const user = this.auth.getUser();
     user.then(result => {
       this.user = result.data.data;
@@ -35,7 +35,7 @@ export class PerfilUsuarioComponent implements OnInit {
       this.cdr.detectChanges();
     });
 
-    (await this.auth.listEmployeeOrganizations()).subscribe(res => {
+    this.auth.listEmployeeOrganizations().subscribe(res => {
       this.organizaciones = res.data;
       this.logoUrl = this.organizaciones.map(res => environment.appUrl + environment.apiVersionUri + "/" + (res.organizacion?.logo ?? ''));
       this.fechaInicio = this.organizaciones.map(res => ("" + res.fechaCreacion).slice(0,10));
