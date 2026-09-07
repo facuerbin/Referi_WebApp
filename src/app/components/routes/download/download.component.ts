@@ -21,8 +21,8 @@ export class DownloadComponent implements OnInit {
     downloadApp(){
       const link = document.createElement('a');
       link.setAttribute('target', '_blank');
-      link.setAttribute('href', '/assets/builds/referi_0.0.8.apk');
-      link.setAttribute('download', `referi_0.0.8.apk`);
+      link.setAttribute('href', '/assets/builds/referi_1.0.0.apk');
+      link.setAttribute('download', `referi_1.0.0.apk`);
       document.body.appendChild(link);
       link.click();
       link.remove();
