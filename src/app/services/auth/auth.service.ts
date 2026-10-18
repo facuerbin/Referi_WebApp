@@ -178,8 +178,10 @@ export class AuthService {
 
   async createOrganization(organizationForm: CreateOrganizationDto) {
     const url = '' + environment.appUrl + environment.apiVersionUri + '/organizaciones';
+    // Signup calls createUser() first, which stores the token this needs.
+    const token = this.getToken();
 
-    const organization = (await axios.post<RegisterOrganizationResponseDto>(url, organizationForm)).data;
+    const organization = (await axios.post<RegisterOrganizationResponseDto>(url, organizationForm, { headers: { Authorization: `Bearer ${token}` }})).data;
     this.cookieService.set('org', organization.id)
     this.organization = organization;
     return this.organization;
